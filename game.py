@@ -16,6 +16,9 @@ def make_character():
 
     :postcondition: return a dictionary as an initial character
     :return: a dictionary representing the character
+
+    >>> make_character()
+    {'caffeine': 50, 'shopping_bag': [], 'tea': [], 'kill_final_boss': False}
     """
     character = {
         'caffeine': 50,
