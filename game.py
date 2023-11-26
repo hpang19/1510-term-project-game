@@ -17,7 +17,10 @@ def game():
     level = 1
     print('Welcome to the game!')
     while character['caffeine'] > 0:
-        direction = input('Please select your direction: [1]: North  [2]: South  [3]: West  [4]: East: ')
+        direction = input('Please select your direction: [N]: North  [S]: South  [W]: West  [E]: East: ')
+        if direction.upper() not in ['N', 'S', 'W', 'E']:
+            print("Invalid direction!")
+            continue
         valid_move = validate_move(level, board, character, direction)
         if not valid_move:
             print('You can not go in this direction, please choose direction again.')

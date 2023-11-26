@@ -3,7 +3,8 @@ This module includes all features related to the game board.
 """
 
 from random import randint, choice
-from rooms import kitchen_map, grocery_store_map, traditional_market_map
+from .rooms import kitchen_map, grocery_store_map, traditional_market_map
+from . import DIRECTION_MAP
 
 
 def make_board(rows, columns):
@@ -39,21 +40,24 @@ def make_board(rows, columns):
             if row < kitchen_rows:
                 if column < kitchen_columns:
                     room = kitchen[(row, column)] if (row, column) in kitchen else 'Empty Room'
-                    board[(row, column)] = ['L1', 'Kitchen', room]
+                    board[(row, column)] = [1, 'Kitchen', room]
                 else:
                     room = grocery_store[(row, column)] if (row, column) in grocery_store else 'Empty Room'
                     location = 'Grocery Store' if (row in grocery_row_range and column in grocery_column_range) else 'Street'
-                    board[(row, column)] = ['L2', location, room]
+                    board[(row, column)] = [2, location, room]
             else:
                 room = market[(row, column)] if (row, column) in market else 'Empty Room'
                 location = 'Market' if (row in market_row_range and column in market_column_range) else 'Street'
-                board[(row, column)] = ['L3', location, room]
-    board[(rows - 1, columns - 1)] = ['L4', 'Destination', 'Joey and Hsin']
+                board[(row, column)] = [3, location, room]
+    board[(rows - 1, columns - 1)] = [4, 'Destination', 'Joey and Hsin']
     return board
 
 
 def validate_move(level, board, character, direction):
-    pass
+    move = DIRECTION_MAP[direction.upper()]
+    current_location = character['coordinate']
+    new_location = tuple(sum(coordinates) for coordinates in zip(current_location, move))
+    return board[new_location][0] == level if new_location in board else False
 
 
 def get_current_location(board, character):
