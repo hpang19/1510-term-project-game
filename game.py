@@ -2,7 +2,7 @@
 This module serves as a main module to execute the game program.
 """
 
-from board.game_board import make_board, validate_move, get_current_location, move_chocolate
+from board.game_board import make_board, validate_move, move_chocolate
 from character.game_character import make_character, move_character, pick_up_item
 from challenges.foes import check_for_foes, fight_with_foe
 from teas.teas import ready_to_make_tea, make_tea
@@ -26,7 +26,7 @@ def game():
             print('You can not go in this direction, please choose direction again.')
             continue
         move_character(character, direction)
-        current_room = board[character['coordinate']][1]
+        current_room = board[character['coordinate']]
         there_is_a_challenger = check_for_foes(current_room)
         if there_is_a_challenger:
             fight_with_foe(current_room, character)
