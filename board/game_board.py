@@ -2,7 +2,8 @@
 This module includes all features related to the game board.
 """
 
-import random
+from random import randint
+from rooms import kitchen_map, grocery_store, traditional_market
 
 
 def make_board(rows, columns):
@@ -19,27 +20,25 @@ def make_board(rows, columns):
     :precondition: columns is a positive integer not less than 10
     :postcondition: create a board for the game and return the board in dictionary
     :return: a dictionary representing the game board
-
-    >>>
     """
     board = {}
     kitchen_rows = int(rows / 2)
     kitchen_columns = int(columns / 2)
-    chocolate_room = (random.randint(0, kitchen_rows-1), random.randint(0, kitchen_columns-1))
+    chocolate_room = (randint(0, kitchen_rows - 1), randint(0, kitchen_columns - 1))
     for row in range(rows):
         for column in range(columns):
-            if row + 1 <= kitchen_rows:
-                if (row, column) == chocolate_room:
-                    board[(row, column)] = ('L1', 'Chocolate Room')
-                elif column + 1 <= kitchen_columns:
-                    board[(row, column)] = ('L1', 'Empty Room')
+            if row < kitchen_rows:
+                if column < kitchen_columns:
+                    kitchen = kitchen_map((0, 0), kitchen_rows, kitchen_columns, chocolate_room)
+                    room = kitchen[(row, column)] if (row, column) in kitchen else 'Empty Room'
+                    board[(row, column)] = ['L1', 'Kitchen', room]
                 else:
-                    board[(row, column)] = ('L2', 'Empty Room')
+                    board[(row, column)] = ['L2', 'Street', 'Empty Room']
             else:
-                board[(row, column)] = ('L3', 'Empty Room')
-    board[(rows - 1, columns - 1)] = ('L4', 'Destination')
+                board[(row, column)] = ['L3', 'Street', 'Empty Room']
+    board[(rows - 1, columns - 1)] = ['L4', 'Destination', 'Joey and Hsin']
     return board
-
+print(make_board(10, 10))
 
 def validate_move(level, board, character, direction):
     pass
