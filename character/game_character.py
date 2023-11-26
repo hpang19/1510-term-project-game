@@ -2,6 +2,8 @@
 This module includes all features related to the character.
 """
 
+from board import DIRECTION_MAP
+
 
 def make_character():
     """
@@ -27,7 +29,9 @@ def make_character():
 
 
 def move_character(character, direction):
-    pass
+    move = DIRECTION_MAP[direction.upper()]
+    current_coordinate = character['coordinate']
+    character['coordinate'] = tuple(sum(coordinates) for coordinates in zip(current_coordinate, move))
 
 
 def pick_up_item(character, board):
