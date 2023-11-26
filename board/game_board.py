@@ -3,7 +3,7 @@ This module includes all features related to the game board.
 """
 
 from random import randint, choice
-from rooms import kitchen_map, grocery_store_map, traditional_market
+from rooms import kitchen_map, grocery_store_map, traditional_market_map
 
 
 def make_board(rows, columns):
@@ -30,6 +30,10 @@ def make_board(rows, columns):
     grocery_store = grocery_store_map(grocery_store_origin, 3, 3)
     grocery_row_range = range(grocery_store_origin[0], grocery_store_origin[0] + 3)
     grocery_column_range = range(grocery_store_origin[1], grocery_store_origin[1] + 3)
+    market_origin = (choice(range(kitchen_rows, rows - 2)), choice(range(0, columns - 2)))
+    market = traditional_market_map(market_origin, 3, 3)
+    market_row_range = range(market_origin[0], market_origin[0] + 3)
+    market_column_range = range(market_origin[1], market_origin[1] + 3)
     for row in range(rows):
         for column in range(columns):
             if row < kitchen_rows:
@@ -41,10 +45,12 @@ def make_board(rows, columns):
                     location = 'Grocery Store' if (row in grocery_row_range and column in grocery_column_range) else 'Street'
                     board[(row, column)] = ['L2', location, room]
             else:
-                board[(row, column)] = ['L3', 'Street', 'Empty Room']
+                room = market[(row, column)] if (row, column) in market else 'Empty Room'
+                location = 'Market' if (row in market_row_range and column in market_column_range) else 'Street'
+                board[(row, column)] = ['L3', location, room]
     board[(rows - 1, columns - 1)] = ['L4', 'Destination', 'Joey and Hsin']
     return board
-print(make_board(10, 10))
+
 
 def validate_move(level, board, character, direction):
     pass
@@ -56,3 +62,12 @@ def get_current_location(board, character):
 
 def move_chocolate(board):
     pass
+
+
+if __name__ == '__main__':
+    import pandas as pd
+    board = make_board(10, 10)
+    df = pd.DataFrame(index=range(10), columns=range(10))
+    for coord, data in board.items():
+        df.iloc[*coord] = data
+    df.to_excel('map_demo.xlsx')

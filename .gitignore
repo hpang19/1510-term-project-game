@@ -1,3 +1,5 @@
 .idea
 .DS_Store
 __pycache__/
+map_demo.xlsm
+board/map_demo.xlsx
