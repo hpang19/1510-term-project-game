@@ -39,16 +39,16 @@ def make_board(rows, columns):
         for column in range(columns):
             if row < kitchen_rows:
                 if column < kitchen_columns:
-                    room = kitchen[(row, column)] if (row, column) in kitchen else 'Empty Room'
-                    board[(row, column)] = [1, 'Kitchen', room]
+                    item = kitchen[(row, column)] if (row, column) in kitchen else 'Empty Room'
+                    board[(row, column)] = [1, 'Kitchen', item]
                 else:
-                    room = grocery_store[(row, column)] if (row, column) in grocery_store else 'Empty Room'
+                    item = grocery_store[(row, column)] if (row, column) in grocery_store else 'Empty Room'
                     location = 'Grocery Store' if (row in grocery_row_range and column in grocery_column_range) else 'Street'
-                    board[(row, column)] = [2, location, room]
+                    board[(row, column)] = [2, location, item]
             else:
-                room = market[(row, column)] if (row, column) in market else 'Empty Room'
+                item = market[(row, column)] if (row, column) in market else 'Empty Room'
                 location = 'Market' if (row in market_row_range and column in market_column_range) else 'Street'
-                board[(row, column)] = [3, location, room]
+                board[(row, column)] = [3, location, item]
     board[(rows - 1, columns - 1)] = [4, 'Destination', 'Joey and Hsin']
     return board
 
