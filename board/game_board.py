@@ -69,10 +69,6 @@ def validate_move(level, board, character, direction):
     return valid_move
 
 
-def get_current_location(board, character):
-    pass
-
-
 def move_chocolate(board):
     pass
 

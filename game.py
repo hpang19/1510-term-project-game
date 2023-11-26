@@ -26,7 +26,7 @@ def game():
             print('You can not go in this direction, please choose direction again.')
             continue
         move_character(character, direction)
-        current_room = get_current_location(board, character)
+        current_room = board[character['coordinate']][1]
         there_is_a_challenger = check_for_foes(current_room)
         if there_is_a_challenger:
             fight_with_foe(current_room, character)
