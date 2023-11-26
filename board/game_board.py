@@ -26,12 +26,12 @@ def make_board(rows, columns):
     kitchen_rows = int(rows / 2)
     kitchen_columns = int(columns / 2)
     chocolate_room = (randint(0, kitchen_rows - 1), randint(0, kitchen_columns - 1))
-    kitchen = kitchen_map((0, 0), kitchen_rows, kitchen_columns, chocolate_room)
-    grocery_store_origin = (choice(range(0, kitchen_rows - 2)), choice(range(kitchen_columns, columns - 2)))
+    kitchen = kitchen_map(kitchen_rows, kitchen_columns, chocolate_room)
+    grocery_store_origin = (choice(range(0, kitchen_rows - 2)), choice(range(kitchen_columns, columns - 2)) + 1)
     grocery_store = grocery_store_map(grocery_store_origin, 3, 3)
     grocery_row_range = range(grocery_store_origin[0], grocery_store_origin[0] + 3)
     grocery_column_range = range(grocery_store_origin[1], grocery_store_origin[1] + 3)
-    market_origin = (choice(range(kitchen_rows, rows - 2)), choice(range(0, columns - 2)))
+    market_origin = (choice(range(kitchen_rows, rows - 2)) + 1, choice(range(0, columns - 2)))
     market = traditional_market_map(market_origin, 3, 3)
     market_row_range = range(market_origin[0], market_origin[0] + 3)
     market_column_range = range(market_origin[1], market_origin[1] + 3)
@@ -55,9 +55,18 @@ def make_board(rows, columns):
 
 def validate_move(level, board, character, direction):
     move = DIRECTION_MAP[direction.upper()]
-    current_location = character['coordinate']
-    new_location = tuple(sum(coordinates) for coordinates in zip(current_location, move))
-    return board[new_location][0] == level if new_location in board else False
+    current_coordinate = character['coordinate']
+    new_coordinate = tuple(sum(coordinates) for coordinates in zip(current_coordinate, move))
+    valid_move = False
+    if new_coordinate in board and board[new_coordinate][0] <= level:
+        current_location = board[current_coordinate][1]
+        new_location = board[new_coordinate][1]
+        if new_location == current_location:
+            valid_move = True
+        else:
+            if new_location == 'Destination' or 'Door' in (board[new_coordinate][2], board[current_coordinate][2]):
+                valid_move = True
+    return valid_move
 
 
 def get_current_location(board, character):
