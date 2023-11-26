@@ -18,6 +18,7 @@ def make_character():
     """
     character = {
         'caffeine': 50,
+        'coordinate': (0, 0),
         'shopping_bag': [],
         'tea': [],
         'kill_final_boss': False
