@@ -7,6 +7,9 @@ def ready_to_make_tea(level, character):
     if level == 1:
         if "Hot Water" and "Mug" and "Tea Bag" in character["shopping_bag"]:
             return True
+    if level == 2:
+        if "Hot Water" and "Mug" and "Matcha Powder" and "Honey" and "Almond Milk" in character["shopping_bag"]:
+            return True
 
 
 
