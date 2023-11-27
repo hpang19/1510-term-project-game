@@ -11,7 +11,9 @@ def ready_to_make_tea(level, character):
         if ("Hot Water" and "Mug" and "Matcha Powder" and "Honey" and "Almond Milk" and "Spoon"
                 in character["shopping_bag"]):
             return True
-
+    if level == 3:
+        if "Hot Water" and "Mug" and "Ginger" and "Turmeric" and "Grater" and "Spoon" in character["shopping_bag"]:
+            return True
 
 
 def make_tea(level, character):
