@@ -28,15 +28,16 @@ def game():
         move_character(character, direction)
         current_room = board[character['coordinate']]
         there_is_a_challenger = check_for_foes(current_room)
+        print(there_is_a_challenger)
         if there_is_a_challenger:
             fight_with_foe(current_room, character)
         if character['kill_final_boss']:
             print('Congratulation! You won!')
             break
-        if current_room == 'Chocolate Room':
+        if current_room[2] == 'Chocolate Room':
             character['caffeine'] += 10
             move_chocolate(board)
-        elif current_room != 'Empty Room':
+        elif current_room[2] != 'Empty Room':
             pick_up_item(character, board)
             tea_ingredients_all_set = ready_to_make_tea(level, character)
             if tea_ingredients_all_set:
