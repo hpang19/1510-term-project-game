@@ -12,7 +12,7 @@ def random_choice_coordinate(origin_coordinate, rows, columns):
 
 
 def kitchen_map(rows, columns, chocolate_room_coordinate):
-    kitchen = {(0, 0): 'Origin', chocolate_room_coordinate: 'Chocolate Room', (choice(range(rows)), columns): 'Door'}
+    kitchen = {(0, 0): 'Origin', chocolate_room_coordinate: 'Chocolate Room', (choice(range(rows)), columns-1): 'Door'}
     for item in ['Cup', 'Spoon', 'Grinder', 'Hot Water', 'Tea Bag']:
         row, column = random_choice_coordinate((0, 0), rows, columns)
         while (row, column) in kitchen:
