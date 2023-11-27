@@ -9,3 +9,11 @@ def math_question():
         'What is the square root of 10000?': '100',
     }
     return questions
+
+
+def python_question():
+    questions = {
+        'List is mutable. (Enter "T" for True or "F" for False)': 'T',
+        'Python is static typed language. (Enter "T" for True or "F" for False)': 'F',
+    }
+    return questions

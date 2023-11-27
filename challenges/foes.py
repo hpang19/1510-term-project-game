@@ -4,7 +4,7 @@ This module includes all features related to the challenges.
 
 from . import FOE_MAP, RATS_WEAPONS
 from board import LOCATION_PREFIX
-from .question_bank import math_question
+from .question_bank import math_question, python_question
 from random import choice
 
 
@@ -79,6 +79,23 @@ def kids_challenge(location):
     return True if your_answer == challenge_answer else False
 
 
+def boss_challenge(location):
+    students = ['Joey', 'Hsin']
+    print(f'There are {students[0]} and {students[1]} {LOCATION_PREFIX[location]} {location.lower()}.')
+    print('Final exam is approaching, they have a lot of questions to ask you.')
+    challenges = python_question()
+    satisfied = False
+    print(f'{choice(students)} has a question:')
+    while not satisfied:
+        challenge_question = choice(list(challenges.keys()))
+        challenge_answer = challenges[challenge_question]
+        your_answer = input(f'{challenge_question} ').upper()
+        if your_answer == challenge_answer:
+            satisfied = True
+        else:
+            print(f'[X] The answer is {challenge_answer}.')
+            print(f'Now {choice(students)} has another question:')
+
 
 def fight_with_foe(current_room, character):
     foe = get_foe(current_room)
@@ -88,6 +105,5 @@ def fight_with_foe(current_room, character):
         success = dogs_challenge(current_room[1])
     elif foe == 'kids':
         success = kids_challenge(current_room[1])
-        print('Successful:', success)
     else:
-        return
+        boss_challenge(current_room[1])
