@@ -35,4 +35,6 @@ def move_character(character, direction):
 
 
 def pick_up_item(character, board):
-    pass
+    if board[2] != "Empty Room" or "Chocolate Room" or "Door":
+        new_item = board[2]
+        character["shopping_bag"].append(new_item)
