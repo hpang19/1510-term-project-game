@@ -8,3 +8,11 @@ DIRECTION_MAP = {
     'E': (0, 1),
     'W': (0, -1)
 }
+
+LOCATION_PREFIX = {
+    'Kitchen': 'in the',
+    'Grocery Store': 'in the',
+    'Market': 'in the',
+    'Destination': 'at',
+    'Street': 'on the'
+}

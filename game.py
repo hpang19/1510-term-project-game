@@ -28,7 +28,6 @@ def game():
         move_character(character, direction)
         current_room = board[character['coordinate']]
         there_is_a_challenger = check_for_foes(current_room)
-        print(there_is_a_challenger)
         if there_is_a_challenger:
             fight_with_foe(current_room, character)
         if character['kill_final_boss']:
