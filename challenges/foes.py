@@ -33,17 +33,20 @@ def selection_in_range(integer, min_value, max_value):
 
 def rats_challenge(location):
     print(f'There is a rat {LOCATION_PREFIX[location]} {location.lower()}.')
-    print('To proceed, you need to kill the rats. Please select a weapon to kill the rats:')
+    print('To proceed, you need to kill the rats. Please select a weapon to kill the rats from the list:')
     while True:
         try:
             weapon_id = int(input('[1]: Air Gun  [2]: Pesticides  [3] Hot Water '))
-        except TypeError:
+        except ValueError:
             print('You have to input an integer from the list:')
         else:
             if selection_in_range(weapon_id, 1, 3):
                 message = RATS_WEAPONS[weapon_id]
                 print(message)
-                return True
+                if weapon_id != 1:
+                    print('Keep trying, Chris! \nPlease select another weapon from the list')
+                else:
+                    return True
             else:
                 print('You have to input an integer from the list:')
 
