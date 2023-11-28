@@ -8,15 +8,15 @@ from .question_bank import math_question, python_question
 from random import choice
 
 
-def get_foe(current_room):
-    foe = FOE_MAP[current_room[1]]
-    level = current_room[0]
-    foe = choice(foe[:level]) if current_room[1] == 'Street' else foe
+def get_foe(current_room_description):
+    foe = FOE_MAP[current_room_description[1]]
+    level = current_room_description[0]
+    foe = choice(foe[:level]) if current_room_description[1] == 'Street' else foe
     return foe
 
 
-def check_for_foes(current_room):
-    foe = get_foe(current_room)
+def check_for_foes(current_room_description):
+    foe = get_foe(current_room_description)
     if foe == 'rats':
         random_number = choice(range(4))
     elif foe == 'dogs':
