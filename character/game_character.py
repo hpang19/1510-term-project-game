@@ -35,6 +35,6 @@ def move_character(character, direction):
 
 
 def pick_up_item(character, board):
-    if board[2] != "Empty Room" or "Chocolate Room" or "Door":
-        new_item = board[2]
+    if board[character["coordinate"]] not in ("Empty Room", "Door", "Chocolate Room", "Origin"):
+        new_item = board[character["coordinate"]]
         character["shopping_bag"].append(new_item)
