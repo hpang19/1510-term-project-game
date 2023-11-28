@@ -45,10 +45,10 @@ def pick_up_item(character, board):
     :precondition:
     :return:
     """
-    if board[character["coordinate"]] not in ("Empty Room", "Door", "Chocolate Room", "Origin"):
-        new_item = board[character["coordinate"]]
+    if board[character["coordinate"]][2] not in ("Empty Room", "Door", "Chocolate Room", "Origin"):
+        new_item = board[character["coordinate"]][2]
         # update character's shopping bag
         character["shopping_bag"].append(new_item)
         # update the board whose coordinates' item has been picked up
-        board[character["coordinate"]] = "Empty Room"
+        board[character["coordinate"]][2] = "Empty Room"
 
