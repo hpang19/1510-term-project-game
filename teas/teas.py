@@ -19,11 +19,11 @@ def ready_to_make_tea(level, character):
     """
     if level == 1 and all("Hot Water" and "Mug" and "Tea Bag") in character["shopping_bag"]:
         return True
-    if (level == 2 and all("Hot Water" and "Mug" and "Matcha Powder" and "Honey" and "Almond Milk" and "Spoon")
-            in character["shopping_bag"]):
+    if level == 2 and all(item in character["shopping_bag"] for item in
+                          ['Hot Water', 'Mug', 'Matcha Powder', 'Honey', 'Almond Milk', 'Spoon']):
         return True
-    if (level == 3 and all("Hot Water" and "Mug" and "Ginger" and "Turmeric" and "Grater" and "Spoon")
-            in character["shopping_bag"]):
+    if level == 3 and all(item in character["shopping_bag"] for item in
+                          ['Hot Water', 'Mug', 'Ginger', 'Turmeric', 'Grater', 'Spoon']):
         return True
 
 
