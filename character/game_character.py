@@ -49,4 +49,6 @@ def pick_up_item(character, board):
         new_item = board[character["coordinate"]]
         # update character's shopping bag
         character["shopping_bag"].append(new_item)
+        # update the board whose coordinates' item has been picked up
+        board[character["coordinate"]] = ""
 
