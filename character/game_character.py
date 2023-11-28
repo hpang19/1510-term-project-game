@@ -35,6 +35,16 @@ def move_character(character, direction):
 
 
 def pick_up_item(character, board):
+    """
+    Pick up item.
+
+    A simple function that appends new item to character's shopping bag.
+
+    :param character: a non-empty dictionary
+    :param board: a non-empty dictionary
+    :precondition:
+    :return:
+    """
     if board[character["coordinate"]] not in ("Empty Room", "Door", "Chocolate Room", "Origin"):
         new_item = board[character["coordinate"]]
         character["shopping_bag"].append(new_item)
