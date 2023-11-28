@@ -47,4 +47,6 @@ def pick_up_item(character, board):
     """
     if board[character["coordinate"]] not in ("Empty Room", "Door", "Chocolate Room", "Origin"):
         new_item = board[character["coordinate"]]
+        # update character's shopping bag
         character["shopping_bag"].append(new_item)
+
