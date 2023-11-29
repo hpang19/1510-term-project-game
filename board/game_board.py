@@ -54,7 +54,8 @@ def make_board(rows, columns):
 
 
 def validate_move(level, board, character, direction, steps):
-    move = map(lambda coordinate: coordinate * steps, DIRECTION_MAP[direction.upper()])
+    move = DIRECTION_MAP[direction.upper()]
+    move = (move[0] * steps, move[1] * steps)
     current_coordinate = character['coordinate']
     new_coordinate = tuple(sum(coordinates) for coordinates in zip(current_coordinate, move))
     valid_move = False
@@ -76,6 +77,15 @@ def move_chocolate(board, character):
         coordinate = choice(list(board.keys()))
     board[character['coordinate']][2] = 'Empty Room'
     board[coordinate][2] = 'Chocolate Room'
+
+
+def describe_current_status(board, character):
+    level, room, item = board[character['coordinate']]
+    caffeine = character['caffeine']
+    shopping_bag = character['shopping_bag']
+    tea = character['tea']
+    print(f'Current status: level {level}, you are in the {room} with {item.lower()}.')
+    print(f'Your caffeine level is {caffeine} and you have {shopping_bag} in your bag, you made {tea}.')
 
 
 if __name__ == '__main__':

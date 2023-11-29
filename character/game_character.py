@@ -29,7 +29,8 @@ def make_character():
 
 
 def move_character(character, direction, steps):
-    move = map(lambda coordinate: coordinate * steps, DIRECTION_MAP[direction.upper()])
+    move = DIRECTION_MAP[direction.upper()]
+    move = (move[0] * steps, move[1] * steps)
     current_coordinate = character['coordinate']
     character['coordinate'] = tuple(sum(coordinates) for coordinates in zip(current_coordinate, move))
 
@@ -45,10 +46,9 @@ def pick_up_item(character, board):
     :precondition:
     :return:
     """
-    if board[character["coordinate"]][2] not in ("Empty Room", "Door", "Chocolate Room", "Origin"):
-        new_item = board[character["coordinate"]][2]
-        # update character's shopping bag
-        character["shopping_bag"].append(new_item)
-        # update the board whose coordinates' item has been picked up
+    item = board[character["coordinate"]][2]
+    if item not in ("Empty Room", "Door", "Chocolate Room", "Origin"):
+        print(f'Oh! There is a {item} to pick up! You picked it up and put in your shopping bag.')
+        character["shopping_bag"].append(item)
         board[character["coordinate"]][2] = "Empty Room"
 

@@ -2,7 +2,7 @@
 This module serves as a main module to execute the game program.
 """
 
-from board.game_board import make_board, validate_move, move_chocolate
+from board.game_board import make_board, validate_move, move_chocolate, describe_current_status
 from character.game_character import make_character, move_character, pick_up_item
 from challenges.foes import check_for_foes, fight_with_foe
 from teas.teas import ready_to_make_tea, make_tea
@@ -17,6 +17,7 @@ def game():
     level = 1
     print('Welcome to the game!')
     while character['caffeine'] > 0:
+        describe_current_status(board, character)
         direction = input('Please select your direction: [N]: North  [S]: South  [W]: West  [E]: East: ')
         if direction.upper() not in ['N', 'S', 'W', 'E']:
             print("Invalid direction!")
