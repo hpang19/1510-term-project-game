@@ -9,7 +9,16 @@ TEA_MAP = {
 }
 
 TEA_RECIPE = {
-    'Tea Bag': '',
-    'Matcha': '',
-    'Ginger Tea': ''
+    'Tea Bag':
+        """
+        recipe here
+        """,
+    'Matcha':
+        """
+        recipe here
+        """,
+    'Ginger Tea':
+        """
+        recipe here
+        """
 }
