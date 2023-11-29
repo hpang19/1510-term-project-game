@@ -2,6 +2,8 @@
 This module includes all features related to the teas.
 """
 
+from . import TEA_MAP
+
 
 def ready_to_make_tea(level, character):
     """
@@ -23,4 +25,6 @@ def ready_to_make_tea(level, character):
 
 
 def make_tea(level, character):
-    pass
+    character['tea'].append(TEA_MAP[level])
+    character['caffeine'] += 50 * level
+    print(f'You made {TEA_MAP[level]}, drink it, and your caffeine increased to {character["caffeine"]}')
