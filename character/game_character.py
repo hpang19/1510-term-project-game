@@ -47,8 +47,8 @@ def pick_up_item(character, board):
     :return:
     """
     item = board[character["coordinate"]][2]
-    if item not in ("Empty Room", "Door", "Chocolate Room", "Origin"):
+    if item not in ("Nothing", "Door", "Chocolate", "Origin"):
         print(f'Oh! There is a {item} to pick up! You picked it up and put in your shopping bag.')
         character["shopping_bag"].append(item)
-        board[character["coordinate"]][2] = "Empty Room"
+        board[character["coordinate"]][2] = "Nothing"
 

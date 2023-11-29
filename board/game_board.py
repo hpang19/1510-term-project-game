@@ -39,14 +39,14 @@ def make_board(rows, columns):
         for column in range(columns):
             if row < kitchen_rows:
                 if column < kitchen_columns:
-                    item = kitchen[(row, column)] if (row, column) in kitchen else 'Empty Room'
+                    item = kitchen[(row, column)] if (row, column) in kitchen else 'Nothing'
                     board[(row, column)] = [1, 'Kitchen', item]
                 else:
-                    item = grocery_store[(row, column)] if (row, column) in grocery_store else 'Empty Room'
+                    item = grocery_store[(row, column)] if (row, column) in grocery_store else 'Nothing'
                     location = 'Grocery Store' if (row in grocery_row_range and column in grocery_column_range) else 'Street'
                     board[(row, column)] = [2, location, item]
             else:
-                item = market[(row, column)] if (row, column) in market else 'Empty Room'
+                item = market[(row, column)] if (row, column) in market else 'Nothing'
                 location = 'Market' if (row in market_row_range and column in market_column_range) else 'Street'
                 board[(row, column)] = [3, location, item]
     board[(rows - 1, columns - 1)] = [4, 'Destination', 'Joey and Hsin']
@@ -73,10 +73,10 @@ def validate_move(level, board, character, direction, steps):
 def move_chocolate(board, character):
     coordinate = choice(list(board.keys()))
     level = board[coordinate][0]
-    while board[coordinate][2] != 'Empty Room' or board[coordinate][0] <= level:
+    while board[coordinate][2] != 'Nothing' or board[coordinate][0] <= level:
         coordinate = choice(list(board.keys()))
-    board[character['coordinate']][2] = 'Empty Room'
-    board[coordinate][2] = 'Chocolate Room'
+    board[character['coordinate']][2] = 'Nothing'
+    board[coordinate][2] = 'Chocolate'
 
 
 def describe_current_status(board, character):
