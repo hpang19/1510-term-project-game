@@ -7,3 +7,9 @@ TEA_MAP = {
     2: 'Matcha',
     3: 'Ginger Tea'
 }
+
+TEA_RECIPE = {
+    'Tea Bag': '',
+    'Matcha': '',
+    'Ginger Tea': ''
+}

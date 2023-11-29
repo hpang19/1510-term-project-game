@@ -43,6 +43,7 @@ def game():
             if tea_ingredients_all_set:
                 make_tea(level, character)
                 level += 1
+                print(f'Nice job! You leveled up. Now your level is {level}.')
                 assign_new_task(level)
                 unlock_next_level_rooms(level, board)
     if character['caffeine'] <= 0:
@@ -54,4 +55,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    assign_new_task(level=1)
