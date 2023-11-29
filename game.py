@@ -6,7 +6,7 @@ from board.game_board import make_board, validate_move, move_chocolate
 from character.game_character import make_character, move_character, pick_up_item
 from challenges.foes import check_for_foes, fight_with_foe
 from teas.teas import ready_to_make_tea, make_tea
-from levels.levels import assign_new_task, unlock_next_level_rooms
+from levels.levels import assign_new_task, unlock_next_level_rooms, steps_to_move
 
 
 def game():
@@ -21,6 +21,7 @@ def game():
         if direction.upper() not in ['N', 'S', 'W', 'E']:
             print("Invalid direction!")
             continue
+        steps = steps_to_move(level, direction.upper())
         valid_move = validate_move(level, board, character, direction)
         if not valid_move:
             print('You can not go in this direction, please choose direction again.')
