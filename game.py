@@ -56,5 +56,4 @@ def main():
 
 
 if __name__ == '__main__':
-    # main()
-    assign_new_task(level=1)
+    main()
