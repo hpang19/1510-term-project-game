@@ -69,14 +69,19 @@ def validate_move(level, board, character, direction):
     return valid_move
 
 
-def move_chocolate(board):
-    pass
+def move_chocolate(board, character):
+    coordinate = choice(list(board.keys()))
+    level = board[coordinate][0]
+    while board[coordinate][2] != 'Empty Room' or board[coordinate][0] <= level:
+        coordinate = choice(list(board.keys()))
+    board[character['coordinate']][2] = 'Empty Room'
+    board[coordinate][2] = 'Chocolate Room'
 
 
 if __name__ == '__main__':
     import pandas as pd
-    board = make_board(10, 10)
+    test_board = make_board(10, 10)
     df = pd.DataFrame(index=range(10), columns=range(10))
-    for coord, data in board.items():
+    for coord, data in test_board.items():
         df.iloc[*coord] = data
     df.to_excel('map_demo.xlsx')

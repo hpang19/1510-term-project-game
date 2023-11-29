@@ -33,7 +33,7 @@ def game():
         if current_room_description[2] == 'Chocolate Room':
             character['caffeine'] += 10
             print(f'You consumed chocolate, now your caffeine level increased to {character["caffeine"]}.')
-            move_chocolate(board)
+            move_chocolate(board, character)
         if character['kill_final_boss']:
             print('Congratulation! You won!')
             break
