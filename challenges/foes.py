@@ -79,7 +79,7 @@ def kids_challenge(location):
     return True if your_answer == challenge_answer else False
 
 
-def boss_challenge(location):
+def boss_challenge(location, character):
     students = ['Joey', 'Hsin']
     print(f'There are {students[0]} and {students[1]} {LOCATION_PREFIX[location]} {location.lower()}.')
     print('Final exam is approaching, they have a lot of questions to ask you.')
@@ -94,6 +94,11 @@ def boss_challenge(location):
             satisfied = True
         else:
             print(f'[X] The answer is {challenge_answer}.')
+            character['caffeine'] -= 50
+            print(f'Your caffeine just dropped 50. Your current caffeine level is {character["caffeine"]}')
+            if character['caffeine'] <= 0:
+                print('You have run out of your caffeine!')
+                return
             print(f'Now {choice(students)} has another question:')
 
 
@@ -103,7 +108,11 @@ def fight_with_foe(current_room, character):
         rats_challenge(current_room[1])
     elif foe == 'dogs':
         success = dogs_challenge(current_room[1])
+        if not success:
+            character['caffeine'] -= 10
     elif foe == 'kids':
         success = kids_challenge(current_room[1])
+        if not success:
+            character['caffeine'] -= 20
     else:
-        boss_challenge(current_room[1])
+        boss_challenge(current_room[1], character)
