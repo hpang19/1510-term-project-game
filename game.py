@@ -22,11 +22,11 @@ def game():
             print("Invalid direction!")
             continue
         steps = steps_to_move(level, direction.upper())
-        valid_move = validate_move(level, board, character, direction)
+        valid_move = validate_move(level, board, character, direction, steps)
         if not valid_move:
             print('You can not go in this direction, please choose direction again.')
             continue
-        move_character(character, direction)
+        move_character(character, direction, steps)
         current_room_description = board[character['coordinate']]
         there_is_a_challenger = check_for_foes(current_room_description)
         if there_is_a_challenger:

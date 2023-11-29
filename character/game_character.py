@@ -28,8 +28,8 @@ def make_character():
     return character
 
 
-def move_character(character, direction):
-    move = DIRECTION_MAP[direction.upper()]
+def move_character(character, direction, steps):
+    move = map(lambda coordinate: coordinate * steps, DIRECTION_MAP[direction.upper()])
     current_coordinate = character['coordinate']
     character['coordinate'] = tuple(sum(coordinates) for coordinates in zip(current_coordinate, move))
 

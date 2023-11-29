@@ -53,8 +53,8 @@ def make_board(rows, columns):
     return board
 
 
-def validate_move(level, board, character, direction):
-    move = DIRECTION_MAP[direction.upper()]
+def validate_move(level, board, character, direction, steps):
+    move = map(lambda coordinate: coordinate * steps, DIRECTION_MAP[direction.upper()])
     current_coordinate = character['coordinate']
     new_coordinate = tuple(sum(coordinates) for coordinates in zip(current_coordinate, move))
     valid_move = False
