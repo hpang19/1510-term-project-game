@@ -22,13 +22,14 @@ def get_relief(room_description, current_level):
     return relief
 
 
-def get_text(room_description):
+def get_text(room_description, current_level):
     level, room, item = room_description
     text = ''
-    if room in ('Kitchen', 'Grocery Store', 'Market'):
-        text += room
-    if item != 'Nothing':
-        text = item
+    if level <= current_level:
+        if room in ('Kitchen', 'Grocery Store', 'Market'):
+            text += room
+        if item != 'Nothing':
+            text = item
     return text
 
 
@@ -43,7 +44,7 @@ def create_main_window(game_board, rows, columns, current_level):
         for column in range(columns):
             room_description = game_board[(row, column)]
             relief = get_relief(room_description, current_level)
-            text = get_text(room_description)
+            text = get_text(room_description, current_level)
             frame = tk.Frame(master=main_frame, width=50, height=50, relief=relief, borderwidth=2)
             frame.grid(row=row, column=column)
             label = tk.Label(master=frame, text=text, width=10, height=4)
@@ -53,6 +54,8 @@ def create_main_window(game_board, rows, columns, current_level):
 
 
 if __name__ == '__main__':
+    import sys
+    sys.path.append('..')
     with open('data/board.json') as file_object:
         board_json = json.load(file_object)
     board = {}
