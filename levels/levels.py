@@ -5,6 +5,7 @@ This module includes all features related to the levels.
 import sys
 sys.path.append("..")
 from teas import TEA_MAP, TEA_RECIPE
+from GUI import prompts
 
 
 def assign_new_task(level):
@@ -13,14 +14,17 @@ def assign_new_task(level):
     print(f'Your next task is making a {tea}. In order to make {tea}, you need to {recipe}')
 
 
-def steps_to_move(level, direction):
-    prompt = f'You can move up to {level} steps a time, how many steps do you want to move in {direction} direction? '
+def steps_to_move(level, direction, frame=None):
+    message = f'You can move up to {level} steps a time, how many steps do you want to move in {direction} direction? '
     if level == 1:
         return 1
     else:
         steps = 0
-        while steps and steps > level:
-            user_input = input(prompt)
+        while steps <= 0 or steps > level:
+            if frame:
+                user_input = prompts.Prompts(frame).prompt(message)
+            else:
+                user_input = input(message)
             try:
                 steps = int(user_input)
             except ValueError:
