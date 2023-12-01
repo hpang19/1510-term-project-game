@@ -75,12 +75,13 @@ class Game:
                 self.level += 1
                 self.text_area.insert(tk.END, f'Nice job! You leveled up. Now your level is {self.level}.\n')
                 assign_new_task(self.level)
-                unlock_next_level_rooms(self.level, self.board)
+                # unlock_next_level_rooms(self.level, self.board)
+                self.create_gui_game_board(self.character['coordinate'])
 
         if self.character['caffeine'] <= 0:
             self.text_area.insert(tk.END, 'Game Over!\n')
 
-    def create_gui_game_board(self):
+    def create_gui_game_board(self, player=(0, 0)):
         for row in range(self.rows):
             for column in range(self.columns):
                 room_description = self.board[(row, column)]
@@ -90,7 +91,7 @@ class Game:
                 frame.grid(row=row, column=column)
                 label = tk.Label(master=frame, text=text, width=10, height=4)
                 label.grid(row=0, column=0)
-                if row == 0 and column == 0:
+                if player[0] == row and player[1] == column:
                     label = tk.Label(master=frame, text='Chris', width=10, height=4)
                     label.grid(row=0, column=0)
 
