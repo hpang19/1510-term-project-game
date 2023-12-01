@@ -6,6 +6,9 @@ from . import FOE_MAP, RATS_WEAPONS
 from board import LOCATION_PREFIX
 from .question_bank import math_question, python_question
 from random import choice
+import sys
+sys.path.append('..')
+from GUI import prompts
 
 
 def get_foe(current_room_description):
@@ -32,12 +35,15 @@ def selection_in_range(integer, min_value, max_value):
     return True if min_value <= integer <= max_value else False
 
 
-def rats_challenge(location):
+def rats_challenge(location, frame):
     print(f'There is a rat {LOCATION_PREFIX[location]} {location.lower()}.')
     print('To proceed, you need to kill the rats. Please select a weapon to kill the rats from the list:')
     while True:
         try:
-            weapon_id = int(input('[1]: Air Gun  [2]: Pesticides  [3] Hot Water '))
+            if frame:
+                weapon_id = int(prompts.Prompts(frame).prompt('[1]: Air Gun  [2]: Pesticides  [3] Hot Water '))
+            else:
+                weapon_id = int(input('[1]: Air Gun  [2]: Pesticides  [3] Hot Water '))
         except ValueError:
             print('You have to input an integer from the list:')
         else:
@@ -52,12 +58,15 @@ def rats_challenge(location):
                 print('You have to input an integer from the list:')
 
 
-def dogs_challenge(location):
+def dogs_challenge(location, frame):
     print(f'There is a dog {LOCATION_PREFIX[location]} {location.lower()}.')
     print('Now the dog is trying to attack, you need to decide whether to dodge left or right. Please make a choice:')
     while True:
         try:
-            dodge_direction = int(input('You decide to dodge [1]: left  [2]: right '))
+            if frame:
+                dodge_direction = int(prompts.Prompts(frame).prompt('You decide to dodge [1]: left  [2]: right '))
+            else:
+                dodge_direction = int(input('You decide to dodge [1]: left  [2]: right '))
         except ValueError:
             print('You have to input an integer from the list:')
         else:
@@ -69,17 +78,20 @@ def dogs_challenge(location):
                 print('You have to input an integer from the list:')
 
 
-def kids_challenge(location):
+def kids_challenge(location, frame):
     print(f'There are kids running {LOCATION_PREFIX[location]} {location.lower()}.')
     print('You called school and the teacher comes. The teacher is challenging you with a Math question:')
     challenges = math_question()
     challenge_question = choice(list(challenges.keys()))
     challenge_answer = challenges[challenge_question]
-    your_answer = input(f'{challenge_question} ')
+    if frame:
+        your_answer = prompts.Prompts(frame).prompt(f'{challenge_question} ')
+    else:
+        your_answer = input(f'{challenge_question} ')
     return True if your_answer == challenge_answer else False
 
 
-def boss_challenge(location, character):
+def boss_challenge(location, character, frame):
     students = ['Joey', 'Hsin']
     print(f'There are {students[0]} and {students[1]} {LOCATION_PREFIX[location]} {location.lower()}.')
     print('Final exam is approaching, they have a lot of questions to ask you.')
@@ -89,7 +101,10 @@ def boss_challenge(location, character):
     while not satisfied:
         challenge_question = choice(list(challenges.keys()))
         challenge_answer = challenges[challenge_question]
-        your_answer = input(f'{challenge_question} ').upper()
+        if frame:
+            your_answer = prompts.Prompts(frame).prompt(f'{challenge_question} ').upper()
+        else:
+            your_answer = input(f'{challenge_question} ').upper()
         if your_answer == challenge_answer:
             satisfied = True
         else:
@@ -102,17 +117,17 @@ def boss_challenge(location, character):
             print(f'Now {choice(students)} has another question:')
 
 
-def fight_with_foe(current_room, character):
+def fight_with_foe(current_room, character, frame=None):
     foe = get_foe(current_room)
     if foe == 'rats':
-        rats_challenge(current_room[1])
+        rats_challenge(current_room[1], frame)
     elif foe == 'dogs':
-        success = dogs_challenge(current_room[1])
+        success = dogs_challenge(current_room[1], frame)
         if not success:
             character['caffeine'] -= 10
     elif foe == 'kids':
-        success = kids_challenge(current_room[1])
+        success = kids_challenge(current_room[1], frame)
         if not success:
             character['caffeine'] -= 20
     else:
-        boss_challenge(current_room[1], character)
+        boss_challenge(current_room[1], character, frame)
