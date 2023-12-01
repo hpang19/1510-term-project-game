@@ -27,7 +27,7 @@ def make_board(rows, columns):
     kitchen_columns = int(columns / 2)
     chocolate_room = (randint(0, kitchen_rows - 1), randint(0, kitchen_columns - 1))
     kitchen = kitchen_map(kitchen_rows, kitchen_columns, chocolate_room)
-    grocery_store_origin = (choice(range(0, kitchen_rows - 2)), choice(range(kitchen_columns, columns - 2)) + 1)
+    grocery_store_origin = (choice(range(0, kitchen_rows - 2)), choice(range(kitchen_columns, columns - 3)) + 1)
     grocery_store = grocery_store_map(grocery_store_origin, 3, 3)
     grocery_row_range = range(grocery_store_origin[0], grocery_store_origin[0] + 3)
     grocery_column_range = range(grocery_store_origin[1], grocery_store_origin[1] + 3)
