@@ -3,6 +3,7 @@ This module includes all features related to the character.
 """
 
 from board import DIRECTION_MAP
+import tkinter as tk
 
 
 def make_character():
@@ -28,11 +29,22 @@ def make_character():
     return character
 
 
-def move_character(character, direction, steps):
+def move_character(character, direction, steps, frame_object=None, current_room_text=None, current_relief=None):
     move = DIRECTION_MAP[direction.upper()]
     move = (move[0] * steps, move[1] * steps)
     current_coordinate = character['coordinate']
     character['coordinate'] = tuple(sum(coordinates) for coordinates in zip(current_coordinate, move))
+
+    if frame_object:
+        frame = tk.Frame(master=frame_object, width=50, height=50, relief=current_relief, borderwidth=2)
+        frame.grid(row=current_coordinate[0], column=current_coordinate[1])
+        label = tk.Label(master=frame, text=current_room_text, width=10, height=4)
+        label.grid(row=0, column=0)
+
+        frame = tk.Frame(master=frame_object, width=50, height=50, relief=tk.SUNKEN, borderwidth=2)
+        frame.grid(row=character['coordinate'][0], column=character['coordinate'][1])
+        label = tk.Label(master=frame, text='Chris', width=10, height=4)
+        label.grid(row=0, column=0)
 
 
 def pick_up_item(character, board):
@@ -51,4 +63,3 @@ def pick_up_item(character, board):
         print(f'Oh! There is a {item} to pick up! You picked it up and put in your shopping bag.')
         character["shopping_bag"].append(item)
         board[character["coordinate"]][2] = "Nothing"
-
