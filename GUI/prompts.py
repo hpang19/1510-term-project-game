@@ -2,20 +2,27 @@ import tkinter as tk
 # from tkinter import font
 
 
-def prompt(root, p="prompt here, then press ENTER"):
-    prompt_window = tk.Tk()
-    prompt_window.title('Prompt for Input')
-    greeting = tk.Label(prompt_window, text=p, width=50)
-    greeting.pack()
-    entry = tk.Entry(prompt_window, width=5) # , fg="yellow", bg="blue"
-    entry.pack()
+class Prompts:
+    def __init__(self, frame):
+        self.frame = frame
+        self.entry_value = tk.StringVar()
+        self.entry = tk.Entry(self.frame, textvariable=self.entry_value, width=5)
+        self.entry.pack()
+        self.entry_changed = False
 
-    existing_window_position = f"+{root.winfo_rootx() + 300}+{root.winfo_rooty() + 300}"
-    prompt_window.geometry(existing_window_position)
+    def on_return(self, event):
+        self.entry_changed = True
 
-    def on_change(event):
-        user_input = event.widget.get()
-        print(user_input, '=======')
-        prompt_window.destroy()
+    def wait_for_change(self):
+        if not self.entry_changed:
+            self.frame.after(100, self.wait_for_change)
+        else:
+            self.entry.destroy()
 
-    entry.bind("<Return>", lambda event: on_change(event))
+    def prompt(self, message):
+        greeting = tk.Label(self.frame, text=message, width=50)
+        greeting.pack()
+        self.entry.bind("<Return>", self.on_return)
+        self.wait_for_change()
+        self.frame.mainloop()
+        return self.entry_value.get()

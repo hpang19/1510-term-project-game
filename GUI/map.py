@@ -1,6 +1,6 @@
 import json
 import tkinter as tk
-from prompts import prompt
+from prompts import Prompts
 
 
 def get_relief(room_description, current_level):
@@ -53,7 +53,6 @@ def create_main_window(game_board, rows, columns, current_level):
             if row == 0 and column == 0:
                 label = tk.Label(master=frame, text='Chris', width=10, height=4)
                 label.grid(row=0, column=0)
-    prompt(root)
     root.mainloop()
 
 
