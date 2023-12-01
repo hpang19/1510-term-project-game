@@ -5,6 +5,7 @@ This module includes all features related to the game board.
 from random import randint, choice
 from .rooms import kitchen_map, grocery_store_map, traditional_market_map
 from . import DIRECTION_MAP
+import tkinter as tk
 
 
 def make_board(rows, columns):
@@ -79,13 +80,17 @@ def move_chocolate(board, character):
     board[coordinate][2] = 'Chocolate'
 
 
-def describe_current_status(board, character):
+def describe_current_status(board, character, text_area_object=None):
     level, room, item = board[character['coordinate']]
     caffeine = character['caffeine']
     shopping_bag = character['shopping_bag']
     tea = character['tea']
-    print(f'Current status: level {level}, you are in the {room} with {item.lower()}.')
-    print(f'Your caffeine level is {caffeine} and you have {shopping_bag} in your bag, you made {tea}.')
+    if text_area_object:
+        text_area_object.delete('1.0', tk.END)
+        message = f'Current status: level {level}, you are in the {room} with {item.lower()}.\n'
+        text_area_object.insert(tk.END, message)
+        message = f'Your caffeine level is {caffeine} and you have {shopping_bag} in your bag, you made {tea}.\n'
+        text_area_object.insert(tk.END, message)
 
 
 if __name__ == '__main__':
