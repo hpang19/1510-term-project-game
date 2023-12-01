@@ -6,10 +6,8 @@ class Prompts:
     def __init__(self, frame):
         self.frame = frame
         self.entry_value = tk.StringVar()
-        self.greeting = tk.Label(self.frame, text='', width=50)
-        self.greeting.pack()
-        self.entry = tk.Entry(self.frame, textvariable=self.entry_value, width=5)
-        self.entry.pack()
+        self.greeting = None
+        self.entry = None
         self.entry_changed = False
 
     def on_return(self, event):
@@ -25,6 +23,8 @@ class Prompts:
     def prompt(self, message):
         self.greeting = tk.Label(self.frame, text=message, width=50)
         self.greeting.pack()
+        self.entry = tk.Entry(self.frame, textvariable=self.entry_value, width=5)
+        self.entry.pack()
         self.entry.bind("<Return>", self.on_return)
         self.wait_for_change()
         self.frame.mainloop()
