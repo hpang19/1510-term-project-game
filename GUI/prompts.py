@@ -6,6 +6,8 @@ class Prompts:
     def __init__(self, frame):
         self.frame = frame
         self.entry_value = tk.StringVar()
+        self.greeting = tk.Label(self.frame, text='', width=50)
+        self.greeting.pack()
         self.entry = tk.Entry(self.frame, textvariable=self.entry_value, width=5)
         self.entry.pack()
         self.entry_changed = False
@@ -17,11 +19,12 @@ class Prompts:
         if not self.entry_changed:
             self.frame.after(100, self.wait_for_change)
         else:
-            self.entry.destroy()
+            self.greeting.pack_forget()
+            self.entry.pack_forget()
 
     def prompt(self, message):
-        greeting = tk.Label(self.frame, text=message, width=50)
-        greeting.pack()
+        self.greeting = tk.Label(self.frame, text=message, width=50)
+        self.greeting.pack()
         self.entry.bind("<Return>", self.on_return)
         self.wait_for_change()
         self.frame.mainloop()

@@ -35,7 +35,8 @@ class Game:
         self.create_buttons()
 
     def move(self, direction):
-        steps = steps_to_move(self.level, direction, self.input_frame)
+        # steps = steps_to_move(self.level, direction, self.input_frame)
+        steps = 1
         valid_move = validate_move(self.level, self.board, self.character, direction, steps)
 
         if not valid_move:
