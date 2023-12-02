@@ -14,21 +14,20 @@ from GUI import prompts
 def get_foe(current_room_description):
     foe = FOE_MAP[current_room_description[1]]
     level = current_room_description[0]
-    foe = choice(foe[level-1]) if current_room_description[1] == 'Street' else foe
+    foe = foe[level-1] if current_room_description[1] == 'Street' else foe
     return foe
 
 
 def check_for_foes(current_room_description):
     foe = get_foe(current_room_description)
     if foe == 'rats':
-        random_number = choice(range(5))
+        return choice(range(4)) == choice(range(4))
     elif foe == 'dogs':
-        random_number = choice(range(4))
+        return choice(range(3)) == choice(range(3))
     elif foe == 'kids':
-        random_number = choice(range(4))
+        return choice(range(3)) == choice(range(3))
     else:
-        random_number = 0
-    return random_number == 0
+        return True
 
 
 def selection_in_range(integer, min_value, max_value):
@@ -72,8 +71,9 @@ def dogs_challenge(location, frame):
         else:
             if selection_in_range(dodge_direction, 1, 2):
                 dodge = ["left", "right"][dodge_direction - 1]
-                print(f'You are dodging {dodge}.')
-                return dodge_direction == choice([1, 2])
+                dog_choice = choice([1, 2])
+                print(f'You are dodging {dodge} and dog attacked {["left", "right"][dog_choice - 1]}')
+                return dodge_direction != dog_choice
             else:
                 print('You have to input an integer from the list:')
 
@@ -88,7 +88,11 @@ def kids_challenge(location, frame):
         your_answer = prompts.Prompts(frame).prompt(f'{challenge_question} ')
     else:
         your_answer = input(f'{challenge_question} ')
-    return True if your_answer == challenge_answer else False
+    if your_answer == challenge_answer:
+        print('Great! That is correct answer!')
+    else:
+        print(f'Too bad! The correct answer is {challenge_answer}. Try harder next time!')
+    return your_answer == challenge_answer
 
 
 def boss_challenge(location, character, frame):
@@ -124,9 +128,11 @@ def fight_with_foe(current_room, character, frame=None):
         success = dogs_challenge(current_room[1], frame)
         if not success:
             character['caffeine'] -= 10
+            print('Oops! You lost 10 caffeine level.')
     elif foe == 'kids':
         success = kids_challenge(current_room[1], frame)
         if not success:
             character['caffeine'] -= 20
+            print('Oops! You lost 20 caffeine level.')
     else:
         boss_challenge(current_room[1], character, frame)
