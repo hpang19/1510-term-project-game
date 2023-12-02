@@ -9,9 +9,12 @@ from GUI import prompts
 
 
 def assign_new_task(level):
-    tea = TEA_MAP[level]
-    recipe = TEA_RECIPE[tea]
-    print(f'Your next task is making a {tea}. In order to make {tea}, you need to {recipe}')
+    if level <= 3:
+        tea = TEA_MAP[level]
+        recipe = TEA_RECIPE[tea]
+        print(f'Your next task is making a {tea}. In order to make {tea}, you need to {recipe}')
+    else:
+        print(f'You are almost there! Now go to the destination, Joey and Hsin is there waiting to challenge you!')
 
 
 def steps_to_move(level, direction, frame=None):

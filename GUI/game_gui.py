@@ -48,7 +48,7 @@ class Game:
         current_text = get_text(self.board[self.character['coordinate']], self.level)
         current_relief = get_relief(self.board[self.character['coordinate']], self.level)
         move_character(self.character, direction, steps, self.main_frame, current_text, current_relief)
-        describe_current_status(self.board, self.character, self.text_area)
+        describe_current_status(self.board, self.character, self.level, self.text_area)
 
         current_room_description = self.board[self.character['coordinate']]
         there_is_a_challenger = check_for_foes(current_room_description)
@@ -107,7 +107,7 @@ class Game:
         button_east = tk.Button(button_frame, text="East", command=lambda: self.move('E'))
         button_east.grid(row=1, column=2)
 
-        describe_current_status(self.board, self.character, self.text_area)
+        describe_current_status(self.board, self.character, self.level, self.text_area)
 
     def create_gui(self):
         self.root.mainloop()
