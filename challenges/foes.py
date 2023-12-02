@@ -72,7 +72,7 @@ def dogs_challenge(location, frame):
             if selection_in_range(dodge_direction, 1, 2):
                 dodge = ["left", "right"][dodge_direction - 1]
                 dog_choice = choice([1, 2])
-                print(f'You are dodging {dodge} and dog attacked {["left", "right"][dog_choice - 1]}')
+                print(f'You are dodging {dodge.upper()} and dog attacked {["left", "right"][dog_choice - 1].upper()}')
                 return dodge_direction != dog_choice
             else:
                 print('You have to input an integer from the list:')
@@ -129,6 +129,8 @@ def fight_with_foe(current_room, character, frame=None):
         if not success:
             character['caffeine'] -= 10
             print('Oops! You lost 10 caffeine level.')
+        else:
+            print('Yay! It missed you.')
     elif foe == 'kids':
         success = kids_challenge(current_room[1], frame)
         if not success:
