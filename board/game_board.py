@@ -32,7 +32,7 @@ def make_board(rows, columns):
     grocery_store = grocery_store_map(grocery_store_origin, 3, 3)
     grocery_row_range = range(grocery_store_origin[0], grocery_store_origin[0] + 3)
     grocery_column_range = range(grocery_store_origin[1], grocery_store_origin[1] + 3)
-    market_origin = (choice(range(kitchen_rows, rows - 2)) + 1, choice(range(0, columns - 2)))
+    market_origin = (choice(range(kitchen_rows, rows - 3)) + 1, choice(range(0, columns - 3)))
     market = traditional_market_map(market_origin, 3, 3)
     market_row_range = range(market_origin[0], market_origin[0] + 3)
     market_column_range = range(market_origin[1], market_origin[1] + 3)

@@ -53,9 +53,6 @@ class Game:
         current_room_description = self.board[self.character['coordinate']]
         there_is_a_challenger = check_for_foes(current_room_description)
 
-        if there_is_a_challenger:
-            fight_with_foe(current_room_description, self.character, self.input_frame)
-
         if current_room_description[2] == 'Chocolate':
             self.character['caffeine'] += 10
             message = f'You consumed chocolate, now your caffeine level increased to {self.character["caffeine"]}.\n'
@@ -77,6 +74,9 @@ class Game:
                 assign_new_task(self.level)
                 # unlock_next_level_rooms(self.level, self.board)
                 self.create_gui_game_board(self.character['coordinate'])
+
+        if there_is_a_challenger:
+            fight_with_foe(current_room_description, self.character, self.input_frame)
 
         if self.character['caffeine'] <= 0:
             self.text_area.insert(tk.END, 'Game Over!\n')
