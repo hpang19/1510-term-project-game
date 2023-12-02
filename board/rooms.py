@@ -23,7 +23,7 @@ def kitchen_map(rows, columns, chocolate_room_coordinate):
 
 def grocery_store_map(origin_coordinate, rows, columns):
     grocery_store = {(origin_coordinate[0] + choice(range(rows)), origin_coordinate[1]): 'Door'}
-    for item in ['Match Powder', 'Honey', 'Almond Milk']:
+    for item in ['Matcha Powder', 'Honey', 'Almond Milk']:
         row, column = random_choice_coordinate(origin_coordinate, rows, columns)
         while (row, column) in grocery_store:
             row, column = random_choice_coordinate(origin_coordinate, rows, columns)

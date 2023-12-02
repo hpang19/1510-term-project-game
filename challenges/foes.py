@@ -96,9 +96,8 @@ def boss_challenge(location, character, frame):
     print(f'There are {students[0]} and {students[1]} {LOCATION_PREFIX[location]} {location.lower()}.')
     print('Final exam is approaching, they have a lot of questions to ask you.')
     challenges = python_question()
-    satisfied = False
     print(f'{choice(students)} has a question:')
-    while not satisfied:
+    while not character['kill_final_boss']:
         challenge_question = choice(list(challenges.keys()))
         challenge_answer = challenges[challenge_question]
         if frame:
@@ -106,7 +105,7 @@ def boss_challenge(location, character, frame):
         else:
             your_answer = input(f'{challenge_question} ').upper()
         if your_answer == challenge_answer:
-            satisfied = True
+            character['kill_final_boss'] = True
         else:
             print(f'[X] The answer is {challenge_answer}.')
             character['caffeine'] -= 50

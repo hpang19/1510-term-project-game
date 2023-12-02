@@ -17,17 +17,17 @@ def game():
     level = 1
     print('Welcome to the game!')
     while character['caffeine'] > 0:
-        describe_current_status(board, character)
+        describe_current_status(board, character, level, gui=False)
         direction = input('Please select your direction: [N]: North  [S]: South  [W]: West  [E]: East: ')
         if direction.upper() not in ['N', 'S', 'W', 'E']:
             print("Invalid direction!")
             continue
-        steps = steps_to_move(level, direction.upper())
-        valid_move = validate_move(level, board, character, direction, steps)
+        # steps = steps_to_move(level, direction.upper())
+        valid_move = validate_move(level, board, character, direction, steps=1)
         if not valid_move:
             print('You can not go in this direction, please choose direction again.')
             continue
-        move_character(character, direction, steps)
+        move_character(character, direction, steps=1)
         current_room_description = board[character['coordinate']]
         there_is_a_challenger = check_for_foes(current_room_description)
         if there_is_a_challenger:

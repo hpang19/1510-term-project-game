@@ -32,7 +32,7 @@ def make_board(rows, columns):
     grocery_store = grocery_store_map(grocery_store_origin, 3, 3)
     grocery_row_range = range(grocery_store_origin[0], grocery_store_origin[0] + 3)
     grocery_column_range = range(grocery_store_origin[1], grocery_store_origin[1] + 3)
-    market_origin = (choice(range(kitchen_rows, rows - 2)) + 1, choice(range(0, columns - 2)))
+    market_origin = (choice(range(kitchen_rows, rows - 3)) + 1, choice(range(0, columns - 3)))
     market = traditional_market_map(market_origin, 3, 3)
     market_row_range = range(market_origin[0], market_origin[0] + 3)
     market_column_range = range(market_origin[1], market_origin[1] + 3)
@@ -74,17 +74,47 @@ def validate_move(level, board, character, direction, steps):
 def move_chocolate(board, character):
     coordinate = choice(list(board.keys()))
     level = board[coordinate][0]
-    while board[coordinate][2] != 'Nothing' or board[coordinate][0] <= level:
+    if board[coordinate][2] != 'Nothing' or board[coordinate][0] <= level:
         coordinate = choice(list(board.keys()))
     board[character['coordinate']][2] = 'Nothing'
     board[coordinate][2] = 'Chocolate'
 
 
-def describe_current_status(board, character, text_area_object=None):
-    level, room, item = board[character['coordinate']]
+def print_map(character, board, level):
+    current_location = character['coordinate']
+    for row in range(10):
+        for column in range(10):
+            map_level, room, item = board[(row, column)]
+            if map_level <= level:
+                if (row, column) == current_location:
+                    print('[*]', end='')
+                elif item == 'Origin':
+                    print('[ ]', end='')
+                elif room == 'Destination':
+                    print('[+]', end='')
+                elif item == 'Door':
+                    print('[/]', end='')
+                elif item == 'Nothing':
+                    if room in ('Kitchen', 'Grocery Store', 'Market'):
+                        print('[_]', end='')
+                    else:
+                        print('[ ]', end='')
+                elif item == 'Chocolate':
+                    print('[C]', end='')
+                else:
+                    print('[!]', end='')
+            else:
+                print('[X]', end='')
+        print()
+
+
+def describe_current_status(board, character, level, text_area_object=None, gui=True):
+    _, room, item = board[character['coordinate']]
     caffeine = character['caffeine']
     shopping_bag = character['shopping_bag']
     tea = character['tea']
+    if not gui:
+        print_map(character, board, level)
     if text_area_object:
         text_area_object.delete('1.0', tk.END)
         message = f'Current status: level {level}, you are in the {room} with {item.lower()}.\n'

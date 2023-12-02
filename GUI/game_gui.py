@@ -48,13 +48,10 @@ class Game:
         current_text = get_text(self.board[self.character['coordinate']], self.level)
         current_relief = get_relief(self.board[self.character['coordinate']], self.level)
         move_character(self.character, direction, steps, self.main_frame, current_text, current_relief)
-        describe_current_status(self.board, self.character, self.text_area)
+        describe_current_status(self.board, self.character, self.level, self.text_area)
 
         current_room_description = self.board[self.character['coordinate']]
         there_is_a_challenger = check_for_foes(current_room_description)
-
-        if there_is_a_challenger:
-            fight_with_foe(current_room_description, self.character, self.input_frame)
 
         if current_room_description[2] == 'Chocolate':
             self.character['caffeine'] += 10
@@ -77,6 +74,9 @@ class Game:
                 assign_new_task(self.level)
                 # unlock_next_level_rooms(self.level, self.board)
                 self.create_gui_game_board(self.character['coordinate'])
+
+        if there_is_a_challenger:
+            fight_with_foe(current_room_description, self.character, self.input_frame)
 
         if self.character['caffeine'] <= 0:
             self.text_area.insert(tk.END, 'Game Over!\n')
@@ -107,7 +107,7 @@ class Game:
         button_east = tk.Button(button_frame, text="East", command=lambda: self.move('E'))
         button_east.grid(row=1, column=2)
 
-        describe_current_status(self.board, self.character, self.text_area)
+        describe_current_status(self.board, self.character, self.level, self.text_area)
 
     def create_gui(self):
         self.root.mainloop()
