@@ -15,17 +15,20 @@ def game():
     board = make_board(rows, columns)
     character = make_character()
     level = 1
+    total_moves = 0
     print('Welcome to the game!')
     while character['caffeine'] > 0:
         describe_current_status(board, character, level, gui=False)
         direction = input('Please select your direction: [N]: North  [S]: South  [W]: West  [E]: East: ')
+        print(f'=========================================== {total_moves} ===========================================')
+        total_moves += 1
         if direction.upper() not in ['N', 'S', 'W', 'E']:
-            print("Invalid direction!")
+            print("!!! Invalid direction !!!")
             continue
         # steps = steps_to_move(level, direction.upper())
         valid_move = validate_move(level, board, character, direction, steps=1)
         if not valid_move:
-            print('You can not go in this direction, please choose direction again.')
+            print('!!! You can not go in this direction, please choose direction again. !!!')
             continue
         move_character(character, direction, steps=1)
         current_room_description = board[character['coordinate']]

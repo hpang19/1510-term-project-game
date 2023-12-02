@@ -113,14 +113,16 @@ def describe_current_status(board, character, level, text_area_object=None, gui=
     caffeine = character['caffeine']
     shopping_bag = character['shopping_bag']
     tea = character['tea']
+    location_message = f'Current Level: level {level}\nYou are in the {room} with {item.lower()}.\n'
+    caffeine_message = f'Caffeine Level: {caffeine}\nShopping Bag: {shopping_bag}\nTeas you have made:{tea}.\n'
     if not gui:
         print_map(character, board, level)
+        print(location_message, end='')
+        print(caffeine_message, end='')
     if text_area_object:
         text_area_object.delete('1.0', tk.END)
-        message = f'Current status: level {level}, you are in the {room} with {item.lower()}.\n'
-        text_area_object.insert(tk.END, message)
-        message = f'Your caffeine level is {caffeine} and you have {shopping_bag} in your bag, you made {tea}.\n'
-        text_area_object.insert(tk.END, message)
+        text_area_object.insert(tk.END, location_message)
+        text_area_object.insert(tk.END, caffeine_message)
 
 
 if __name__ == '__main__':
