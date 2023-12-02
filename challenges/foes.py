@@ -14,18 +14,18 @@ from GUI import prompts
 def get_foe(current_room_description):
     foe = FOE_MAP[current_room_description[1]]
     level = current_room_description[0]
-    foe = choice(foe[:level]) if current_room_description[1] == 'Street' else foe
+    foe = choice(foe[level-1]) if current_room_description[1] == 'Street' else foe
     return foe
 
 
 def check_for_foes(current_room_description):
     foe = get_foe(current_room_description)
     if foe == 'rats':
-        random_number = choice(range(4))
+        random_number = choice(range(5))
     elif foe == 'dogs':
-        random_number = choice(range(3))
+        random_number = choice(range(4))
     elif foe == 'kids':
-        random_number = choice(range(2))
+        random_number = choice(range(4))
     else:
         random_number = 0
     return random_number == 0
