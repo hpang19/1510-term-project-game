@@ -73,8 +73,9 @@ def validate_move(level, board, character, direction, steps):
 
 def move_chocolate(board, character):
     coordinate = choice(list(board.keys()))
-    level = board[coordinate][0]
-    if board[coordinate][2] != 'Nothing' or board[coordinate][0] <= level:
+    level = board[character['coordinate']][0]
+    print(board[coordinate], level)
+    while not (board[coordinate][2] == 'Nothing' and board[coordinate][0] > min(level, 2)):
         coordinate = choice(list(board.keys()))
     board[character['coordinate']][2] = 'Nothing'
     board[coordinate][2] = 'Chocolate'

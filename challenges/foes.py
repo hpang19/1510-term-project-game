@@ -113,7 +113,7 @@ def boss_challenge(location, character, frame):
         else:
             print(f'[X] The answer is {challenge_answer}.')
             character['caffeine'] -= 50
-            print(f'Your caffeine just dropped 50. Your current caffeine level is {character["caffeine"]}')
+            print(f'Your caffeine just dropped 50. Your current caffeine level is {max(character["caffeine"], 0)}')
             if character['caffeine'] <= 0:
                 print('You have run out of your caffeine!')
                 return

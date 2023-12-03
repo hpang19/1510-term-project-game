@@ -17,8 +17,8 @@ def game():
     level = 1
     total_moves = 0
     print('Welcome to the game!')
+    describe_current_status(board, character, level, gui=False)
     while character['caffeine'] > 0:
-        describe_current_status(board, character, level, gui=False)
         direction = input('Please select your direction: [W]: Up  [S]: Down  [A]: Left  [D]: Right: ')
         print(f'=========================================== {total_moves} ===========================================')
         total_moves += 1
@@ -32,16 +32,10 @@ def game():
             continue
         move_character(character, direction, steps=1)
         current_room_description = board[character['coordinate']]
-        there_is_a_challenger = check_for_foes(current_room_description)
-        if there_is_a_challenger:
-            fight_with_foe(current_room_description, character)
         if current_room_description[2] == 'Chocolate':
             character['caffeine'] += 10
             print(f'You consumed chocolate, now your caffeine level increased to {character["caffeine"]}.')
             move_chocolate(board, character)
-        if character['kill_final_boss']:
-            print('Congratulation! You won!')
-            break
         if current_room_description[2] not in ('Nothing', 'Door', 'Joey and Hsin', 'Origin'):
             pick_up_item(character, board)
             tea_ingredients_all_set = ready_to_make_tea(level, character)
@@ -51,6 +45,13 @@ def game():
                 print(f'Nice job! You leveled up. Now your level is {level}.')
                 assign_new_task(level)
                 unlock_next_level_rooms(level, board)
+        describe_current_status(board, character, level, gui=False)
+        there_is_a_challenger = check_for_foes(current_room_description)
+        if there_is_a_challenger:
+            fight_with_foe(current_room_description, character)
+        if character['kill_final_boss']:
+            print('Congratulation! You won!')
+            break
     if character['caffeine'] <= 0:
         print('Game Over!')
 
