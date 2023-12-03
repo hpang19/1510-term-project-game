@@ -3,10 +3,10 @@ This is the __init__ file for board module.
 """
 
 DIRECTION_MAP = {
-    'N': (-1, 0),
+    'W': (-1, 0),
     'S': (1, 0),
-    'E': (0, 1),
-    'W': (0, -1)
+    'D': (0, 1),
+    'A': (0, -1)
 }
 
 LOCATION_PREFIX = {

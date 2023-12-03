@@ -19,10 +19,10 @@ def game():
     print('Welcome to the game!')
     while character['caffeine'] > 0:
         describe_current_status(board, character, level, gui=False)
-        direction = input('Please select your direction: [N]: North  [S]: South  [W]: West  [E]: East: ')
+        direction = input('Please select your direction: [W]: Up  [S]: Down  [A]: Left  [D]: Right: ')
         print(f'=========================================== {total_moves} ===========================================')
         total_moves += 1
-        if direction.upper() not in ['N', 'S', 'W', 'E']:
+        if direction.upper() not in ['W', 'S', 'A', 'D']:
             print("!!! Invalid direction !!!")
             continue
         # steps = steps_to_move(level, direction.upper())

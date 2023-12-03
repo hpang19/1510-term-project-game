@@ -98,13 +98,13 @@ class Game:
     def create_buttons(self):
         button_frame = tk.Frame(self.root)
         button_frame.pack(side=tk.LEFT)
-        button_north = tk.Button(button_frame, text="North", command=lambda: self.move('N'))
+        button_north = tk.Button(button_frame, text="Up", command=lambda: self.move('W'))
         button_north.grid(row=0, column=1)
-        button_south = tk.Button(button_frame, text="South", command=lambda: self.move('S'))
+        button_south = tk.Button(button_frame, text="Down", command=lambda: self.move('S'))
         button_south.grid(row=2, column=1)
-        button_west = tk.Button(button_frame, text="West", command=lambda: self.move('W'))
+        button_west = tk.Button(button_frame, text="Left", command=lambda: self.move('A'))
         button_west.grid(row=1, column=0)
-        button_east = tk.Button(button_frame, text="East", command=lambda: self.move('E'))
+        button_east = tk.Button(button_frame, text="Right", command=lambda: self.move('D'))
         button_east.grid(row=1, column=2)
 
         describe_current_status(self.board, self.character, self.level, self.text_area)

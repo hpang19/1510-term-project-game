@@ -89,7 +89,7 @@ def print_map(character, board, level):
                 if (row, column) == current_location:
                     print('[*]', end='')
                 elif item == 'Origin':
-                    print('[ ]', end='')
+                    print('[_]', end='')
                 elif room == 'Destination':
                     print('[+]', end='')
                 elif item == 'Door':
