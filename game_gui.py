@@ -2,9 +2,6 @@
 This module serves as a main module to execute the game program.
 """
 
-import sys
-sys.path.append('..')
-
 from board.game_board import make_board, validate_move, move_chocolate, describe_current_status
 from character.game_character import make_character, move_character, pick_up_item
 from challenges.foes import check_for_foes, fight_with_foe
@@ -12,8 +9,7 @@ from teas.teas import ready_to_make_tea, make_tea
 from levels.levels import assign_new_task, unlock_next_level_rooms, steps_to_move
 
 import tkinter as tk
-from map import create_main_window, get_relief, get_text
-from prompts import Prompts
+from GUI.map import create_main_window, get_relief, get_text
 
 
 class Game:
@@ -119,4 +115,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    import json

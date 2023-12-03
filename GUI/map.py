@@ -1,6 +1,5 @@
 import json
 import tkinter as tk
-from prompts import Prompts
 
 
 def get_relief(room_description, current_level):
