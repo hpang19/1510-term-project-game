@@ -23,7 +23,7 @@ class Game:
         self.root.title('Cup of Tea')
         self.main_frame = tk.Frame(self.root, width=600, height=600)
         self.main_frame.pack(side=tk.LEFT, expand=1)
-        self.text_area = tk.Text(self.root, height=10, width=50)
+        self.text_area = tk.Text(self.root, height=15, width=70)
         self.text_area.pack()
         self.input_frame = tk.Frame(self.root, height=2, width=5)
         self.input_frame.pack()
