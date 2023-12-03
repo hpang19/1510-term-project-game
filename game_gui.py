@@ -31,7 +31,7 @@ class Game:
         self.create_buttons()
 
     def move(self, direction):
-        # steps = steps_to_move(self.level, direction, self.input_frame)
+        # steps = steps_to_move(self.level, direction, self.input_frame, self.text_area)
         steps = 1
         valid_move = validate_move(self.level, self.board, self.character, direction, steps)
 
@@ -60,19 +60,19 @@ class Game:
             return
 
         if current_room_description[2] not in ('Nothing', 'Door', 'Joey and Hsin', 'Origin'):
-            pick_up_item(self.character, self.board)
+            pick_up_item(self.character, self.board, self.text_area)
             tea_ingredients_all_set = ready_to_make_tea(self.level, self.character)
 
             if tea_ingredients_all_set:
-                make_tea(self.level, self.character)
+                make_tea(self.level, self.character, self.text_area)
                 self.level += 1
                 self.text_area.insert(tk.END, f'Nice job! You leveled up. Now your level is {self.level}.\n')
-                assign_new_task(self.level)
+                assign_new_task(self.level, self.text_area)
                 # unlock_next_level_rooms(self.level, self.board)
                 self.create_gui_game_board(self.character['coordinate'])
 
         if there_is_a_challenger:
-            fight_with_foe(current_room_description, self.character, self.input_frame)
+            fight_with_foe(current_room_description, self.character, self.input_frame, self.text_area)
 
         if self.character['caffeine'] <= 0:
             self.text_area.insert(tk.END, 'Game Over!\n')

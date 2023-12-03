@@ -8,16 +8,18 @@ from teas import TEA_MAP, TEA_RECIPE
 from GUI import prompts
 
 
-def assign_new_task(level):
+def assign_new_task(level, text_area_object=None):
     if level <= 3:
         tea = TEA_MAP[level]
         recipe = TEA_RECIPE[tea]
-        print(f'Your next task is making a {tea}. In order to make {tea}, you need to {recipe}')
+        message = f'Your next task is making a {tea}. In order to make {tea}, you need to {recipe}\n'
+        prompts.print_message(message, text_area_object)
     else:
-        print(f'You are almost there! Now go to the destination, Joey and Hsin is there waiting to challenge you!')
+        message = f'You are almost there! Now go to the destination, Joey and Hsin is there waiting to challenge you!\n'
+        prompts.print_message(message, text_area_object)
 
 
-def steps_to_move(level, direction, frame=None):
+def steps_to_move(level, direction, frame=None, text_area_object=None):
     message = f'You can move up to {level} steps a time, how many steps do you want to move in {direction} direction? '
     if level == 1:
         return 1
@@ -31,7 +33,7 @@ def steps_to_move(level, direction, frame=None):
             try:
                 steps = int(user_input)
             except ValueError:
-                print(f'{user_input} is not a valid step.')
+                prompts.print_message(f'{user_input} is not a valid step.\n', text_area_object)
             else:
                 return steps
 

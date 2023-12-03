@@ -4,6 +4,7 @@ This module includes all features related to the character.
 
 from board import DIRECTION_MAP
 import tkinter as tk
+from GUI import prompts
 
 
 def make_character():
@@ -47,7 +48,7 @@ def move_character(character, direction, steps, frame_object=None, current_room_
         label.grid(row=0, column=0)
 
 
-def pick_up_item(character, board):
+def pick_up_item(character, board, text_area_object=None):
     """
     Pick up item.
 
@@ -60,6 +61,7 @@ def pick_up_item(character, board):
     """
     item = board[character["coordinate"]][2]
     if item not in ("Nothing", "Door", "Chocolate", "Origin"):
-        print(f'Oh! There is a {item} to pick up! You picked it up and put in your shopping bag.')
+        message = f'Oh! There is a {item} to pick up! You picked it up and put in your shopping bag.\n'
+        prompts.print_message(message, text_area_object)
         character["shopping_bag"].append(item)
         board[character["coordinate"]][2] = "Nothing"

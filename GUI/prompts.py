@@ -29,3 +29,12 @@ class Prompts:
         self.wait_for_change()
         self.frame.mainloop()
         return self.entry_value.get()
+
+
+def print_message(message, text_area_object=None, clear=False):
+    if clear:
+        text_area_object.delete('1.0', tk.END)
+    if text_area_object:
+        text_area_object.insert(tk.END, message)
+    else:
+        print(message, end='')

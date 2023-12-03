@@ -17,7 +17,7 @@ def game():
     level = 1
     total_moves = 0
     print('Welcome to the game!')
-    describe_current_status(board, character, level, gui=False)
+    describe_current_status(board, character, level)
     while character['caffeine'] > 0:
         direction = input('Please select your direction: [W]: Up  [S]: Down  [A]: Left  [D]: Right: ')
         print(f'=========================================== {total_moves} ===========================================')
@@ -45,7 +45,7 @@ def game():
                 print(f'Nice job! You leveled up. Now your level is {level}.')
                 assign_new_task(level)
                 unlock_next_level_rooms(level, board)
-        describe_current_status(board, character, level, gui=False)
+        describe_current_status(board, character, level)
         there_is_a_challenger = check_for_foes(current_room_description)
         if there_is_a_challenger:
             fight_with_foe(current_room_description, character)

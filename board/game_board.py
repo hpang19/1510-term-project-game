@@ -5,7 +5,7 @@ This module includes all features related to the game board.
 from random import randint, choice
 from .rooms import kitchen_map, grocery_store_map, traditional_market_map
 from . import DIRECTION_MAP
-import tkinter as tk
+from GUI import prompts
 
 
 def make_board(rows, columns):
@@ -74,7 +74,6 @@ def validate_move(level, board, character, direction, steps):
 def move_chocolate(board, character):
     coordinate = choice(list(board.keys()))
     level = board[character['coordinate']][0]
-    print(board[coordinate], level)
     while not (board[coordinate][2] == 'Nothing' and board[coordinate][0] > min(level, 2)):
         coordinate = choice(list(board.keys()))
     board[character['coordinate']][2] = 'Nothing'
@@ -109,21 +108,17 @@ def print_map(character, board, level):
         print()
 
 
-def describe_current_status(board, character, level, text_area_object=None, gui=True):
+def describe_current_status(board, character, level, text_area_object=None):
     _, room, item = board[character['coordinate']]
     caffeine = character['caffeine']
     shopping_bag = character['shopping_bag']
     tea = character['tea']
     location_message = f'Current Level: level {level}\nYou are in the {room} with {item.lower()}.\n'
     caffeine_message = f'Caffeine Level: {caffeine}\nShopping Bag: {shopping_bag}\nTeas you have made:{tea}.\n'
-    if not gui:
+    prompts.print_message(location_message, text_area_object, clear=True)
+    prompts.print_message(caffeine_message, text_area_object)
+    if not text_area_object:
         print_map(character, board, level)
-        print(location_message, end='')
-        print(caffeine_message, end='')
-    if text_area_object:
-        text_area_object.delete('1.0', tk.END)
-        text_area_object.insert(tk.END, location_message)
-        text_area_object.insert(tk.END, caffeine_message)
 
 
 if __name__ == '__main__':
