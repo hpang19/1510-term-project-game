@@ -52,4 +52,5 @@ There may be some challenges while achieving the goal.
 Once making the tea, his caffeine level will increase. The player needs to fight against the final boss, which is 
 Joey and Hsin.
 
-[Final Boss] To win the game, you need to win from the battle with Joey and Hsin. They will
+[Final Boss] To win the game, you need to win from the battle with Joey and Hsin. They will bother you with 
+python-related questions. You have to answer the question right and then make to go work!
