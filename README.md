@@ -54,3 +54,6 @@ Joey and Hsin.
 
 [Final Boss] To win the game, you need to win from the battle with Joey and Hsin. They will bother you with 
 python-related questions. You have to answer the question right and then make to go work!
+
+*** There will be some bonus item which will cheer you up while playing the game to increase the caffeine level 
+before you make and drink the tea. You can make use of it.
