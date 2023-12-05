@@ -29,10 +29,6 @@ def check_for_foes(current_room_description):
         return True
 
 
-def selection_in_range(integer, min_value, max_value):
-    return True if min_value <= integer <= max_value else False
-
-
 def rats_challenge(location, frame, text_area_object):
     prompts.print_message(f'There is a rat {LOCATION_PREFIX[location]} {location.lower()}.\n', text_area_object)
     message = 'To proceed, you need to kill the rats. Please select a weapon to kill the rats from the list:\n'
@@ -46,7 +42,7 @@ def rats_challenge(location, frame, text_area_object):
         except ValueError:
             prompts.print_message('You have to input an integer from the list:\n', text_area_object)
         else:
-            if selection_in_range(weapon_id, 1, 3):
+            if weapon_id in (1, 2, 3):
                 message = RATS_WEAPONS[weapon_id] + '\n'
                 prompts.print_message(message, text_area_object)
                 if weapon_id != 1:
@@ -72,7 +68,7 @@ def dogs_challenge(location, frame, text_area_object):
         except ValueError:
             prompts.print_message('You have to input an integer from the list:\n', text_area_object)
         else:
-            if selection_in_range(dodge_direction, 1, 2):
+            if dodge_direction in (1, 2):
                 dodge = ["left", "right"][dodge_direction - 1]
                 dog_choice = choice([1, 2])
                 msg = f'You are dodging {dodge.upper()} and dog attacked {["left", "right"][dog_choice - 1].upper()}\n'
