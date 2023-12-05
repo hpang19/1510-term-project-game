@@ -75,6 +75,8 @@ class Game:
             print('Game Over!')
 
     def __exit__(self):
+        if not os.path.exists('data'):
+            os.makedirs('data')
         board_to_file = {}
         for coordinate, room_description in self.board.items():
             board_to_file[str(coordinate)] = room_description
