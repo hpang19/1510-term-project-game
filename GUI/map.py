@@ -1,24 +1,18 @@
 import json
 import tkinter as tk
+from . import BORDER_EFFECTS
 
 
 def get_relief(room_description, current_level):
-    border_effects = {
-        "locked": tk.FLAT,
-        "other": tk.SUNKEN,
-        "item": tk.RAISED,
-        "chocolate": tk.GROOVE,
-        "door": tk.RIDGE,
-    }
     level, room, item = room_description
     if level > current_level:
-        relief = border_effects['locked']
+        relief = BORDER_EFFECTS['locked']
     elif item == 'Door':
-        relief = border_effects['door']
+        relief = BORDER_EFFECTS['door']
     elif item == 'Nothing':
-        relief = border_effects['other']
+        relief = BORDER_EFFECTS['other']
     else:
-        relief = border_effects['item']
+        relief = BORDER_EFFECTS['item']
     return relief
 
 
