@@ -42,9 +42,9 @@ def move_character(character, direction, steps, frame_object=None, current_room_
         label = tk.Label(master=frame, text=current_room_text, width=10, height=4)
         label.grid(row=0, column=0)
 
-        frame = tk.Frame(master=frame_object, width=50, height=50, relief=tk.SUNKEN, borderwidth=2, bg='red')
+        frame = tk.Frame(master=frame_object, width=50, height=50, relief=tk.SUNKEN, borderwidth=2)
         frame.grid(row=character['coordinate'][0], column=character['coordinate'][1])
-        label = tk.Label(master=frame, text='Chris', width=10, height=4)
+        label = tk.Label(master=frame, text='Chris', width=10, height=4, bg='green', fg='white')
         label.grid(row=0, column=0)
 
 

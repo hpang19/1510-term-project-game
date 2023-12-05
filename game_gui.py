@@ -9,15 +9,15 @@ from teas.teas import ready_to_make_tea, make_tea
 from levels.levels import assign_new_task
 import tkinter as tk
 from GUI.map import get_relief, get_text
+import json
+import os
+import atexit
 
 
 class Game:
     def __init__(self):
         self.rows = 10
         self.columns = 10
-        self.character = make_character()
-        self.level = 1
-        self.board = make_board(self.rows, self.columns)
         self.root = tk.Tk()
         self.root.title('Cup of Tea')
         self.main_frame = tk.Frame(self.root, width=600, height=600)
@@ -26,7 +26,25 @@ class Game:
         self.text_area.pack()
         self.input_frame = tk.Frame(self.root, height=2, width=5)
         self.input_frame.pack()
-        self.create_gui_game_board()
+
+        if os.path.exists('data/board.json'):
+            with open('data/board.json') as json_file:
+                board = json.load(json_file)
+            self.board = {}
+            for key, value in board.items():
+                self.board[tuple(int(coord) for coord in key.replace('(', '').replace(')', '').split(', '))] = value
+        else:
+            self.board = make_board(self.rows, self.columns)
+
+        if os.path.exists('data/character.json'):
+            with open('data/character.json') as json_file:
+                self.character = json.load(json_file)
+            self.character['coordinate'] = tuple(self.character['coordinate'])
+        else:
+            self.character = make_character()
+
+        self.level = len(self.character.get('tea', [])) + 1
+        self.create_gui_game_board(self.character['coordinate'])
         self.create_buttons()
 
     def move(self, direction):
@@ -85,7 +103,7 @@ class Game:
                 label = tk.Label(master=frame, text=text, width=10, height=4)
                 label.grid(row=0, column=0)
                 if player[0] == row and player[1] == column:
-                    label = tk.Label(master=frame, text='Chris', width=10, height=4)
+                    label = tk.Label(master=frame, text='Chris', width=10, height=4, bg='green', fg='white')
                     label.grid(row=0, column=0)
 
     def create_buttons(self):
@@ -105,9 +123,23 @@ class Game:
     def create_gui(self):
         self.root.mainloop()
 
+    def __exit__(self):
+        if not os.path.exists('data'):
+            os.makedirs('data')
+        board_to_file = {}
+        for coordinate, room_description in self.board.items():
+            board_to_file[str(coordinate)] = room_description
+        with open('data/board.json', 'w') as file_object:
+            json.dump(board_to_file, file_object)
+
+        with open('data/character.json', 'w') as file_object:
+            json.dump(self.character, file_object)
+
 
 def main():
-    Game().create_gui()
+    game_instance = Game()
+    atexit.register(game_instance.__exit__)
+    game_instance.create_gui()
 
 
 if __name__ == '__main__':
