@@ -24,18 +24,9 @@ def make_board(rows, columns):
     :return: a dictionary representing the game board
     """
     board = {}
-    kitchen_rows = int(rows / 2)
-    kitchen_columns = int(columns / 2)
-    chocolate_room = (randint(0, kitchen_rows - 1), randint(0, kitchen_columns - 1))
-    kitchen = kitchen_map(kitchen_rows, kitchen_columns, chocolate_room)
-    grocery_store_origin = (choice(range(0, kitchen_rows - 2)), choice(range(kitchen_columns, columns - 3)) + 1)
-    grocery_store = grocery_store_map(grocery_store_origin, 3, 3)
-    grocery_row_range = range(grocery_store_origin[0], grocery_store_origin[0] + 3)
-    grocery_column_range = range(grocery_store_origin[1], grocery_store_origin[1] + 3)
-    market_origin = (choice(range(kitchen_rows, rows - 3)) + 1, choice(range(0, columns - 3)))
-    market = traditional_market_map(market_origin, 3, 3)
-    market_row_range = range(market_origin[0], market_origin[0] + 3)
-    market_column_range = range(market_origin[1], market_origin[1] + 3)
+    get_board_components_result = get_board_component(rows, columns)
+    (kitchen_rows, kitchen_columns, chocolate_room, kitchen, grocery_store_origin, grocery_store, grocery_row_range,
+     grocery_column_range, market_origin, market, market_row_range, market_column_range) = get_board_components_result
     for row in range(rows):
         for column in range(columns):
             if row < kitchen_rows:
@@ -52,6 +43,23 @@ def make_board(rows, columns):
                 board[(row, column)] = [3, location, item]
     board[(rows - 1, columns - 1)] = [4, 'Destination', 'Joey and Hsin']
     return board
+
+
+def get_board_component(rows, columns):
+    kitchen_rows = int(rows / 2)
+    kitchen_columns = int(columns / 2)
+    chocolate_room = (randint(0, kitchen_rows - 1), randint(0, kitchen_columns - 1))
+    kitchen = kitchen_map(kitchen_rows, kitchen_columns, chocolate_room)
+    grocery_store_origin = (choice(range(0, kitchen_rows - 2)), choice(range(kitchen_columns, columns - 3)) + 1)
+    grocery_store = grocery_store_map(grocery_store_origin, 3, 3)
+    grocery_row_range = range(grocery_store_origin[0], grocery_store_origin[0] + 3)
+    grocery_column_range = range(grocery_store_origin[1], grocery_store_origin[1] + 3)
+    market_origin = (choice(range(kitchen_rows, rows - 3)) + 1, choice(range(0, columns - 3)))
+    market = traditional_market_map(market_origin, 3, 3)
+    market_row_range = range(market_origin[0], market_origin[0] + 3)
+    market_column_range = range(market_origin[1], market_origin[1] + 3)
+    return (kitchen_rows, kitchen_columns, chocolate_room, kitchen, grocery_store_origin, grocery_store,
+            grocery_row_range, grocery_column_range, market_origin, market, market_row_range, market_column_range)
 
 
 def validate_move(level, board, character, direction, steps):
