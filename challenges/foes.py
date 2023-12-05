@@ -2,9 +2,8 @@
 This module includes all features related to the challenges.
 """
 
-from . import FOE_MAP, RATS_WEAPONS
+from . import FOE_MAP, RATS_WEAPONS, MATH_QUESTIONS, PYTHON_QUESTIONS
 from board import LOCATION_PREFIX
-from .question_bank import math_question, python_question
 from random import choice
 import sys
 sys.path.append('..')
