@@ -36,7 +36,3 @@ def steps_to_move(level, direction, frame=None, text_area_object=None):
                 prompts.print_message(f'{user_input} is not a valid step.\n', text_area_object)
             else:
                 return steps
-
-
-def unlock_next_level_rooms(level, board):
-    pass
