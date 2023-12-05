@@ -87,9 +87,8 @@ def kids_challenge(location, frame, text_area_object):
     prompts.print_message(message, text_area_object)
     message = 'You called school and the teacher comes. The teacher is challenging you with a Math question:\n'
     prompts.print_message(message, text_area_object)
-    challenges = math_question()
-    challenge_question = choice(list(challenges.keys()))
-    challenge_answer = challenges[challenge_question]
+    challenge_question = choice(list(MATH_QUESTIONS.keys()))
+    challenge_answer = MATH_QUESTIONS[challenge_question]
     if frame:
         your_answer = prompts.Prompts(frame).prompt(f'{challenge_question} ')
     else:
@@ -104,13 +103,13 @@ def kids_challenge(location, frame, text_area_object):
 
 def boss_challenge(location, character, frame, text_area_object):
     students = ['Joey', 'Hsin']
-    prompts.print_message(f'There are {students[0]} and {students[1]} {LOCATION_PREFIX[location]} {location.lower()}.\n', text_area_object)
+    message = f'There are {students[0]} and {students[1]} {LOCATION_PREFIX[location]} {location.lower()}.\n'
+    prompts.print_message(message, text_area_object)
     prompts.print_message('Final exam is approaching, they have a lot of questions to ask you.\n', text_area_object)
-    challenges = python_question()
     prompts.print_message(f'{choice(students)} has a question:\n', text_area_object)
     while not character['kill_final_boss']:
-        challenge_question = choice(list(challenges.keys()))
-        challenge_answer = challenges[challenge_question]
+        challenge_question = choice(list(PYTHON_QUESTIONS.keys()))
+        challenge_answer = PYTHON_QUESTIONS[challenge_question]
         if frame:
             your_answer = prompts.Prompts(frame).prompt(f'{challenge_question} ').upper()
         else:

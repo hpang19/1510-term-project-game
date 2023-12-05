@@ -6,7 +6,7 @@ from board.game_board import make_board, validate_move, move_chocolate, describe
 from character.game_character import make_character, move_character, pick_up_item
 from challenges.foes import check_for_foes, fight_with_foe
 from teas.teas import ready_to_make_tea, make_tea
-from levels.levels import assign_new_task, unlock_next_level_rooms, steps_to_move
+from levels.levels import assign_new_task
 
 
 def game():
@@ -25,7 +25,6 @@ def game():
         if direction.upper() not in ['W', 'S', 'A', 'D']:
             print("!!! Invalid direction !!!")
             continue
-        # steps = steps_to_move(level, direction.upper())
         valid_move = validate_move(level, board, character, direction, steps=1)
         if not valid_move:
             print('!!! You can not go in this direction, please choose direction again. !!!')
@@ -44,7 +43,6 @@ def game():
                 level += 1
                 print(f'Nice job! You leveled up. Now your level is {level}.')
                 assign_new_task(level)
-                unlock_next_level_rooms(level, board)
         describe_current_status(board, character, level)
         there_is_a_challenger = check_for_foes(current_room_description)
         if there_is_a_challenger:

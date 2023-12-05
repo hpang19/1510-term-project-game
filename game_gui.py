@@ -6,10 +6,9 @@ from board.game_board import make_board, validate_move, move_chocolate, describe
 from character.game_character import make_character, move_character, pick_up_item
 from challenges.foes import check_for_foes, fight_with_foe
 from teas.teas import ready_to_make_tea, make_tea
-from levels.levels import assign_new_task, unlock_next_level_rooms, steps_to_move
-
+from levels.levels import assign_new_task
 import tkinter as tk
-from GUI.map import create_main_window, get_relief, get_text
+from GUI.map import get_relief, get_text
 
 
 class Game:
@@ -31,7 +30,6 @@ class Game:
         self.create_buttons()
 
     def move(self, direction):
-        # steps = steps_to_move(self.level, direction, self.input_frame, self.text_area)
         steps = 1
         valid_move = validate_move(self.level, self.board, self.character, direction, steps)
 
@@ -68,7 +66,6 @@ class Game:
                 self.level += 1
                 self.text_area.insert(tk.END, f'Nice job! You leveled up. Now your level is {self.level}.\n')
                 assign_new_task(self.level, self.text_area)
-                # unlock_next_level_rooms(self.level, self.board)
                 self.create_gui_game_board(self.character['coordinate'])
 
         if there_is_a_challenger:
