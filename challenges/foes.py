@@ -29,7 +29,7 @@ def check_for_foes(current_room_description):
         return True
 
 
-def rats_challenge(location, frame, text_area_object):
+def rats_challenge(location, frame=None, text_area_object=None):
     prompts.print_message(f'There is a rat {LOCATION_PREFIX[location]} {location.lower()}.\n', text_area_object)
     message = 'To proceed, you need to kill the rats. Please select a weapon to kill the rats from the list:\n'
     prompts.print_message(message, text_area_object)
@@ -54,7 +54,7 @@ def rats_challenge(location, frame, text_area_object):
                 prompts.print_message('You have to input an integer from the list:\n', text_area_object)
 
 
-def dogs_challenge(location, frame, text_area_object):
+def dogs_challenge(location, frame=None, text_area_object=None):
     message = f'There is a dog {LOCATION_PREFIX[location]} {location.lower()}.\n'
     prompts.print_message(message, text_area_object)
     msg = 'Now the dog is trying to attack, you need to decide whether to dodge left or right. Please make a choice:\n'
@@ -78,7 +78,7 @@ def dogs_challenge(location, frame, text_area_object):
                 prompts.print_message('You have to input an integer from the list:\n', text_area_object)
 
 
-def kids_challenge(location, frame, text_area_object):
+def kids_challenge(location, frame=None, text_area_object=None):
     message = f'There are kids running {LOCATION_PREFIX[location]} {location.lower()}.\n'
     prompts.print_message(message, text_area_object)
     message = 'You called school and the teacher comes. The teacher is challenging you with a Math question:\n'
@@ -97,7 +97,7 @@ def kids_challenge(location, frame, text_area_object):
     return your_answer == challenge_answer
 
 
-def boss_challenge(location, character, frame, text_area_object):
+def boss_challenge(location, character, frame=None, text_area_object=None):
     students = ['Joey', 'Hsin']
     message = f'There are {students[0]} and {students[1]} {LOCATION_PREFIX[location]} {location.lower()}.\n'
     prompts.print_message(message, text_area_object)
