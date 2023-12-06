@@ -13,7 +13,13 @@ import atexit
 
 
 class Game:
+    """
+    Class representing the game.
+    """
     def __init__(self):
+        """
+        Initialize the Game class.
+        """
         self.rows = 10
         self.columns = 10
 
@@ -34,6 +40,12 @@ class Game:
             self.character = make_character()
 
     def game(self):
+        """
+        Run the game loop.
+
+        :precondition: The board and character data must be initialized before starting the game.
+        :postcondition: The game ends when the player's caffeine level reaches zero or the final boss is defeated.
+        """
         print(self.character)
         level = len(self.character.get('tea', [])) + 1
         total_moves = 0
@@ -75,6 +87,9 @@ class Game:
             print('Game Over!')
 
     def __exit__(self):
+        """
+        Saves the game state when exit.
+        """
         if not os.path.exists('data'):
             os.makedirs('data')
         board_to_file = {}
@@ -88,6 +103,9 @@ class Game:
 
 
 def main():
+    """
+    Drive the program.
+    """
     game_instance = Game()
     atexit.register(game_instance.__exit__)
     game_instance.game()
