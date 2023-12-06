@@ -15,7 +15,13 @@ import atexit
 
 
 class Game:
+    """
+    Class representing the game.
+    """
     def __init__(self):
+        """
+        Initialize the Game class.
+        """
         self.rows = 10
         self.columns = 10
         self.root = tk.Tk()
@@ -48,6 +54,14 @@ class Game:
         self.create_buttons()
 
     def move(self, direction):
+        """
+        Move the character in the specified direction and execute the corresponding task in new location.
+
+        :param direction: a string representing direction to move
+        :precondition: direction must be one of 'W', 'S', 'A', or 'D'
+        :postcondition: moves the character in the given direction and updates the game status and GUI accordingly
+        """
+
         steps = 1
         valid_move = validate_move(self.level, self.board, self.character, direction, steps)
 
@@ -93,6 +107,13 @@ class Game:
             self.text_area.insert(tk.END, 'Game Over!\n')
 
     def create_gui_game_board(self, player=(0, 0)):
+        """
+        Create the GUI representation of the game board.
+
+        :param player: a tuple representing the coordinates of the player's position, default to (0,0)
+        :precondition: player should be a tuple of two integers representing the player's position.
+        :postcondition: creates a graphical representation of the game board using tkinter.
+        """
         for row in range(self.rows):
             for column in range(self.columns):
                 room_description = self.board[(row, column)]
@@ -107,6 +128,12 @@ class Game:
                     label.grid(row=0, column=0)
 
     def create_buttons(self):
+        """
+        Create navigation buttons for the GUI.
+
+        :precondition: GUI root must be initialized already.
+        :postcondition: creates navigation buttons for the GUI.
+        """
         button_frame = tk.Frame(self.root)
         button_frame.pack(side=tk.LEFT)
         button_north = tk.Button(button_frame, text="Up", command=lambda: self.move('W'))
@@ -121,9 +148,18 @@ class Game:
         describe_current_status(self.board, self.character, self.level, self.text_area)
 
     def create_gui(self):
+        """
+        Start the main loop.
+
+        :precondition: GUI root must be initialized already.
+        :postcondition: main loop started here
+        """
         self.root.mainloop()
 
     def __exit__(self):
+        """
+        Saves the game state when exit.
+        """
         if not os.path.exists('data'):
             os.makedirs('data')
         board_to_file = {}
@@ -137,6 +173,9 @@ class Game:
 
 
 def main():
+    """
+    Drive the program.
+    """
     game_instance = Game()
     atexit.register(game_instance.__exit__)
     game_instance.create_gui()
