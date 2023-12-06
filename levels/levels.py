@@ -8,7 +8,20 @@ from teas import TEA_MAP, TEA_RECIPE
 from GUI import prompts
 
 
-def assign_new_task(level, text_area_object=None):
+def assign_new_task(level: int, text_area_object=None):
+    """
+    Assigns a new task based on the given level and displays it.
+
+    :param level: an integer representing the current level
+    :postcondition: print the new task based on level
+
+    Example:
+    >>> assign_new_task(2)
+    Your next task is making a Green Tea. In order to make Green Tea, you need to boil water and add matcha powder
+
+    >>> assign_new_task(4)
+    You are almost there! Now go to the destination, Joey and Hsin are waiting to challenge you!
+    """
     if level <= 3:
         tea = TEA_MAP[level]
         recipe = TEA_RECIPE[tea]
