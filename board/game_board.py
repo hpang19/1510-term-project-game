@@ -8,7 +8,7 @@ from . import DIRECTION_MAP
 from GUI import prompts
 
 
-def make_board(rows, columns):
+def make_board(rows: int, columns: int) -> dict:
     """
     Create a board for the game and return the board in dictionary.
 
@@ -45,7 +45,16 @@ def make_board(rows, columns):
     return board
 
 
-def get_board_component(rows, columns):
+def get_board_component(rows: int, columns: int) -> tuple:
+    """
+    Get board components for creating the game board.
+
+    :param rows: a positive integer
+    :param columns: a positive integer
+    :precondition: rows is a positive integer not less than 10
+    :precondition: columns is a positive integer not less than 10
+    :return: a tuple of various board components
+    """
     kitchen_rows = int(rows / 2)
     kitchen_columns = int(columns / 2)
     chocolate_room = (randint(0, kitchen_rows - 1), randint(0, kitchen_columns - 1))
@@ -62,7 +71,28 @@ def get_board_component(rows, columns):
             grocery_row_range, grocery_column_range, market_origin, market, market_row_range, market_column_range)
 
 
-def validate_move(level, board, character, direction, steps):
+def validate_move(level: int, board: dict, character: dict, direction: str, steps: int) -> bool:
+    """
+    Validate a move in the game.
+
+    :param level: an integer representing the current level
+    :param board: a dictionary representing the game board
+    :param character: a dictionary representing the game character
+    :param direction: a string representing the direction in ('W', 'S', 'A', or 'D')
+    :param steps: an integer representing the number of steps to move
+    :precondition: board is a dictionary with keys in tuples of coordinates
+    :precondition: character is a dictionary that has a key called "coordinate"
+    :postcondition: validate the move and return a boolean for whether move is valid
+    :return: a boolean indicating if the move is valid
+
+    >>> board_test = {(0, 0): [1, 'Kitchen', 'Nothing'], (0, 1): [1, 'Kitchen', 'Chocolate'], (1, 0): [2, 'Kitchen',
+    ... 'Nothing'], (1, 1): [2, 'Kitchen', 'Door']}
+    >>> character_test = {'coordinate': (0, 0)}
+    >>> validate_move(1, board_test, character_test, 'D', 1)
+    True
+    >>> validate_move(1, board_test, character_test, 'S', 1)
+    False
+    """
     move = DIRECTION_MAP[direction.upper()]
     move = (move[0] * steps, move[1] * steps)
     current_coordinate = character['coordinate']
@@ -79,7 +109,16 @@ def validate_move(level, board, character, direction, steps):
     return valid_move
 
 
-def move_chocolate(board, character):
+def move_chocolate(board: dict, character: dict):
+    """
+    Move the chocolate item in the game board.
+
+    :param board: a dictionary representing the game board
+    :param character: a dictionary representing the game character
+    :precondition: board is a dictionary with keys in tuples of coordinates
+    :precondition: character is a dictionary that has a key called "coordinate"
+    :postcondition: move the chocolate on the board
+    """
     coordinate = choice(list(board.keys()))
     level = board[character['coordinate']][0]
     while not (board[coordinate][2] == 'Nothing' and board[coordinate][0] > min(level, 2)):
@@ -88,7 +127,17 @@ def move_chocolate(board, character):
     board[coordinate][2] = 'Chocolate'
 
 
-def print_map(character, board, level):
+def print_map(character: dict, board: dict, level: int):
+    """
+    Print a map representation of the game board to the terminal.
+
+    :param character: a dictionary representing the game character
+    :param board: a dictionary representing the game board
+    :param level: an integer representing the current level
+    :precondition: board is a dictionary with keys in tuples of coordinates
+    :precondition: character is a dictionary that has a key called "coordinate"
+    :postcondition: print the map in the terminal for non-gui game version
+    """
     current_location = character['coordinate']
     for row in range(10):
         for column in range(10):
@@ -116,7 +165,17 @@ def print_map(character, board, level):
         print()
 
 
-def describe_current_status(board, character, level, text_area_object=None):
+def describe_current_status(board: dict, character: dict, level: int, text_area_object: object = None):
+    """
+    Describe the current status of the game.
+
+    :param board: a dictionary representing the game board
+    :param character: a dictionary representing the game character
+    :param level: an integer representing the current level
+    :precondition: board is a dictionary with keys in tuples of coordinates
+    :precondition: character is a dictionary that has a key called "coordinate"
+    :postcondition: print the current status of the game
+    """
     _, room, item = board[character['coordinate']]
     caffeine = character['caffeine']
     shopping_bag = character['shopping_bag']
