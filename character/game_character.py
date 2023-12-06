@@ -7,7 +7,7 @@ import tkinter as tk
 from GUI import prompts
 
 
-def make_character():
+def make_character() -> dict:
     """
     Create a character.
 
@@ -30,7 +30,25 @@ def make_character():
     return character
 
 
-def move_character(character, direction, steps, frame_object=None, current_room_text=None, current_relief=None):
+def move_character(character: dict, direction: str, steps: int, frame_object=None, current_room_text=None,
+                   current_relief=None):
+    """
+    Move the character on the game board in a specified direction.
+
+    :param character: a dictionary representing the game character with a 'coordinate' key
+    :param direction: a string indicating the direction of movement ('W', 'S', 'A', 'D')
+    :param steps: an integer indicating the number of steps to move
+    :precondition: character is a dictionary that has a key called "coordinate"
+    :postcondition: move the character on the game board in a specified direction
+
+    >>> character_test = {'coordinate': (3, 3)}
+    >>> move_character(character_test, 'S', 2)
+    >>> character_test['coordinate']
+    (1, 3)
+    >>> move_character(character_test, 'A', 1)
+    >>> character_test['coordinate']
+    (1, 2)
+    """
     move = DIRECTION_MAP[direction.upper()]
     move = (move[0] * steps, move[1] * steps)
     current_coordinate = character['coordinate']
@@ -48,16 +66,24 @@ def move_character(character, direction, steps, frame_object=None, current_room_
         label.grid(row=0, column=0)
 
 
-def pick_up_item(character, board, text_area_object=None):
+def pick_up_item(character: dict, board: dict, text_area_object=None):
     """
-    Pick up item.
+    Pick up item by appending new item to character's shopping bag.
 
-    A simple function that appends new item to character's shopping bag.
+    :param character: a dictionary
+    :param board: a dictionary
+    :precondition: board is a dictionary with keys in tuples of coordinates
+    :precondition: character is a dictionary that has a key called "coordinate"
+    :postcondition: appending new item to character's shopping bag and remove item from the board
 
-    :param character: a non-empty dictionary
-    :param board: a non-empty dictionary
-    :precondition:
-    :return:
+    >>> character_test = {'coordinate': (2, 3), 'shopping_bag': []}
+    >>> board_test = {(2, 3): [1, 'Kitchen', 'Tea']}
+    >>> pick_up_item(character_test, board_test)
+    'Oh! There is a Tea to pick up! You picked it up and put in your shopping bag.'
+    >>> character_test['shopping_bag']
+    ['Tea']
+    >>> board_test[(2, 3)]
+    [1, 'Kitchen', 'Nothing']
     """
     item = board[character["coordinate"]][2]
     if item not in ("Nothing", "Door", "Chocolate", "Origin"):
