@@ -17,11 +17,11 @@ RATS_WEAPONS = {
 }
 
 MATH_QUESTIONS = {
-        '5x + 5 = 10; Therefore x = ': '1',
-        'What is the square root of 10000?': '100',
+    '5x + 5 = 10; Therefore x = ': '1',
+    'What is the square root of 10000?': '100',
 }
 
 PYTHON_QUESTIONS = {
-        'List is mutable. (Enter "T" for True or "F" for False)': 'T',
-        'Python is static typed language. (Enter "T" for True or "F" for False)': 'F',
+    'List is mutable. (Enter "T" for True or "F" for False)': 'T',
+    'Python is static typed language. (Enter "T" for True or "F" for False)': 'F',
 }
