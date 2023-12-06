@@ -165,7 +165,7 @@ def print_map(character: dict, board: dict, level: int):
         print()
 
 
-def describe_current_status(board: dict, character: dict, level: int, text_area_object: object = None):
+def describe_current_status(board: dict, character: dict, level: int, text_area_object = None):
     """
     Describe the current status of the game.
 

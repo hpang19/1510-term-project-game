@@ -53,7 +53,7 @@ def check_for_foes(current_room_description: list) -> bool:
         return True
 
 
-def rats_challenge(location: str, frame: object = None, text_area_object: object = None) -> bool:
+def rats_challenge(location: str, frame=None, text_area_object=None) -> bool:
     """
     Engage in a challenge against rats in a specific location.
 
@@ -89,7 +89,7 @@ def rats_challenge(location: str, frame: object = None, text_area_object: object
                 prompts.print_message('You have to input an integer from the list:\n', text_area_object)
 
 
-def dogs_challenge(location: str, frame: object = None, text_area_object: object = None) -> bool:
+def dogs_challenge(location: str, frame=None, text_area_object=None) -> bool:
     """
     Engage in a challenge against dogs in a specific location.
 
@@ -124,7 +124,7 @@ def dogs_challenge(location: str, frame: object = None, text_area_object: object
                 prompts.print_message('You have to input an integer from the list:\n', text_area_object)
 
 
-def kids_challenge(location: str, frame: object = None, text_area_object: object = None) -> bool:
+def kids_challenge(location: str, frame=None, text_area_object=None) -> bool:
     """
     Engage in a challenge against kids in a specific location.
 
@@ -154,7 +154,7 @@ def kids_challenge(location: str, frame: object = None, text_area_object: object
     return your_answer == challenge_answer
 
 
-def boss_challenge(location: str, character: dict, frame: object = None, text_area_object: object = None) -> None:
+def boss_challenge(location: str, character: dict, frame=None, text_area_object=None) -> None:
     """
     Engage in a challenge against the boss character at a specific location.
 
@@ -188,7 +188,7 @@ def boss_challenge(location: str, character: dict, frame: object = None, text_ar
             prompts.print_message(f'Now {choice(students)} has another question:\n', text_area_object)
 
 
-def fight_with_foe(current_room: list, character: dict, frame: object = None, text_area_object: object = None):
+def fight_with_foe(current_room: list, character: dict, frame=None, text_area_object=None):
     """
     Fight with a foe and calculate caffeine level based on fight result.
 
