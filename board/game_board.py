@@ -186,12 +186,3 @@ def describe_current_status(board: dict, character: dict, level: int, text_area_
     prompts.print_message(caffeine_message, text_area_object)
     if not text_area_object:
         print_map(character, board, level)
-
-
-if __name__ == '__main__':
-    import pandas as pd
-    test_board = make_board(10, 10)
-    df = pd.DataFrame(index=range(10), columns=range(10))
-    for coord, data in test_board.items():
-        df.iloc[*coord] = data
-    df.to_excel('map_demo.xlsx')
