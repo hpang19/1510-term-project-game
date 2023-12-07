@@ -1,3 +1,7 @@
+"""
+This module includes all features related to the GUI map.
+"""
+
 import json
 import tkinter as tk
 from . import BORDER_EFFECTS

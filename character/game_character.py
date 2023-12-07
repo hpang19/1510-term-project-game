@@ -35,6 +35,8 @@ def move_character(character: dict, direction: str, steps: int, frame_object=Non
     """
     Move the character on the game board in a specified direction.
 
+    The "step" arguent is not in used for the most recent version. Will be deprecated in the next update.
+
     :param character: a dictionary representing the game character with a 'coordinate' key
     :param direction: a string indicating the direction of movement ('W', 'S', 'A', 'D')
     :param steps: an integer indicating the number of steps to move

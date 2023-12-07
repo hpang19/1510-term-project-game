@@ -2,7 +2,7 @@
 This module includes all features related to the teas.
 """
 
-from . import TEA_MAP
+from teas import TEA_MAP
 from GUI import prompts
 
 

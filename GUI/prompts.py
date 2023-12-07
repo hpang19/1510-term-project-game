@@ -1,5 +1,8 @@
+"""
+This module includes all features related to the GUI prompt.
+"""
+
 import tkinter as tk
-# from tkinter import font
 
 
 class Prompts:

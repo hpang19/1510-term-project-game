@@ -3,8 +3,8 @@ This module includes all features related to the game board.
 """
 
 from random import randint, choice
-from .rooms import kitchen_map, grocery_store_map, traditional_market_map
-from . import DIRECTION_MAP
+from board.rooms import kitchen_map, grocery_store_map, traditional_market_map
+from board import DIRECTION_MAP
 from GUI import prompts
 
 
