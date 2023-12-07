@@ -8,6 +8,7 @@ from random import choice
 import sys
 sys.path.append('..')
 from GUI import prompts
+from levels import ASCII_ART
 
 
 def get_foe(current_room_description: list) -> str:
@@ -172,7 +173,9 @@ def boss_challenge(location: str, character: dict, frame=None, text_area_object=
         challenge_question = choice(list(PYTHON_QUESTIONS.keys()))
         challenge_answer = PYTHON_QUESTIONS[challenge_question]
         if frame:
-            your_answer = prompts.Prompts(frame).prompt(f'{challenge_question} ').upper()
+            message = ASCII_ART + '\n\n' + 'Congratulations, Chris! You defeated Joey and Hsin!'
+            your_answer = prompts.Prompts(frame).prompt(f'{challenge_question} ',
+                                                        prompts.print_message(message, text_area_object)).upper()
         else:
             your_answer = input(f'{challenge_question} ').upper()
         if your_answer == challenge_answer:

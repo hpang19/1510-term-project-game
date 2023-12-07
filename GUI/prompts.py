@@ -32,11 +32,12 @@ class Prompts:
             self.greeting.pack_forget()
             self.entry.pack_forget()
 
-    def prompt(self, message: str) -> str:
+    def prompt(self, message: str, callback_function=None) -> str:
         """
-        Prompt for input and get the user input value.
+        Prompt for input and get the user input value. When get the text entry back, execute the callback function.
 
         :param message: a string
+        :callback_function: a function to be called in this function
         :return: a string input from player
         """
         self.greeting = tk.Label(self.frame, text=message, width=50)
@@ -46,6 +47,8 @@ class Prompts:
         self.entry.bind("<Return>", self.on_return)
         self.wait_for_change()
         self.frame.mainloop()
+        if callback_function:
+            callback_function(self.entry_value.get().upper())
         return self.entry_value.get()
 
 
