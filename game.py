@@ -48,7 +48,6 @@ class Game:
         :precondition: The board and character data must be initialized before starting the game.
         :postcondition: The game ends when the player's caffeine level reaches zero or the final boss is defeated.
         """
-        print(self.character)
         level = len(self.character.get('tea', [])) + 1
         print('Welcome to the game!')
         describe_current_status(self.board, self.character, level)
