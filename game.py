@@ -10,6 +10,7 @@ from levels.levels import assign_new_task
 import json
 import os
 import atexit
+import itertools
 
 
 class Game:
@@ -20,6 +21,7 @@ class Game:
         """
         Initialize the Game class.
         """
+        self.move_count = itertools.count(0)
         self.rows = 10
         self.columns = 10
 
@@ -48,13 +50,11 @@ class Game:
         """
         print(self.character)
         level = len(self.character.get('tea', [])) + 1
-        total_moves = 0
         print('Welcome to the game!')
         describe_current_status(self.board, self.character, level)
         while self.character['caffeine'] > 0:
             direction = input('Please select your direction: [W]: Up  [S]: Down  [A]: Left  [D]: Right: ')
-            print(f'========================================= {total_moves} =========================================')
-            total_moves += 1
+            print(f'==================================== {next(self.move_count)} ====================================')
             if direction.upper() not in ['W', 'S', 'A', 'D']:
                 print("!!! Invalid direction !!!")
                 continue
