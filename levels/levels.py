@@ -6,6 +6,7 @@ import sys
 sys.path.append("..")
 from teas import TEA_MAP, TEA_RECIPE
 from GUI import prompts
+from levels import ASCII_ART
 
 
 def assign_new_task(level: int, text_area_object=None):
@@ -30,3 +31,7 @@ def assign_new_task(level: int, text_area_object=None):
     else:
         message = f'You are almost there! Now go to the destination, Joey and Hsin is there waiting to challenge you!\n'
         prompts.print_message(message, text_area_object)
+
+
+def print_ASCII():
+    print(ASCII_ART)

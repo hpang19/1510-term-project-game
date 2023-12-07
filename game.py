@@ -6,7 +6,7 @@ from board.game_board import make_board, validate_move, move_chocolate, describe
 from character.game_character import make_character, move_character, pick_up_item
 from challenges.foes import check_for_foes, fight_with_foe
 from teas.teas import ready_to_make_tea, make_tea
-from levels.levels import assign_new_task
+from levels.levels import assign_new_task, print_ASCII
 import json
 import os
 import atexit
@@ -82,6 +82,7 @@ class Game:
                 fight_with_foe(current_room_description, self.character)
             if self.character['kill_final_boss']:
                 print('Congratulation! You won!')
+                print_ASCII()
                 break
         if self.character['caffeine'] <= 0:
             print('Game Over!')
