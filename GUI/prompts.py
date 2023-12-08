@@ -51,7 +51,7 @@ class Prompts:
         self.wait_for_change()
         self.frame.mainloop()
         if callback_function:
-            callback_function(self.entry_value.get().upper())
+            callback_function(self.entry_value.get())
         return self.entry_value.get()
 
 

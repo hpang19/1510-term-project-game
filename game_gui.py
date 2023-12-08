@@ -12,6 +12,7 @@ from GUI.map import get_relief, get_text
 import json
 import os
 import atexit
+import itertools
 
 
 class Game:
@@ -33,25 +34,41 @@ class Game:
         self.input_frame = tk.Frame(self.root, height=2, width=5)
         self.input_frame.pack()
 
-        if os.path.exists('data/board.json'):
-            with open('data/board.json') as json_file:
-                board = json.load(json_file)
-            self.board = {}
-            for key, value in board.items():
-                self.board[tuple(int(coord) for coord in key.replace('(', '').replace(')', '').split(', '))] = value
+        board_file = self.__check_file_exist('data', 'board_', '.json')
+        character_file = self.__check_file_exist('data', 'character_', '.json')
+        if board_file and character_file:
+            current_try = int(board_file.split('_')[1].split('.')[0])
+            self.current_count = itertools.count(current_try)
+            self.__load_player(board_file, character_file)
+            if self.character['kill_final_boss']:
+                next(self.current_count)
+                self.board = make_board(self.rows, self.columns)
+                self.character = make_character()
         else:
             self.board = make_board(self.rows, self.columns)
-
-        if os.path.exists('data/character.json'):
-            with open('data/character.json') as json_file:
-                self.character = json.load(json_file)
-            self.character['coordinate'] = tuple(self.character['coordinate'])
-        else:
             self.character = make_character()
+            self.current_count = itertools.count(0)
 
         self.level = len(self.character.get('tea', [])) + 1
         self.create_gui_game_board(self.character['coordinate'])
         self.create_buttons()
+
+    def __load_player(self, board_file, character_file):
+        with open(f'data/{board_file}') as json_file:
+            board = json.load(json_file)
+        self.board = {}
+        for key, value in board.items():
+            self.board[tuple(int(coord) for coord in key.replace('(', '').replace(')', '').split(', '))] = value
+        with open(f'data/{character_file}') as json_file:
+            self.character = json.load(json_file)
+        self.character['coordinate'] = tuple(self.character['coordinate'])
+
+    def __check_file_exist(self, directory, prefix, suffix):
+        if os.path.exists(directory):
+            files = os.listdir(directory)
+            matching_files = [file for file in files if file.startswith(prefix) and file.endswith(suffix)]
+            if matching_files:
+                return matching_files[-1]
 
     def move(self, direction):
         """
@@ -160,15 +177,16 @@ class Game:
         """
         Saves the game state when exit.
         """
+        current_count = next(self.current_count)
         if not os.path.exists('data'):
             os.makedirs('data')
         board_to_file = {}
         for coordinate, room_description in self.board.items():
             board_to_file[str(coordinate)] = room_description
-        with open('data/board.json', 'w') as file_object:
+        with open(f'data/board_{current_count}.json', 'w') as file_object:
             json.dump(board_to_file, file_object)
 
-        with open('data/character.json', 'w') as file_object:
+        with open(f'data/character_{current_count}.json', 'w') as file_object:
             json.dump(self.character, file_object)
 
 
