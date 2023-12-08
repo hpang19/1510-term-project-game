@@ -37,5 +37,5 @@ def print_ASCII():
     print(ASCII_ART)
 
 
-def print_KO()
+def print_KO():
     print(KO_ART)

@@ -54,7 +54,7 @@ def check_for_foes(current_room_description: list) -> bool:
         return True
 
 
-def rats_challenge(location: str, frame=None, text_area_object=None) -> bool:
+def rats_challenge(location: str, character: dict, frame=None, text_area_object=None) -> bool:
     """
     Engage in a challenge against rats in a specific location.
 
@@ -69,25 +69,24 @@ def rats_challenge(location: str, frame=None, text_area_object=None) -> bool:
     prompts.print_message(f'There is a rat {LOCATION_PREFIX[location]} {location.lower()}.\n', text_area_object)
     message = 'To proceed, you need to kill the rats. Please select a weapon to kill the rats from the list:\n'
     prompts.print_message(message, text_area_object)
-    while True:
-        try:
-            if frame:
-                weapon_id = int(prompts.Prompts(frame).prompt('[1]: Air Gun  [2]: Pesticides  [3] Hot Water '))
-            else:
-                weapon_id = int(input('[1]: Air Gun  [2]: Pesticides  [3] Hot Water '))
-        except ValueError:
-            prompts.print_message('You have to input an integer from the list:\n', text_area_object)
-        else:
-            if weapon_id in (1, 2, 3):
-                message = RATS_WEAPONS[weapon_id] + '\n'
-                prompts.print_message(message, text_area_object)
-                if weapon_id != 1:
-                    message = 'Keep trying, Chris! \nPlease select another weapon from the list\n'
-                    prompts.print_message(message, text_area_object)
-                else:
-                    return True
-            else:
-                prompts.print_message('You have to input an integer from the list:\n', text_area_object)
+    challenge_question = '[1]: Air Gun  [2]: Pesticides  [3] Hot Water '
+    if frame:
+        prompts.Prompts(frame).prompt(challenge_question, rats_callback, character=character,
+                                      text_area_object=text_area_object)
+    else:
+        weapon_id = int(input('[1]: Air Gun  [2]: Pesticides  [3] Hot Water '))
+
+
+def rats_callback(answer, character, text_area_object=None):
+    if answer in ('1', '2', '3'):
+        weapon_id = int(answer)
+        message = RATS_WEAPONS[weapon_id] + '\n'
+        prompts.print_message(message, text_area_object)
+        if weapon_id != 1:
+            penalty(answer, character, 10, text_area_object)
+    else:
+        prompts.print_message("Why do you choose an option that's not in the list, Chris?\n", text_area_object)
+        penalty(1, character, 10, text_area_object)
 
 
 def dogs_challenge(location: str, frame=None, text_area_object=None) -> bool:
@@ -187,13 +186,17 @@ def boss_callback(answer, challenge_answer, character, text_area_object=None):
         message = ASCII_ART + '\n\n' + 'Congratulations, Chris! You defeated Joey and Hsin!'
         prompts.print_message(message, text_area_object)
     else:
-        prompts.print_message(f'[X] The answer is {answer}.\n', text_area_object)
-        character['caffeine'] -= 500
-        message = f'Your caffeine just dropped 50. Your current caffeine level is {max(character["caffeine"], 0)}\n'
+        penalty(challenge_answer, character, 500, text_area_object)
+
+
+def penalty(answer, character, loss_caffeine, text_area_object):
+    prompts.print_message(f'[X] The answer should be {answer}.\n', text_area_object)
+    character['caffeine'] -= loss_caffeine
+    message = f'Your caffeine just dropped {loss_caffeine}. Your current caffeine level is {max(character["caffeine"], 0)}\n'
+    prompts.print_message(message, text_area_object)
+    if character['caffeine'] <= 0:
+        message = KO_ART + '\n\n' + "You have run out of your caffeine! :'(\n"
         prompts.print_message(message, text_area_object)
-        if character['caffeine'] <= 0:
-            message = KO_ART + '\n\n' + "You have run out of your caffeine! :'(\n"
-            prompts.print_message(message, text_area_object)
 
 
 def fight_with_foe(current_room: list, character: dict, frame=None, text_area_object=None):
@@ -207,7 +210,7 @@ def fight_with_foe(current_room: list, character: dict, frame=None, text_area_ob
     """
     foe = get_foe(current_room)
     if foe == 'rats':
-        rats_challenge(current_room[1], frame, text_area_object)
+        rats_challenge(current_room[1], character, frame, text_area_object)
     elif foe == 'dogs':
         success = dogs_challenge(current_room[1], frame, text_area_object)
         if not success:
