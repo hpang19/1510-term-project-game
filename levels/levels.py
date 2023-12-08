@@ -36,5 +36,6 @@ def assign_new_task(level: int, text_area_object=None):
 def print_ASCII():
     print(ASCII_ART)
 
+
 def print_KO()
     print(KO_ART)
