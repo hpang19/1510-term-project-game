@@ -13,6 +13,8 @@ class Prompts:
         """
         Initialize the Prompts class.
         """
+        self.callback = None
+        self.kwarg = {}
         self.frame = frame
         self.entry_value = tk.StringVar()
         self.greeting = None
@@ -24,6 +26,8 @@ class Prompts:
         Handles the event when the "Return" key is pressed.
         """
         self.entry_changed = True
+        if self.callback:
+            self.callback(self.entry_value.get(), **self.kwarg)
 
     def wait_for_change(self):
         """
@@ -35,7 +39,7 @@ class Prompts:
             self.greeting.pack_forget()
             self.entry.pack_forget()
 
-    def prompt(self, message: str, callback_function=None) -> str:
+    def prompt(self, message: str, callback_function=None, **kwarg) -> str:
         """
         Prompt for input and get the user input value. When get the text entry back, execute the callback function.
 
@@ -47,11 +51,11 @@ class Prompts:
         self.greeting.pack()
         self.entry = tk.Entry(self.frame, textvariable=self.entry_value, width=5)
         self.entry.pack()
+        self.callback = callback_function
+        self.kwarg = kwarg
         self.entry.bind("<Return>", self.on_return)
         self.wait_for_change()
         self.frame.mainloop()
-        if callback_function:
-            callback_function(self.entry_value.get())
         return self.entry_value.get()
 
 

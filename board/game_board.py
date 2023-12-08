@@ -101,7 +101,7 @@ def validate_move(level: int, board: dict, character: dict, direction: str, step
     if new_coordinate in board and board[new_coordinate][0] <= level:
         current_location = board[current_coordinate][1]
         new_location = board[new_coordinate][1]
-        if new_location == current_location:
+        if new_location == current_location or current_location == 'Destination':
             valid_move = True
         else:
             if new_location == 'Destination' or 'Door' in (board[new_coordinate][2], board[current_coordinate][2]):

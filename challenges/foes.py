@@ -8,7 +8,7 @@ from random import choice
 import sys
 sys.path.append('..')
 from GUI import prompts
-from levels import ASCII_ART
+from levels import ASCII_ART, KO_ART
 
 
 def get_foe(current_room_description: list) -> str:
@@ -169,26 +169,31 @@ def boss_challenge(location: str, character: dict, frame=None, text_area_object=
     prompts.print_message(message, text_area_object)
     prompts.print_message('Final exam is approaching, they have a lot of questions to ask you.\n', text_area_object)
     prompts.print_message(f'{choice(students)} has a question:\n', text_area_object)
-    while not character['kill_final_boss']:
-        challenge_question = choice(list(PYTHON_QUESTIONS.keys()))
-        challenge_answer = PYTHON_QUESTIONS[challenge_question]
-        if frame:
-            message = ASCII_ART + '\n\n' + 'Congratulations, Chris! You defeated Joey and Hsin!'
-            your_answer = prompts.Prompts(frame).prompt(f'{challenge_question} ',
-                                                        prompts.print_message(message, text_area_object)).upper()
-        else:
-            your_answer = input(f'{challenge_question} ').upper()
-        if your_answer == challenge_answer:
-            character['kill_final_boss'] = True
-        else:
-            prompts.print_message(f'[X] The answer is {challenge_answer}.\n', text_area_object)
-            character['caffeine'] -= 50
-            message = f'Your caffeine just dropped 50. Your current caffeine level is {max(character["caffeine"], 0)}\n'
+
+    challenge_question = choice(list(PYTHON_QUESTIONS.keys()))
+    challenge_answer = PYTHON_QUESTIONS[challenge_question]
+    if frame:
+        prompts.Prompts(frame).prompt(f'{challenge_question} ', boss_callback,
+                                      challenge_answer=challenge_answer, character=character,
+                                      text_area_object=text_area_object)
+    else:
+        your_answer = input(f'{challenge_question} ').upper()
+        boss_callback(your_answer, challenge_answer, character)
+
+
+def boss_callback(answer, challenge_answer, character, text_area_object=None):
+    if challenge_answer == answer:
+        character['kill_final_boss'] = True
+        message = ASCII_ART + '\n\n' + 'Congratulations, Chris! You defeated Joey and Hsin!'
+        prompts.print_message(message, text_area_object)
+    else:
+        prompts.print_message(f'[X] The answer is {answer}.\n', text_area_object)
+        character['caffeine'] -= 500
+        message = f'Your caffeine just dropped 50. Your current caffeine level is {max(character["caffeine"], 0)}\n'
+        prompts.print_message(message, text_area_object)
+        if character['caffeine'] <= 0:
+            message = KO_ART + '\n\n' + "You have run out of your caffeine! :'(\n"
             prompts.print_message(message, text_area_object)
-            if character['caffeine'] <= 0:
-                prompts.print_message('You have run out of your caffeine!\n', text_area_object)
-                return
-            prompts.print_message(f'Now {choice(students)} has another question:\n', text_area_object)
 
 
 def fight_with_foe(current_room: list, character: dict, frame=None, text_area_object=None):
