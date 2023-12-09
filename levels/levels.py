@@ -6,7 +6,7 @@ import sys
 sys.path.append("..")
 from teas import TEA_MAP, TEA_RECIPE
 from GUI import prompts
-from levels import ASCII_ART, KO_ART
+from levels import ASCII_ART, KO_ART, HOORAY_ART
 
 
 def assign_new_task(level: int, text_area_object=None):
@@ -39,3 +39,6 @@ def print_ASCII():
 
 def print_KO():
     print(KO_ART)
+
+def print_HOORAY():
+    print(HOORAY_ART)

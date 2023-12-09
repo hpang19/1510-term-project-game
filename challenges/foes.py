@@ -8,7 +8,7 @@ from random import choice
 import sys
 sys.path.append('..')
 from GUI import prompts
-from levels import ASCII_ART, KO_ART
+from levels import HOORAY_ART, KO_ART
 
 
 def get_foe(current_room_description: list) -> str:
@@ -189,7 +189,7 @@ def boss_challenge(location: str, character: dict, frame=None, text_area_object=
 def boss_callback(answer, challenge_answer, character, text_area_object=None, button_frame=None):
     if challenge_answer == answer:
         character['kill_final_boss'] = True
-        message = ASCII_ART + '\n\n' + 'Congratulations, Chris! You defeated Joey and Hsin!'
+        message = HOORAY_ART + '\n\n' + 'Congratulations, Chris! You defeated Joey and Hsin!'
         prompts.print_message(message, text_area_object)
     else:
         penalty(challenge_answer, character, 500, text_area_object)
@@ -202,6 +202,7 @@ def penalty(answer, character, loss_caffeine, text_area_object):
     message = f'Your caffeine just dropped {loss_caffeine}. Your current caffeine level is {max(character["caffeine"], 0)}\n'
     prompts.print_message(message, text_area_object)
     if character['caffeine'] <= 0:
+        character['game_over'] = True
         message = KO_ART + '\n\n' + "You have run out of your caffeine! :'(\n"
         prompts.print_message(message, text_area_object)
 

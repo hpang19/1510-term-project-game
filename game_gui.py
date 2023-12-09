@@ -7,6 +7,7 @@ from character.game_character import make_character, move_character, pick_up_ite
 from challenges.foes import check_for_foes, fight_with_foe
 from teas.teas import ready_to_make_tea, make_tea
 from levels.levels import assign_new_task
+from levels import ASCII_ART
 import tkinter as tk
 from GUI.map import get_relief, get_text
 import json
@@ -40,7 +41,7 @@ class Game:
             current_try = int(board_file.split('_')[1].split('.')[0])
             self.current_count = itertools.count(current_try)
             self.__load_player(board_file, character_file)
-            if self.character['kill_final_boss']:
+            if self.character['kill_final_boss'] or self.character['game_over']:
                 self.board = make_board(self.rows, self.columns)
                 self.character = make_character()
         else:
@@ -120,6 +121,7 @@ class Game:
             fight_with_foe(current_room_description, self.character, self.input_frame, self.text_area, self.button_frame)
 
         if self.character['caffeine'] <= 0:
+            self.character['game_over'] = True
             self.text_area.insert(tk.END, 'Game Over!\n')
 
     def create_gui_game_board(self, player=(0, 0)):
@@ -165,6 +167,7 @@ class Game:
         button_east.grid(row=1, column=2)
 
         describe_current_status(self.board, self.character, self.level, self.text_area)
+        self.text_area.insert("1.0", ASCII_ART + '\n')
 
     def create_gui(self):
         """

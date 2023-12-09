@@ -184,5 +184,6 @@ def describe_current_status(board: dict, character: dict, level: int, text_area_
     caffeine_message = f'Caffeine Level: {caffeine}\nShopping Bag: {shopping_bag}\nTeas you have made:{tea}.\n'
     prompts.print_message(location_message, text_area_object, clear=True)
     prompts.print_message(caffeine_message, text_area_object)
+    prompts.print_message('-- ' * 23 + '\n', text_area_object)
     if not text_area_object:
         print_map(character, board, level)

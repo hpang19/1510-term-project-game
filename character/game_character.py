@@ -25,7 +25,8 @@ def make_character() -> dict:
         'coordinate': (0, 0),
         'shopping_bag': [],
         'tea': [],
-        'kill_final_boss': False
+        'kill_final_boss': False,
+        'game_over': False
     }
     return character
 
