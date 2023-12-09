@@ -112,4 +112,8 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    print('###################################################################')
+    print('# The text based version is not maintained to the latest version. #')
+    print('# Please run "python3 ./game_gui.py" instead for a GUI experience.#')
+    print('###################################################################')
