@@ -40,15 +40,13 @@ class Game:
             current_try = int(board_file.split('_')[1].split('.')[0])
             self.current_count = itertools.count(current_try)
             self.__load_player(board_file, character_file)
-            if self.character['kill_final_boss'] == 'true':
-                next(self.current_count)
+            if self.character['kill_final_boss']:
                 self.board = make_board(self.rows, self.columns)
                 self.character = make_character()
         else:
             self.board = make_board(self.rows, self.columns)
             self.character = make_character()
             self.current_count = itertools.count(0)
-        print(self.current_count)
         self.level = len(self.character.get('tea', [])) + 1
         self.create_gui_game_board(self.character['coordinate'])
         self.create_buttons()
@@ -118,7 +116,8 @@ class Game:
                 self.create_gui_game_board(self.character['coordinate'])
 
         if there_is_a_challenger:
-            fight_with_foe(current_room_description, self.character, self.input_frame, self.text_area)
+            self.disable_buttons()
+            fight_with_foe(current_room_description, self.character, self.input_frame, self.text_area, self.button_frame)
 
         if self.character['caffeine'] <= 0:
             self.text_area.insert(tk.END, 'Game Over!\n')
@@ -154,15 +153,15 @@ class Game:
         :precondition: GUI root must be initialized already.
         :postcondition: creates navigation buttons for the GUI.
         """
-        button_frame = tk.Frame(self.root)
-        button_frame.pack(side=tk.LEFT)
-        button_north = tk.Button(button_frame, text="Up", command=lambda: self.move('W'))
+        self.button_frame = tk.Frame(self.root)
+        self.button_frame.pack(side=tk.LEFT, pady=1)
+        button_north = tk.Button(self.button_frame, text="Up", command=lambda: self.move('W'))
         button_north.grid(row=0, column=1)
-        button_south = tk.Button(button_frame, text="Down", command=lambda: self.move('S'))
+        button_south = tk.Button(self.button_frame, text="Down", command=lambda: self.move('S'))
         button_south.grid(row=2, column=1)
-        button_west = tk.Button(button_frame, text="Left", command=lambda: self.move('A'))
+        button_west = tk.Button(self.button_frame, text="Left", command=lambda: self.move('A'))
         button_west.grid(row=1, column=0)
-        button_east = tk.Button(button_frame, text="Right", command=lambda: self.move('D'))
+        button_east = tk.Button(self.button_frame, text="Right", command=lambda: self.move('D'))
         button_east.grid(row=1, column=2)
 
         describe_current_status(self.board, self.character, self.level, self.text_area)
@@ -175,6 +174,12 @@ class Game:
         :postcondition: main loop started here
         """
         self.root.mainloop()
+
+    def disable_buttons(self):
+        for widget in self.button_frame.winfo_children():
+            if isinstance(widget, tk.Button):
+                widget.config(state=tk.DISABLED)
+
 
     def __exit__(self):
         """
@@ -191,6 +196,8 @@ class Game:
 
         with open(f'data/character_{current_count}.json', 'w') as file_object:
             json.dump(self.character, file_object)
+        if not self.character['kill_final_boss']:
+            print('Your current state is saved. You will be resumed to the same state next time!')
 
 
 def main():

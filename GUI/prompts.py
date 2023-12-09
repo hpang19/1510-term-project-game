@@ -14,6 +14,7 @@ class Prompts:
         Initialize the Prompts class.
         """
         self.callback = None
+        self.button_frame = None
         self.kwarg = {}
         self.frame = frame
         self.entry_value = tk.StringVar()
@@ -28,6 +29,7 @@ class Prompts:
         self.entry_changed = True
         if self.callback:
             self.callback(self.entry_value.get(), **self.kwarg)
+            self.enable_buttons()
 
     def wait_for_change(self):
         """
@@ -47,7 +49,8 @@ class Prompts:
         :callback_function: a function to be called in this function
         :return: a string input from player
         """
-        self.greeting = tk.Label(self.frame, text=message, width=50)
+        self.button_frame = kwarg['button_frame']
+        self.greeting = tk.Label(self.frame, text=message, width=50, wraplength=450, justify='left')
         self.greeting.pack()
         self.entry = tk.Entry(self.frame, textvariable=self.entry_value, width=5)
         self.entry.pack()
@@ -57,6 +60,12 @@ class Prompts:
         self.wait_for_change()
         self.frame.mainloop()
         return self.entry_value.get()
+
+    def enable_buttons(self):
+        if self.button_frame:
+            for widget in self.button_frame.winfo_children():
+                if isinstance(widget, tk.Button):
+                    widget.config(state=tk.NORMAL)
 
 
 def print_message(message: str, text_area_object=None, clear=False):
