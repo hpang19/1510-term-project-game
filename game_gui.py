@@ -40,7 +40,7 @@ class Game:
             current_try = int(board_file.split('_')[1].split('.')[0])
             self.current_count = itertools.count(current_try)
             self.__load_player(board_file, character_file)
-            if self.character['kill_final_boss']:
+            if self.character['kill_final_boss'] == 'true':
                 next(self.current_count)
                 self.board = make_board(self.rows, self.columns)
                 self.character = make_character()
@@ -48,7 +48,7 @@ class Game:
             self.board = make_board(self.rows, self.columns)
             self.character = make_character()
             self.current_count = itertools.count(0)
-
+        print(self.current_count)
         self.level = len(self.character.get('tea', [])) + 1
         self.create_gui_game_board(self.character['coordinate'])
         self.create_buttons()
@@ -68,7 +68,7 @@ class Game:
             files = os.listdir(directory)
             matching_files = [file for file in files if file.startswith(prefix) and file.endswith(suffix)]
             if matching_files:
-                return matching_files[-1]
+                return sorted(matching_files, reverse=True)[0]
 
     def move(self, direction):
         """
@@ -138,10 +138,13 @@ class Game:
                 text = get_text(room_description, self.level)
                 frame = tk.Frame(master=self.main_frame, width=50, height=50, relief=relief, borderwidth=2)
                 frame.grid(row=row, column=column)
-                label = tk.Label(master=frame, text=text, width=10, height=4)
+                if text == 'Door':
+                    label = tk.Label(master=frame, text=text, width=10, height=4, bg='LightCyan2')
+                else:
+                    label = tk.Label(master=frame, text=text, width=10, height=4)
                 label.grid(row=0, column=0)
                 if player[0] == row and player[1] == column:
-                    label = tk.Label(master=frame, text='Chris', width=10, height=4, bg='green', fg='white')
+                    label = tk.Label(master=frame, text='Chris', width=10, height=4, bg='gray40', fg='white')
                     label.grid(row=0, column=0)
 
     def create_buttons(self):

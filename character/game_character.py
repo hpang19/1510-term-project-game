@@ -59,12 +59,15 @@ def move_character(character: dict, direction: str, steps: int, frame_object=Non
     if frame_object:
         frame = tk.Frame(master=frame_object, width=50, height=50, relief=current_relief, borderwidth=2)
         frame.grid(row=current_coordinate[0], column=current_coordinate[1])
-        label = tk.Label(master=frame, text=current_room_text, width=10, height=4)
+        if current_room_text == 'Door':
+            label = tk.Label(master=frame, text=current_room_text, width=10, height=4, bg='LightCyan2')
+        else:
+            label = tk.Label(master=frame, text=current_room_text, width=10, height=4)
         label.grid(row=0, column=0)
 
         frame = tk.Frame(master=frame_object, width=50, height=50, relief=tk.SUNKEN, borderwidth=2)
         frame.grid(row=character['coordinate'][0], column=character['coordinate'][1])
-        label = tk.Label(master=frame, text='Chris', width=10, height=4, bg='green', fg='white')
+        label = tk.Label(master=frame, text='Chris', width=10, height=4, bg='gray40', fg='white')
         label.grid(row=0, column=0)
 
 

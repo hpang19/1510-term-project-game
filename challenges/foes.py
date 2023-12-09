@@ -83,13 +83,13 @@ def rats_callback(answer, character, text_area_object=None):
         message = RATS_WEAPONS[weapon_id] + '\n'
         prompts.print_message(message, text_area_object)
         if weapon_id != 1:
-            penalty(answer, character, 10, text_area_object)
+            penalty(1, character, 10, text_area_object)
     else:
-        prompts.print_message("Why do you choose an option that's not in the list, Chris?\n", text_area_object)
+        prompts.print_message("Why don't you pick from the list, Chris?\n", text_area_object)
         penalty(1, character, 10, text_area_object)
 
 
-def dogs_challenge(location: str, frame=None, text_area_object=None) -> bool:
+def dogs_challenge(location: str, character: dict, frame=None, text_area_object=None) -> bool:
     """
     Engage in a challenge against dogs in a specific location.
 
@@ -105,26 +105,30 @@ def dogs_challenge(location: str, frame=None, text_area_object=None) -> bool:
     prompts.print_message(message, text_area_object)
     msg = 'Now the dog is trying to attack, you need to decide whether to dodge left or right. Please make a choice:\n'
     prompts.print_message(msg, text_area_object)
-    while True:
-        try:
-            if frame:
-                dodge_direction = int(prompts.Prompts(frame).prompt('You decide to dodge [1]: left  [2]: right '))
-            else:
-                dodge_direction = int(input('You decide to dodge [1]: left  [2]: right '))
-        except ValueError:
-            prompts.print_message('You have to input an integer from the list:\n', text_area_object)
+    challenge_question = 'You decide to dodge [1]: left  [2]: right '
+    if frame:
+        prompts.Prompts(frame).prompt(challenge_question, dogs_callback, character=character,
+                                      text_area_object=text_area_object)
+    else:
+        int(input(challenge_question))
+
+
+def dogs_callback(answer, character, text_area_object=None):
+    if answer in ('1', '2'):
+        dodge = ["left", "right"][int(answer) - 1]
+        dog_choice = choice(['1', '2'])
+        msg = f'You are dodging {dodge.upper()} and dog attacked {["left", "right"][int(dog_choice) - 1].upper()}\n'
+        prompts.print_message(msg, text_area_object)
+        if answer != dog_choice:
+            penalty(None, character, 20, text_area_object)
         else:
-            if dodge_direction in (1, 2):
-                dodge = ["left", "right"][dodge_direction - 1]
-                dog_choice = choice([1, 2])
-                msg = f'You are dodging {dodge.upper()} and dog attacked {["left", "right"][dog_choice - 1].upper()}\n'
-                prompts.print_message(msg, text_area_object)
-                return dodge_direction != dog_choice
-            else:
-                prompts.print_message('You have to input an integer from the list:\n', text_area_object)
+            prompts.print_message('Yay! It missed you.\n', text_area_object)
+    else:
+        prompts.print_message("Why don't you pick from the list, Chris?\n", text_area_object)
+        penalty(None, character, 20, text_area_object)
 
 
-def kids_challenge(location: str, frame=None, text_area_object=None) -> bool:
+def kids_challenge(location: str, character: dict, frame=None, text_area_object=None) -> bool:
     """
     Engage in a challenge against kids in a specific location.
 
@@ -143,15 +147,18 @@ def kids_challenge(location: str, frame=None, text_area_object=None) -> bool:
     challenge_question = choice(list(MATH_QUESTIONS.keys()))
     challenge_answer = MATH_QUESTIONS[challenge_question]
     if frame:
-        your_answer = prompts.Prompts(frame).prompt(f'{challenge_question} ')
+        prompts.Prompts(frame).prompt(f'{challenge_question} ', kids_callback,
+                                      challenge_answer=challenge_answer, character=character,
+                                      text_area_object=text_area_object)
     else:
-        your_answer = input(f'{challenge_question} ')
-    if your_answer == challenge_answer:
+        input(f'{challenge_question} ')
+    
+    
+def kids_callback(answer, challenge_answer, character, text_area_object=None):
+    if answer == challenge_answer:
         prompts.print_message('Great! That is correct answer!\n', text_area_object)
     else:
-        message = f'Too bad! The correct answer is {challenge_answer}. Try harder next time!\n'
-        prompts.print_message(message, text_area_object)
-    return your_answer == challenge_answer
+        penalty(challenge_answer, character, 50, text_area_object)
 
 
 def boss_challenge(location: str, character: dict, frame=None, text_area_object=None) -> None:
@@ -190,7 +197,8 @@ def boss_callback(answer, challenge_answer, character, text_area_object=None):
 
 
 def penalty(answer, character, loss_caffeine, text_area_object):
-    prompts.print_message(f'[X] The answer should be {answer}.\n', text_area_object)
+    if answer:
+        prompts.print_message(f'[X] The answer should be {answer}.\n', text_area_object)
     character['caffeine'] -= loss_caffeine
     message = f'Your caffeine just dropped {loss_caffeine}. Your current caffeine level is {max(character["caffeine"], 0)}\n'
     prompts.print_message(message, text_area_object)
@@ -212,14 +220,14 @@ def fight_with_foe(current_room: list, character: dict, frame=None, text_area_ob
     if foe == 'rats':
         rats_challenge(current_room[1], character, frame, text_area_object)
     elif foe == 'dogs':
-        success = dogs_challenge(current_room[1], frame, text_area_object)
+        success = dogs_challenge(current_room[1], character, frame, text_area_object)
         if not success:
             character['caffeine'] -= 10
             prompts.print_message('Oops! You lost 10 caffeine level.\n', text_area_object)
         else:
             prompts.print_message('Yay! It missed you.\n', text_area_object)
     elif foe == 'kids':
-        success = kids_challenge(current_room[1], frame, text_area_object)
+        success = kids_challenge(current_room[1], character, frame, text_area_object)
         if not success:
             character['caffeine'] -= 20
             prompts.print_message('Oops! You lost 20 caffeine level.\n', text_area_object)
