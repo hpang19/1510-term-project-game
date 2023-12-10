@@ -82,6 +82,7 @@ def pick_up_item(character: dict, board: dict, text_area_object=None):
     :param board: a dictionary
     :precondition: board is a dictionary with keys in tuples of coordinates
     :precondition: character is a dictionary that has a key called "coordinate"
+    :precondition: character's coordinate is on the board and is validated in the game
     :postcondition: appending new item to character's shopping bag and remove item from the board
 
     >>> character_test = {'coordinate': (3, 3), 'shopping_bag': []}
