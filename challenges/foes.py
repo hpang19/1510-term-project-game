@@ -4,7 +4,7 @@ This module includes all features related to the challenges.
 
 from challenges import FOE_MAP, RATS_WEAPONS, MATH_QUESTIONS, PYTHON_QUESTIONS
 from board import LOCATION_PREFIX
-from random import choice
+import random
 import sys
 sys.path.append('..')
 from GUI import prompts
@@ -45,11 +45,11 @@ def check_for_foes(current_room_description: list) -> bool:
     """
     foe = get_foe(current_room_description)
     if foe == 'rats':
-        return choice(range(4)) == choice(range(4))
+        return random.choice(range(4)) == random.choice(range(4))
     elif foe == 'dogs':
-        return choice(range(3)) == choice(range(3))
+        return random.choice(range(3)) == random.choice(range(3))
     elif foe == 'kids':
-        return choice(range(3)) == choice(range(3))
+        return random.choice(range(3)) == random.choice(range(3))
     else:
         return True
 
@@ -137,7 +137,7 @@ def dogs_callback(answer, character, text_area_object=None, button_frame=None):
     """
     if answer in ('1', '2'):
         dodge = ["left", "right"][int(answer) - 1]
-        dog_choice = choice(['1', '2'])
+        dog_choice = random.choice(['1', '2'])
         msg = f'You are dodging {dodge.upper()} and dog attacked {["left", "right"][int(dog_choice) - 1].upper()}\n'
         prompts.print_message(msg, text_area_object)
         if answer != dog_choice:
@@ -164,7 +164,7 @@ def kids_challenge(location: str, character: dict, frame=None, text_area_object=
     message = f'There are kids running {LOCATION_PREFIX[location]} {location.lower()}.\n'
     prompts.print_message(message, text_area_object)
     message = 'You called school and the teacher comes. The teacher is challenging you with a Math question:\n'
-    challenge_question = choice(list(MATH_QUESTIONS.keys()))
+    challenge_question = random.choice(list(MATH_QUESTIONS.keys()))
     challenge_answer = MATH_QUESTIONS[challenge_question]
     end = ' (press ENTER to submit your answer)'
     if frame:
@@ -207,11 +207,11 @@ def boss_challenge(location: str, character: dict, frame=None, text_area_object=
     message = f'There are {students[0]} and {students[1]} {LOCATION_PREFIX[location]} {location.lower()}.\n'
     prompts.print_message(message, text_area_object)
     prompts.print_message('Final exam is approaching, they have a lot of questions to ask you.\n', text_area_object)
-    challenge_question = choice(list(PYTHON_QUESTIONS.keys()))
+    challenge_question = random.choice(list(PYTHON_QUESTIONS.keys()))
     challenge_answer = PYTHON_QUESTIONS[challenge_question]
     end = ' (press ENTER to submit your answer)'
     if frame:
-        prompts.Prompts(frame).prompt(f'{choice(students)} has a question:\n\n{challenge_question} {end}',
+        prompts.Prompts(frame).prompt(f'{random.choice(students)} has a question:\n\n{challenge_question} {end}',
                                       boss_callback, challenge_answer=challenge_answer, character=character,
                                       text_area_object=text_area_object, button_frame=button_frame)
     else:
