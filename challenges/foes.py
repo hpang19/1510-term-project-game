@@ -20,12 +20,12 @@ def get_foe(current_room_description: list) -> str:
     :postcondition: get the foe with corresponding level and location
     :return: a string representing the foe
 
-    >>> current_room_description = [1, 'Kitchen', "Nothing"]
-    >>> get_foe(current_room_description)
+    >>> current_room_description_test = [1, 'Kitchen', "Nothing"]
+    >>> get_foe(current_room_description_test)
     'rats'
 
-    >>> current_room_description = [2, 'Grocery Store', "Nothing"]
-    >>> get_foe(current_room_description)
+    >>> current_room_description_test = [2, 'Grocery Store', "Nothing"]
+    >>> get_foe(current_room_description_test)
     'dogs'
     """
     foe = FOE_MAP[current_room_description[1]]
@@ -54,7 +54,7 @@ def check_for_foes(current_room_description: list) -> bool:
         return True
 
 
-def rats_challenge(location: str, character: dict, frame=None, text_area_object=None, button_frame=None) -> bool:
+def rats_challenge(location: str, character: dict, frame=None, text_area_object=None, button_frame=None):
     """
     Engage in a challenge against rats in a specific location.
 
@@ -99,7 +99,7 @@ def rats_callback(answer, character, text_area_object=None, button_frame=None):
         penalty(1, character, 10, text_area_object)
 
 
-def dogs_challenge(location: str, character: dict, frame=None, text_area_object=None, button_frame=None) -> bool:
+def dogs_challenge(location: str, character: dict, frame=None, text_area_object=None, button_frame=None):
     """
     Engage in a challenge against dogs in a specific location.
 
@@ -149,7 +149,7 @@ def dogs_callback(answer, character, text_area_object=None, button_frame=None):
         penalty(None, character, 20, text_area_object)
 
 
-def kids_challenge(location: str, character: dict, frame=None, text_area_object=None, button_frame=None) -> bool:
+def kids_challenge(location: str, character: dict, frame=None, text_area_object=None, button_frame=None):
     """
     Engage in a challenge against kids in a specific location.
 

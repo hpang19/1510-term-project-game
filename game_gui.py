@@ -34,6 +34,7 @@ class Game:
         self.text_area.pack()
         self.input_frame = tk.Frame(self.root, height=2, width=5)
         self.input_frame.pack()
+        self.button_frame = None
 
         board_file = self.__check_file_exist('data', 'board_', '.json')
         character_file = self.__check_file_exist('data', 'character_', '.json')
@@ -143,7 +144,8 @@ class Game:
 
         if there_is_a_challenger:
             self.disable_buttons()
-            fight_with_foe(current_room_description, self.character, self.input_frame, self.text_area, self.button_frame)
+            fight_with_foe(current_room_description, self.character, self.input_frame, self.text_area,
+                           self.button_frame)
 
         if self.character['caffeine'] <= 0:
             self.character['game_over'] = True
@@ -177,7 +179,8 @@ class Game:
         """
         Create navigation buttons for the GUI.
 
-        When the button is clicked, the "move" function will be called and the character will move in the corresponding direction.
+        When the button is clicked, the "move" function will be called and the character will move in the
+        corresponding direction.
 
         :precondition: GUI root must be initialized already.
         :postcondition: creates navigation buttons for the GUI.

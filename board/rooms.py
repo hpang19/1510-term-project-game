@@ -33,8 +33,8 @@ def kitchen_map(rows: int, columns: int, chocolate_room_coordinate: tuple) -> di
     :precondition: columns is an integer not less than 10
     :return: a dictionary representing the kitchen area map
     """
-    kitchen = {(0, 0): 'Origin', chocolate_room_coordinate: 'Chocolate', (random.choice(range(rows)), columns-1):
-        'Door'}
+    kitchen = {(0, 0): 'Origin', chocolate_room_coordinate: 'Chocolate',
+               (random.choice(range(rows)), columns - 1): 'Door'}
     for item in ['Mug', 'Spoon', 'Grater', 'Hot Water', 'Tea Bag']:
         row, column = random_choice_coordinate((0, 0), rows, columns)
         while (row, column) in kitchen:
