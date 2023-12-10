@@ -2,7 +2,7 @@
 This module includes all features related to the game board.
 """
 
-from random import randint, choice
+import random
 from board.rooms import kitchen_map, grocery_store_map, traditional_market_map
 from board import DIRECTION_MAP
 from GUI import prompts
@@ -57,13 +57,13 @@ def get_board_component(rows: int, columns: int) -> tuple:
     """
     kitchen_rows = int(rows / 2)
     kitchen_columns = int(columns / 2)
-    chocolate_room = (randint(0, kitchen_rows - 1), randint(0, kitchen_columns - 1))
+    chocolate_room = (random.randint(0, kitchen_rows - 1), random.randint(0, kitchen_columns - 1))
     kitchen = kitchen_map(kitchen_rows, kitchen_columns, chocolate_room)
-    grocery_store_origin = (choice(range(0, kitchen_rows - 2)), choice(range(kitchen_columns, columns - 3)) + 1)
+    grocery_store_origin = (random.choice(range(0, kitchen_rows - 2)), random.choice(range(kitchen_columns, columns - 3)) + 1)
     grocery_store = grocery_store_map(grocery_store_origin, 3, 3)
     grocery_row_range = range(grocery_store_origin[0], grocery_store_origin[0] + 3)
     grocery_column_range = range(grocery_store_origin[1], grocery_store_origin[1] + 3)
-    market_origin = (choice(range(kitchen_rows, rows - 3)) + 1, choice(range(0, columns - 3)))
+    market_origin = (random.choice(range(kitchen_rows, rows - 3)) + 1, random.choice(range(0, columns - 3)))
     market = traditional_market_map(market_origin, 3, 3)
     market_row_range = range(market_origin[0], market_origin[0] + 3)
     market_column_range = range(market_origin[1], market_origin[1] + 3)
@@ -90,6 +90,7 @@ def validate_move(level: int, board: dict, character: dict, direction: str, step
     >>> character_test = {'coordinate': (0, 0)}
     >>> validate_move(1, board_test, character_test, 'D', 1)
     True
+
     >>> validate_move(1, board_test, character_test, 'S', 1)
     False
     """
@@ -117,30 +118,40 @@ def move_chocolate(board: dict, character: dict):
     :param character: a dictionary representing the game character
     :precondition: board is a dictionary with keys in tuples of coordinates
     :precondition: character is a dictionary that has a key called "coordinate"
+    :precondition: character's current location has chocolate
     :postcondition: move the chocolate on the board
+
+    >>> board_test = {(0, 0): [1, 'Kitchen', 'Nothing'], (0, 1): [1, 'Kitchen', 'Chocolate'], (1, 0): [2, 'Kitchen',
+    ... 'Nothing'], (1, 1): [2, 'Kitchen', 'Door']}
+    >>> character_test = {'coordinate': (0, 1)}
+    >>> move_chocolate(board_test, character_test)
+    >>> board_test[character_test['coordinate']][2]
+    'Nothing'
     """
-    coordinate = choice(list(board.keys()))
+    coordinate = random.choice(list(board.keys()))
     level = board[character['coordinate']][0]
     while not (board[coordinate][2] == 'Nothing' and board[coordinate][0] > min(level, 2)):
-        coordinate = choice(list(board.keys()))
+        coordinate = random.choice(list(board.keys()))
     board[character['coordinate']][2] = 'Nothing'
     board[coordinate][2] = 'Chocolate'
 
 
-def print_map(character: dict, board: dict, level: int):
+def print_map(character: dict, board: dict, level: int, rows=10, columns=10):
     """
     Print a map representation of the game board to the terminal.
 
     :param character: a dictionary representing the game character
     :param board: a dictionary representing the game board
     :param level: an integer representing the current level
+    :param rows: an integer representing the number of rows in the game board default to 10
+    :param columns: an integer representing the number of columns in the game board default to 10
     :precondition: board is a dictionary with keys in tuples of coordinates
     :precondition: character is a dictionary that has a key called "coordinate"
     :postcondition: print the map in the terminal for non-gui game version
     """
     current_location = character['coordinate']
-    for row in range(10):
-        for column in range(10):
+    for row in range(rows):
+        for column in range(columns):
             map_level, room, item = board[(row, column)]
             if map_level <= level:
                 if (row, column) == current_location:
