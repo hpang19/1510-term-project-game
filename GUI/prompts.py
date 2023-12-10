@@ -62,6 +62,9 @@ class Prompts:
         return self.entry_value.get()
 
     def enable_buttons(self):
+        """
+        Enables all directional buttons in the button frame after player enter something in the text entry.
+        """
         if self.button_frame:
             for widget in self.button_frame.winfo_children():
                 if isinstance(widget, tk.Button):
