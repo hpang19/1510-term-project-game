@@ -58,13 +58,12 @@ def rats_challenge(location: str, character: dict, frame=None, text_area_object=
     """
     Engage in a challenge against rats in a specific location.
 
-    This function will print the message to ask player to kill the rats. When expected input is received,
-    it will return True.
+    This function will print the message to ask player to kill the rats. Then pass the player's answer to rats_callback.
 
     :param location: a string indicating the location of the challenge
+    :param character: a dictionary representing the game character
     :precondition: location has to be a string and exist as one of the keys in LOCATION_PREFIX
-    :postcondition: return True after expected input is received, otherwise keep looping in the while loop
-    :return: True
+    :postcondition: a call to rats_callback function passing play's answer, correct answer and character dictionary
     """
     prompts.print_message(f'There is a rat {LOCATION_PREFIX[location]} {location.lower()}.\n', text_area_object)
     message = 'To proceed, you need to kill the rats. Please select a weapon to kill the rats from the list:\n'
@@ -78,6 +77,17 @@ def rats_challenge(location: str, character: dict, frame=None, text_area_object=
 
 
 def rats_callback(answer, character, text_area_object=None, button_frame=None):
+    """
+    Penalize or print congratulation message based on the weapon choice.
+
+    Check if the answer is correct. If the answer is correct, print encouraging message. If the answer is wrong,
+    update the character dictionary to deduct caffeine level.
+    
+    :param answer: a string representing the weapon choice
+    :param character: a dictionary representing the game character
+    :precondition: character is a dictionary where "caffeine" exists as keys
+    :postcondition: update the character dictionary to deduct caffeine level
+    """
     if answer in ('1', '2', '3'):
         weapon_id = int(answer)
         message = RATS_WEAPONS[weapon_id] + '\n'
@@ -93,13 +103,13 @@ def dogs_challenge(location: str, character: dict, frame=None, text_area_object=
     """
     Engage in a challenge against dogs in a specific location.
 
-    This function will print the message to ask player to choose a direction to dodge the dog attack. Function will
-    return True if the dodge direction is opposite of dog attack direction, and False otherwise.
+    This function will print the message to ask player to choose a direction to dodge the dog attack. Then pass the
+    player's answer to dogs_callback.
 
     :param location: a string indicating the location of the challenge
+    :param character: a dictionary representing the game character
     :precondition: location has to be a string and exist as one of the keys in LOCATION_PREFIX
-    :postcondition: return True if the dodge direction is opposite of dog attack direction, and False otherwise
-    :return: a boolean
+    :postcondition: a call to dogs_callback function passing play's answer, correct answer and character dictionary
     """
     message = f'There is a dog {LOCATION_PREFIX[location]} {location.lower()}.\n'
     prompts.print_message(message, text_area_object)
@@ -114,6 +124,17 @@ def dogs_challenge(location: str, character: dict, frame=None, text_area_object=
 
 
 def dogs_callback(answer, character, text_area_object=None, button_frame=None):
+    """
+    Penalize or print congratulation message based on the dodge direction and dog attack direction.
+
+    Check if the answer is correct. If the answer is correct, print encouraging message. If the answer is wrong,
+    update the character dictionary to deduct caffeine level.
+
+    :param answer: a string representing the dodge direction
+    :param character: a dictionary representing the game character
+    :precondition: character is a dictionary where "caffeine" exists as keys
+    :postcondition: update the character dictionary to deduct caffeine level
+    """
     if answer in ('1', '2'):
         dodge = ["left", "right"][int(answer) - 1]
         dog_choice = choice(['1', '2'])
@@ -132,13 +153,13 @@ def kids_challenge(location: str, character: dict, frame=None, text_area_object=
     """
     Engage in a challenge against kids in a specific location.
 
-    This function will print the message to ask player to answer a math question. Function will return True if the
-    answer is correct, and False otherwise.
+    This function will print the message to ask player to answer a math question. Then pass the player's answer to
+    kids_callback.
 
     :param location: a string indicating the location of the challenge
+    :param character: a dictionary representing the game character
     :precondition: location has to be a string and exist as one of the keys in LOCATION_PREFIX
-    :postcondition: return True if the answer is correct, and False otherwise
-    :return: a boolean
+    :postcondition: a call to kids_callback function passing play's answer, correct answer and character dictionary
     """
     message = f'There are kids running {LOCATION_PREFIX[location]} {location.lower()}.\n'
     prompts.print_message(message, text_area_object)
@@ -155,6 +176,18 @@ def kids_challenge(location: str, character: dict, frame=None, text_area_object=
     
     
 def kids_callback(answer, challenge_answer, character, text_area_object=None, button_frame=None):
+    """
+    Penalize or print congratulation message based on the answer to the challenge.
+
+    Check if the answer is correct. If the answer is correct, print encouraging message. If the answer is wrong,
+    update the character dictionary to deduct caffeine level.
+
+    :param answer: a string representing the answer
+    :param challenge_answer: a string representing the correct answer
+    :param character: a dictionary representing the game character
+    :precondition: character is a dictionary where "caffeine" exists as keys
+    :postcondition: update the character dictionary to deduct caffeine level
+    """
     if answer == challenge_answer:
         prompts.print_message('Great! That is correct answer!\n', text_area_object)
     else:
@@ -168,7 +201,7 @@ def boss_challenge(location: str, character: dict, frame=None, text_area_object=
     :param location: A string indicating the location of the challenge
     :param character: A dictionary representing the game character
     :precondition: location has to be a string and exist as one of the keys in LOCATION_PREFIX
-    :postcondition: caffeine level in the character will be dropped everytime the player answer a question wrong
+    :postcondition: a call to boss_callback function passing play's answer, correct answer and character dictionary
     """
     students = ['Joey', 'Hsin']
     message = f'There are {students[0]} and {students[1]} {LOCATION_PREFIX[location]} {location.lower()}.\n'
@@ -187,24 +220,69 @@ def boss_challenge(location: str, character: dict, frame=None, text_area_object=
 
 
 def boss_callback(answer, challenge_answer, character, text_area_object=None, button_frame=None):
+    """
+    Penalize or print congratulation message based on the answer to the challenge.
+
+    Check if the answer is correct. If the answer is correct, update the character dictionary to indicate the final
+    boss is defeated. If the answer is wrong, update the character dictionary to deduct caffeine level.
+
+    :param answer: a string representing the answer
+    :param challenge_answer: a string representing the correct answer
+    :param character: a dictionary representing the game character
+    :precondition: character is a dictionary where "kill_final_boss" and "caffeine" exist as keys
+    :postcondition: update the character dictionary to indicate the final boss is defeated or deduct caffeine level
+
+    >>> character_test = {'kill_final_boss': False, 'caffeine': 100}
+    >>> boss_callback('A', 'B', character_test, None)
+    >>> character_test['kill_final_boss']
+    False
+
+    >>> boss_callback('A', 'A', character_test, None)
+    >>> character_test['kill_final_boss']
+    True
+    """
     if challenge_answer == answer:
         character['kill_final_boss'] = True
         message = HOORAY_ART + '\n\n' + 'Congratulations, Chris! You defeated Joey and Hsin!'
-        prompts.print_message(message, text_area_object)
+        if text_area_object:
+            prompts.print_message(message, text_area_object)
     else:
         penalty(challenge_answer, character, 500, text_area_object)
 
 
 def penalty(answer, character, loss_caffeine, text_area_object):
-    if answer:
+    """
+    Update character caffeine by calculate caffeine level drop based on the penalty.
+
+    :param answer: a string representing the correct answer
+    :param character: a dictionary representing the game character
+    :param loss_caffeine: an integer representing the amount of caffeine to be deducted
+    :precondition: character is a dictionary where "caffeine" exists as a key
+    :precondition: loss_caffeine is an positive integer
+    :postcondition: calculate caffeine level based on the penalty and update the character dictionary
+
+    >>> character_test = {'caffeine': 100}
+    >>> penalty('A', character_test, 10, None)
+    >>> character_test['caffeine']
+    90
+
+    >>> character_test = {'caffeine': 100}
+    >>> penalty('A', character_test, 50, None)
+    >>> character_test['caffeine']
+    50
+    """
+    if text_area_object:
         prompts.print_message(f'[X] The answer should be {answer}.\n', text_area_object)
     character['caffeine'] -= loss_caffeine
-    message = f'Your caffeine just dropped {loss_caffeine}. Your current caffeine level is {max(character["caffeine"], 0)}\n'
-    prompts.print_message(message, text_area_object)
+    message = (f'Your caffeine just dropped {loss_caffeine}. Your current caffeine level is'
+               f' {max(character["caffeine"], 0)}\n')
+    if text_area_object:
+        prompts.print_message(message, text_area_object)
     if character['caffeine'] <= 0:
         character['game_over'] = True
         message = KO_ART + '\n\n' + "You have run out of your caffeine! :'(\n"
-        prompts.print_message(message, text_area_object)
+        if text_area_object:
+            prompts.print_message(message, text_area_object)
 
 
 def fight_with_foe(current_room: list, character: dict, frame=None, text_area_object=None, button_frame=None):
