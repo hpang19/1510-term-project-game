@@ -1,6 +1,7 @@
 from unittest import TestCase
 from character.game_character import pick_up_item
 
+
 class Test(TestCase):
     def test_ingredients_check_shopping_bag(self):
         character_test = {'coordinate': (3, 3), 'shopping_bag': []}

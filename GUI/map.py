@@ -4,7 +4,7 @@ This module includes all features related to the GUI map.
 
 import json
 import tkinter as tk
-from . import BORDER_EFFECTS
+from GUI import BORDER_EFFECTS
 
 
 def get_relief(room_description: list, current_level: int) -> str:
@@ -15,6 +15,12 @@ def get_relief(room_description: list, current_level: int) -> str:
     :param current_level: an integer representing the current level in the game
     :postcondition: get the relief effect for a room description and return the relief effect for the room
     :return: a string representing the relief effect for the room
+
+    >>> get_relief([1, 'Kitchen', 'Hot Water'], 1)
+    'raised'
+
+    >>> get_relief([2, 'Street', 'Nothing'], 3)
+    'sunken'
     """
     level, room, item = room_description
     if level > current_level:
@@ -36,6 +42,12 @@ def get_text(room_description: list, current_level: int):
     :param current_level: an integer representing the current level in the game
     :postcondition: return the text to display for the room
     :return: a string representing the text to display for the room
+
+    >>> get_text([1, 'Kitchen', 'Matcha Powder'], 1)
+    'Matcha Powder'
+
+    >>> get_text([2, 'Street', 'Nothing'], 3)
+    ''
     """
     level, room, item = room_description
     text = ''
