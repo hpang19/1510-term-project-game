@@ -35,7 +35,8 @@ def make_board(rows: int, columns: int) -> dict:
                     board[(row, column)] = [1, 'Kitchen', item]
                 else:
                     item = grocery_store[(row, column)] if (row, column) in grocery_store else 'Nothing'
-                    location = 'Grocery Store' if (row in grocery_row_range and column in grocery_column_range) else 'Street'
+                    location = 'Grocery Store' if (row in grocery_row_range and column in grocery_column_range) else \
+                        'Street'
                     board[(row, column)] = [2, location, item]
             else:
                 item = market[(row, column)] if (row, column) in market else 'Nothing'
@@ -59,7 +60,8 @@ def get_board_component(rows: int, columns: int) -> tuple:
     kitchen_columns = int(columns / 2)
     chocolate_room = (random.randint(0, kitchen_rows - 1), random.randint(0, kitchen_columns - 1))
     kitchen = kitchen_map(kitchen_rows, kitchen_columns, chocolate_room)
-    grocery_store_origin = (random.choice(range(0, kitchen_rows - 2)), random.choice(range(kitchen_columns, columns - 3)) + 1)
+    grocery_store_origin = (random.choice(range(0, kitchen_rows - 2)),
+                            random.choice(range(kitchen_columns, columns - 3)) + 1)
     grocery_store = grocery_store_map(grocery_store_origin, 3, 3)
     grocery_row_range = range(grocery_store_origin[0], grocery_store_origin[0] + 3)
     grocery_column_range = range(grocery_store_origin[1], grocery_store_origin[1] + 3)
@@ -176,7 +178,7 @@ def print_map(character: dict, board: dict, level: int, rows=10, columns=10):
         print()
 
 
-def describe_current_status(board: dict, character: dict, level: int, text_area_object = None):
+def describe_current_status(board: dict, character: dict, level: int, text_area_object=None):
     """
     Describe the current status of the game.
 
