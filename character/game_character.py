@@ -42,6 +42,7 @@ def move_character(character: dict, direction: str, steps: int, frame_object=Non
     :param direction: a string indicating the direction of movement ('W', 'S', 'A', 'D')
     :param steps: an integer indicating the number of steps to move
     :precondition: character is a dictionary that has a key called "coordinate"
+    :precondition: the move directin and steps were validated in the game already
     :postcondition: move the character on the game board in a specified direction
 
     >>> character_test = {'coordinate': (3, 3)}
