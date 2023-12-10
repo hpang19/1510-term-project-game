@@ -6,7 +6,7 @@ from board.game_board import make_board, validate_move, move_chocolate, describe
 from character.game_character import make_character, move_character, pick_up_item
 from challenges.foes import check_for_foes, fight_with_foe
 from teas.tea import ready_to_make_tea, make_tea
-from levels.levels import assign_new_task
+from levels.level import assign_new_task
 from levels import ASCII_ART
 import tkinter as tk
 from GUI.map import get_relief, get_text
