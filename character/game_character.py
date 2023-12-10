@@ -18,7 +18,7 @@ def make_character() -> dict:
     :return: a dictionary representing the character
 
     >>> make_character()
-    {'caffeine': 50, 'shopping_bag': [], 'tea': [], 'kill_final_boss': False}
+    {'caffeine': 50, 'coordinate': (0, 0), 'shopping_bag': [], 'tea': [], 'kill_final_boss': False, 'game_over': False}
     """
     character = {
         'caffeine': 50,
@@ -83,10 +83,17 @@ def pick_up_item(character: dict, board: dict, text_area_object=None):
     :precondition: board is a dictionary with keys in tuples of coordinates
     :precondition: character is a dictionary that has a key called "coordinate"
     :postcondition: appending new item to character's shopping bag and remove item from the board
+
+    >>> character_test = {'coordinate': (3, 3), 'shopping_bag': []}
+    >>> board_test = {(3, 3): ['Room', 'Room', 'Hot Water']}
+    >>> pick_up_item(character_test, board_test)
+    >>> character_test['shopping_bag']
+    ['Hot Water']
     """
     item = board[character["coordinate"]][2]
     if item not in ("Nothing", "Door", "Chocolate", "Origin"):
         message = f'Oh! There is a {item} to pick up! You picked it up and put in your shopping bag.\n'
-        prompts.print_message(message, text_area_object)
         character["shopping_bag"].append(item)
         board[character["coordinate"]][2] = "Nothing"
+        if text_area_object:
+            prompts.print_message(message, text_area_object)
