@@ -53,6 +53,14 @@ class Game:
         self.create_buttons()
 
     def __load_player(self, board_file, character_file):
+        """
+        Load the player's game state from the saved file.
+
+        :param board_file: a string representing the file name of the saved board
+        :param character_file: a string representing the file name of the saved character
+        :precondition: board_file and character_file are validated by __check_file_exist function
+        :postcondition: loads the player's game state from the saved file
+        """
         with open(f'data/{board_file}') as json_file:
             board = json.load(json_file)
         self.board = {}
@@ -63,6 +71,18 @@ class Game:
         self.character['coordinate'] = tuple(self.character['coordinate'])
 
     def __check_file_exist(self, directory, prefix, suffix):
+        """
+        Check if the file exists in the given directory.
+
+        File name will be matched with given prefix and suffix. If there are multiple files that match the given
+        prefix, the latest one will be returned.
+
+        :param directory: a string representing the directory to check
+        :param prefix: a string representing the prefix of the file name
+        :param suffix: a string representing the suffix of the file name
+        :postcondition: returns the file name if exists, otherwise returns None
+        :return: a string representing the file name if exists, otherwise None
+        """
         if os.path.exists(directory):
             files = os.listdir(directory)
             matching_files = [file for file in files if file.startswith(prefix) and file.endswith(suffix)]
@@ -72,6 +92,11 @@ class Game:
     def move(self, direction):
         """
         Move the character in the specified direction and execute the corresponding task in new location.
+
+        Foes will be fought if there is one in the new location. Items will be picked up if there is one in the new
+        location. Character will level up if all tea ingredients are collected make drank. Character's caffeine level
+        will be increased or decreased based on the challenge or achievement. Game will be over if caffeine level drops
+        below 0.
 
         :param direction: a string representing direction to move
         :precondition: direction must be one of 'W', 'S', 'A', or 'D'
@@ -152,6 +177,8 @@ class Game:
         """
         Create navigation buttons for the GUI.
 
+        When the button is clicked, the "move" function will be called and the character will move in the corresponding direction.
+
         :precondition: GUI root must be initialized already.
         :postcondition: creates navigation buttons for the GUI.
         """
@@ -179,10 +206,15 @@ class Game:
         self.root.mainloop()
 
     def disable_buttons(self):
+        """
+        Disable the navigation buttons.
+
+        :precondition: GUI root must be initialized already.
+        :postcondition: all buttons will be disabled.
+        """
         for widget in self.button_frame.winfo_children():
             if isinstance(widget, tk.Button):
                 widget.config(state=tk.DISABLED)
-
 
     def __exit__(self):
         """
