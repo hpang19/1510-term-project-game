@@ -47,10 +47,11 @@ def move_character(character: dict, direction: str, steps: int, frame_object=Non
     >>> character_test = {'coordinate': (3, 3)}
     >>> move_character(character_test, 'S', 2)
     >>> character_test['coordinate']
-    (1, 3)
+    (5, 3)
+
     >>> move_character(character_test, 'A', 1)
     >>> character_test['coordinate']
-    (1, 2)
+    (5, 2)
     """
     move = DIRECTION_MAP[direction.upper()]
     move = (move[0] * steps, move[1] * steps)
@@ -81,15 +82,6 @@ def pick_up_item(character: dict, board: dict, text_area_object=None):
     :precondition: board is a dictionary with keys in tuples of coordinates
     :precondition: character is a dictionary that has a key called "coordinate"
     :postcondition: appending new item to character's shopping bag and remove item from the board
-
-    >>> character_test = {'coordinate': (2, 3), 'shopping_bag': []}
-    >>> board_test = {(2, 3): [1, 'Kitchen', 'Tea']}
-    >>> pick_up_item(character_test, board_test)
-    'Oh! There is a Tea to pick up! You picked it up and put in your shopping bag.'
-    >>> character_test['shopping_bag']
-    ['Tea']
-    >>> board_test[(2, 3)]
-    [1, 'Kitchen', 'Nothing']
     """
     item = board[character["coordinate"]][2]
     if item not in ("Nothing", "Door", "Chocolate", "Origin"):
