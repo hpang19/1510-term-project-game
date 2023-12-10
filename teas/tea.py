@@ -47,7 +47,7 @@ def make_tea(level: int, character: dict, text_area_object=None):
 
     >>> character_test = {'caffeine': 50, 'coordinate': (0, 0), 'shopping_bag': [], 'tea': [], 'kill_final_boss': False}
     >>> make_tea(1, character_test)
-    You made Green Tea, drink it, and your caffeine increased to 100
+    You made Tea Bag, drink it, and your caffeine increased to 100
     """
     character['tea'].append(TEA_MAP[level])
     character['caffeine'] += 50 * level

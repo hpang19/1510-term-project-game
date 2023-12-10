@@ -5,7 +5,7 @@ This module serves as a main module to execute the game program.
 from board.game_board import make_board, validate_move, move_chocolate, describe_current_status
 from character.game_character import make_character, move_character, pick_up_item
 from challenges.foes import check_for_foes, fight_with_foe
-from teas.teas import ready_to_make_tea, make_tea
+from teas.tea import ready_to_make_tea, make_tea
 from levels.levels import assign_new_task, print_ASCII
 import json
 import os
