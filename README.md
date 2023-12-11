@@ -6,11 +6,11 @@ This is written in markdown. Read about markdown here: [markdowncheatsheet](http
 
 ## Your names:
 
-Hsin Pang and Joey Cho
+Hsin Pang (and Joey Cho)
 
 ## Your student numbers:
 
-A01368516 and A01366231
+A01368516 (and A01366231)
 
 ## Your team's GitHub username:
 
@@ -38,7 +38,7 @@ Once making the tea, his caffeine level will increase. The player achieves level
 
 [Level 2] Today is Sunday. Now he needs some legit matcha. Oops, all of his favourite starbucks stores are closed due to
 maintenance issue. He decided to go to the grocery store and get some materials to serve himself a nice good matcha tea.
-In this level, the player needs to collect all the required materials to make a cup of matcha tea while maintaining  
+In this level, the player needs to collect all the required materials to make a cup of matcha tea while maintaining 
 positive caffeine level.
 There may be some challenges while achieving the goal.
 Once making the tea, his caffeine level will increase. The player achieves level 3.
@@ -46,7 +46,8 @@ Once making the tea, his caffeine level will increase. The player achieves level
 [Level 3] Today is Monday. Oh, boy. He doesn't feel too well. He must've caught cold while getting groceries yesterday.
 He needs warm and soothing ginger-turmeric tea. Ah, a farmers market comes near his house and he heard that the vendor 
 that sells the best organic ginger and turmeric that he has ever tried. 
-In this level, the player needs to collect all the required materials to make a cup ginger-turmeric tea while maintaining 
+In this level, the player needs to collect all the required materials to make a cup of ginger-turmeric tea while 
+maintaining 
 positive caffeine level.
 There may be some challenges while achieving the goal.
 Once making the tea, his caffeine level will increase. The player needs to fight against the final boss, which is 
