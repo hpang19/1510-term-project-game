@@ -119,7 +119,7 @@ are not depicted within the flowchart.
 | (5c) character's measurement and abilities        | character/game_character.py | 23 - 30                 |
 | (5d) four cardinal directions                     | ./game_gui.py               | 193 - 199               |
 | (5e) chance to encounter obstacles                | challenges/foes.py          | 47 - 52                 |
-| (5f) character overcome obstacles                 | challenges/foes.py          | 72, 120, 171            |
+| (5f) character overcome obstacles                 | challenges/foes.py          | 72, 120, 173            |
 | (5g) game ends when character achieves final goal | ./game_gui.py               | 133 - 135               |
 | (7a) use of immutable data structures (tuple)     | board/game_board.py         | 35, 40, 44, 45          |
 | (7b) use of mutable data structures (dictionary)  | board/game_board.py         | 26                      |

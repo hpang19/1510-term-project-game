@@ -141,10 +141,12 @@ def dogs_callback(answer, character, text_area_object=None, button_frame=None):
         msg = f'You are dodging {dodge.upper()} and dog attacked {["left", "right"][int(dog_choice) - 1].upper()}\n'
         prompts.print_message(msg, text_area_object)
         if answer != dog_choice:
-            penalty(None, character, 20, text_area_object)
-        else:
             prompts.print_message('Yay! It missed you.\n', text_area_object)
+        else:
+            prompts.print_message(f'Oh no! You are attacked by the dog....\n', text_area_object)
+            penalty(None, character, 20, text_area_object)
     else:
+        prompts.print_message(f'Oh no! You are attacked by the dog....\n', text_area_object)
         prompts.print_message("Why don't you pick from the list, Chris?\n", text_area_object)
         penalty(None, character, 20, text_area_object)
 
@@ -271,7 +273,7 @@ def penalty(answer, character, loss_caffeine, text_area_object):
     >>> character_test['caffeine']
     50
     """
-    if text_area_object:
+    if text_area_object and answer:
         prompts.print_message(f'[X] The answer should be {answer}.\n', text_area_object)
     character['caffeine'] -= loss_caffeine
     message = (f'Your caffeine just dropped {loss_caffeine}. Your current caffeine level is'
