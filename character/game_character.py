@@ -57,7 +57,7 @@ def move_character(character: dict, direction: str, steps: int, frame_object=Non
     move = DIRECTION_MAP[direction.upper()]
     move = (move[0] * steps, move[1] * steps)
     current_coordinate = character['coordinate']
-    character['coordinate'] = tuple(sum(coordinates) for coordinates in zip(current_coordinate, move))
+    character['coordinate'] = tuple([sum(coordinates) for coordinates in zip(current_coordinate, move)])
 
     if frame_object:
         frame = tk.Frame(master=frame_object, width=50, height=50, relief=current_relief, borderwidth=2)

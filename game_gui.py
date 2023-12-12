@@ -84,8 +84,11 @@ class Game:
         :postcondition: returns the file name if exists, otherwise returns None
         :return: a string representing the file name if exists, otherwise None
         """
-        if os.path.exists(directory):
+        try:
             files = os.listdir(directory)
+        except FileNotFoundError:
+            print(f'"{directory}" directory does not exist in the current path.')
+        else:
             matching_files = [file for file in files if file.startswith(prefix) and file.endswith(suffix)]
             if matching_files:
                 return sorted(matching_files, reverse=True)[0]
