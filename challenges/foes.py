@@ -66,7 +66,8 @@ def rats_challenge(location: str, character: dict, frame=None, text_area_object=
     :postcondition: a call to rats_callback function passing play's answer, correct answer and character dictionary
     """
     prompts.print_message(f'There is a rat {LOCATION_PREFIX[location]} {location.lower()}.\n', text_area_object)
-    message = 'To proceed, you need to kill the rats. Please select a weapon to kill the rats from the list:\n'
+    message = ('To proceed, you need to kill the rats. Please select the most effective weapon to kill the rats from '
+               'the list:\n')
     challenge_question = '[1]: Air Gun  [2]: Pesticides  [3] Hot Water '
     end = ' (press ENTER to submit your answer)'
     if frame:
@@ -88,15 +89,16 @@ def rats_callback(answer, character, text_area_object=None, button_frame=None):
     :precondition: character is a dictionary where "caffeine" exists as keys
     :postcondition: update the character dictionary to deduct caffeine level
     """
+    best_weapon = f'[X] The most efficient weapon to kill rats is [1] Airgun.\n'
     if answer in ('1', '2', '3'):
         weapon_id = int(answer)
         message = RATS_WEAPONS[weapon_id] + '\n'
         prompts.print_message(message, text_area_object)
         if weapon_id != 1:
-            penalty(1, character, 10, text_area_object)
+            penalty(best_weapon, character, 10, text_area_object)
     else:
         prompts.print_message("Why don't you pick from the list, Chris?\n", text_area_object)
-        penalty(1, character, 10, text_area_object)
+        penalty(best_weapon, character, 10, text_area_object)
 
 
 def dogs_challenge(location: str, character: dict, frame=None, text_area_object=None, button_frame=None):
@@ -193,7 +195,8 @@ def kids_callback(answer, challenge_answer, character, text_area_object=None, bu
     if answer == challenge_answer:
         prompts.print_message('Great! That is correct answer!\n', text_area_object)
     else:
-        penalty(challenge_answer, character, 50, text_area_object)
+        answer = f'[X] The answer should be {challenge_answer}.\n'
+        penalty(answer, character, 50, text_area_object)
 
 
 def boss_challenge(location: str, character: dict, frame=None, text_area_object=None, button_frame=None) -> None:
@@ -249,14 +252,15 @@ def boss_callback(answer, challenge_answer, character, text_area_object=None, bu
         if text_area_object:
             prompts.print_message(message, text_area_object)
     else:
-        penalty(challenge_answer, character, 500, text_area_object)
+        answer = f'[X] The answer should be {challenge_answer}.\n'
+        penalty(answer, character, 500, text_area_object)
 
 
 def penalty(answer, character, loss_caffeine, text_area_object):
     """
     Update character caffeine by calculate caffeine level drop based on the penalty.
 
-    :param answer: a string representing the correct answer
+    :param answer: a string representing the message about correct answer
     :param character: a dictionary representing the game character
     :param loss_caffeine: an integer representing the amount of caffeine to be deducted
     :precondition: character is a dictionary where "caffeine" exists as a key
@@ -274,7 +278,7 @@ def penalty(answer, character, loss_caffeine, text_area_object):
     50
     """
     if text_area_object and answer:
-        prompts.print_message(f'[X] The answer should be {answer}.\n', text_area_object)
+        prompts.print_message(answer, text_area_object)
     character['caffeine'] -= loss_caffeine
     message = (f'Your caffeine just dropped {loss_caffeine}. Your current caffeine level is'
                f' {max(character["caffeine"], 0)}\n')

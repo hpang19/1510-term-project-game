@@ -112,7 +112,7 @@ class Game:
 
         if not valid_move:
             self.text_area.delete('1.0', tk.END)
-            message = 'You can not go in this direction, please choose direction again.\n'
+            message = 'Dead end! Please turn around or find the door.\n'
             self.text_area.insert(tk.END, message)
             return
 
@@ -126,6 +126,7 @@ class Game:
 
         if current_room_description[2] == 'Chocolate':
             self.character['caffeine'] += 10
+            describe_current_status(self.board, self.character, self.level, self.text_area)
             message = f'You consumed chocolate, now your caffeine level increased to {self.character["caffeine"]}.\n'
             self.text_area.insert(tk.END, message)
             move_chocolate(self.board, self.character)
@@ -135,13 +136,14 @@ class Game:
             return
 
         if current_room_description[2] not in ('Nothing', 'Door', 'Joey and Hsin', 'Origin'):
-            pick_up_item(self.character, self.board, self.text_area)
+            pick_up_item(self.character, self.board, self.level, self.text_area)
             tea_ingredients_all_set = ready_to_make_tea(self.level, self.character)
 
             if tea_ingredients_all_set:
-                make_tea(self.level, self.character, self.text_area)
+                make_tea(self.board, self.level, self.character, self.text_area)
                 self.level += 1
-                self.text_area.insert(tk.END, f'Nice job! You leveled up. Now your level is {self.level}.\n')
+                self.text_area.insert(tk.END, f'\n****** NICE JOB! You leveled up. Now you are LEVEL {self.level}. '
+                                              f'******\n\n')
                 assign_new_task(self.level, self.text_area)
                 self.create_gui_game_board(self.character['coordinate'])
 

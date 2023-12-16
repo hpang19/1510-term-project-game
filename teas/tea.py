@@ -4,6 +4,7 @@ This module includes all features related to the teas.
 
 from teas import TEA_MAP
 from GUI import prompts
+from board.game_board import describe_current_status
 
 
 def ready_to_make_tea(level: int, character: dict) -> bool:
@@ -36,10 +37,11 @@ def ready_to_make_tea(level: int, character: dict) -> bool:
         return ginger_tea_materials.issubset(character["shopping_bag"])
 
 
-def make_tea(level: int, character: dict, text_area_object=None):
+def make_tea(board: dict, level: int, character: dict, text_area_object=None):
     """
     Print a message saying player has made tea for the character at the given level and increases their caffeine.
 
+    :param board: a dictionary representing the board
     :param level: an integer representing the current level
     :param character: a dictionary representing the game character
     :precondition: character contains "tea" and "caffeine" in the key
@@ -52,4 +54,5 @@ def make_tea(level: int, character: dict, text_area_object=None):
     character['tea'].append(TEA_MAP[level])
     character['caffeine'] += 50 * level
     message = f'You made {TEA_MAP[level]}, drink it, and your caffeine increased to {character["caffeine"]}\n'
+    describe_current_status(board, character, level, text_area_object)
     prompts.print_message(message, text_area_object)

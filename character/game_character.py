@@ -5,6 +5,7 @@ This module includes all features related to the character.
 from board import DIRECTION_MAP
 import tkinter as tk
 from GUI import prompts
+from board.game_board import describe_current_status
 
 
 def make_character() -> dict:
@@ -74,12 +75,13 @@ def move_character(character: dict, direction: str, steps: int, frame_object=Non
         label.grid(row=0, column=0)
 
 
-def pick_up_item(character: dict, board: dict, text_area_object=None):
+def pick_up_item(character: dict, board: dict, level: int, text_area_object=None):
     """
     Pick up item by appending new item to character's shopping bag.
 
     :param character: a dictionary
     :param board: a dictionary
+    :param level: a positive integer
     :precondition: board is a dictionary with keys in tuples of coordinates
     :precondition: character is a dictionary that has a key called "coordinate"
     :precondition: character's coordinate is on the board and is validated in the game
@@ -93,8 +95,9 @@ def pick_up_item(character: dict, board: dict, text_area_object=None):
     """
     item = board[character["coordinate"]][2]
     if item not in ("Nothing", "Door", "Chocolate", "Origin"):
-        message = f'Oh! There is a {item} to pick up! You picked it up and put in your shopping bag.\n'
+        message = f'Oh! There is a {item} to pick up! You picked it up and put it in your shopping bag.\n'
         character["shopping_bag"].append(item)
         board[character["coordinate"]][2] = "Nothing"
+        describe_current_status(board, character, level, text_area_object)
         if text_area_object:
             prompts.print_message(message, text_area_object)
