@@ -51,9 +51,10 @@ def make_tea(board: dict, level: int, character: dict, text_area_object=None):
     >>> make_tea(1, character_test)
     You made Tea Bag, drink it, and your caffeine increased to 100
     """
-    character['tea'].append(TEA_MAP[level])
+    if TEA_MAP[level] not in character['tea']:
+        character['tea'].append(TEA_MAP[level])
     character['caffeine'] += 50 * level
-    items_to_remove = set(character['shopping_bag']).symmetric_difference({'Hot Water', 'Mug', 'Spoon'})
+    items_to_remove = set(character['shopping_bag']).difference({'Hot Water', 'Mug', 'Spoon', 'Grater'})
     for item in items_to_remove:
         character['shopping_bag'].remove(item)
     message = f'You made {TEA_MAP[level]}, drink it, and your caffeine increased to {character["caffeine"]}\n'

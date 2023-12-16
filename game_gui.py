@@ -206,7 +206,7 @@ class Game:
 
         describe_current_status(self.board, self.character, self.level, self.text_area)
         self.text_area.insert("1.0", ASCII_ART + '\n')
-        if self.start_flag:
+        if self.start_flag and self.level <= 3:
             tea = TEA_MAP[self.level]
             recipe = TEA_RECIPE[tea]
             time_scope = 'current' if self.level > 1 else 'first'
