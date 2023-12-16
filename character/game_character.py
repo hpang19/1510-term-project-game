@@ -42,6 +42,9 @@ def move_character(character: dict, direction: str, steps: int, frame_object=Non
     :param character: a dictionary representing the game character with a 'coordinate' key
     :param direction: a string indicating the direction of movement ('W', 'S', 'A', 'D')
     :param steps: an integer indicating the number of steps to move
+    :param frame_object: an object for tkinter
+    :param current_room_text: an object for tkinter
+    :param current_relief: an object for tkinter
     :precondition: character is a dictionary that has a key called "coordinate"
     :precondition: the move directin and steps were validated in the game already
     :postcondition: move the character on the game board in a specified direction
@@ -82,6 +85,7 @@ def pick_up_item(character: dict, board: dict, level: int, text_area_object=None
     :param character: a dictionary
     :param board: a dictionary
     :param level: a positive integer
+    :param text_area_object: an object for tkinter
     :precondition: board is a dictionary with keys in tuples of coordinates
     :precondition: character is a dictionary that has a key called "coordinate"
     :precondition: character's coordinate is on the board and is validated in the game

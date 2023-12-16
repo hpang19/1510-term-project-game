@@ -14,6 +14,7 @@ def assign_new_task(level: int, text_area_object=None):
     Assigns a new task based on the given level and displays it.
 
     :param level: a positive integer representing the current level
+    :param text_area_object: an object for tkinter
     :precondition: the level argument has to be positive integer less than or equal to 4 passed from the game
     :postcondition: print the new task based on level
 

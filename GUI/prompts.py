@@ -46,6 +46,7 @@ class Prompts:
         Prompt for input and get the user input value. When get the text entry back, execute the callback function.
 
         :param message: a string
+        :param callback_function: an object for tkinter
         :callback_function: a function to be called in this function
         :return: a string input from player
         """
@@ -76,6 +77,8 @@ def print_message(message: str, text_area_object=None, clear=False):
     Print a message to a text area object or the console.
 
     :param message: a string of message to print
+    :param text_area_object: an object for tkinter
+    :param clear: a boolean
     :postcondition: print a message to a text area object or the console
     """
     if text_area_object:
@@ -91,6 +94,7 @@ def add_lines(message: str, text_area_object):
     Add lines to a text area object, maintaining a maximum of 15 lines.
 
     :param message: a string of message to print
+    :param text_area_object: an object for tkinter
     :postcondition: delete older text if more than 15 lines
     """
     text_area_object.insert(tk.END, message)

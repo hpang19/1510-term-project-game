@@ -185,6 +185,7 @@ def describe_current_status(board: dict, character: dict, level: int, text_area_
     :param board: a dictionary representing the game board
     :param character: a dictionary representing the game character
     :param level: an integer representing the current level
+    :param text_area_object: a tkinter object
     :precondition: board is a dictionary with keys in tuples of coordinates
     :precondition: character is a dictionary that has a key called "coordinate"
     :postcondition: print the current status of the game
