@@ -6,10 +6,12 @@ from board.game_board import make_board, validate_move, move_chocolate, describe
 from character.game_character import make_character, move_character, pick_up_item
 from challenges.foes import check_for_foes, fight_with_foe
 from teas.tea import ready_to_make_tea, make_tea
+from teas import TEA_MAP, TEA_RECIPE
 from levels.level import assign_new_task
 from levels import ASCII_ART
 import tkinter as tk
 from GUI.map import get_relief, get_text
+from GUI import prompts
 import json
 import os
 import atexit
@@ -35,6 +37,7 @@ class Game:
         self.input_frame = tk.Frame(self.root, height=2, width=5)
         self.input_frame.pack()
         self.button_frame = None
+        self.start_flag = True
 
         board_file = self.__check_file_exist('data', 'board_', '.json')
         character_file = self.__check_file_exist('data', 'character_', '.json')
@@ -203,6 +206,13 @@ class Game:
 
         describe_current_status(self.board, self.character, self.level, self.text_area)
         self.text_area.insert("1.0", ASCII_ART + '\n')
+        if self.start_flag:
+            tea = TEA_MAP[self.level]
+            recipe = TEA_RECIPE[tea]
+            time_scope = 'current' if self.level > 1 else 'first'
+            message = f'Your {time_scope} task is making a {tea}. In order to make {tea}, {recipe}\n'
+            prompts.print_message(message, self.text_area)
+            self.start_flag = False
 
     def create_gui(self):
         """
