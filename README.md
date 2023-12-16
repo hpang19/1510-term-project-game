@@ -77,8 +77,14 @@ The graphical user interface (GUI) for this program has been developed using Tki
     ```bash
     cd path/to/game/directory
     ```
+3. Install Dependencies:
 
-3. Type the following command to initiate the game:
+    Make sure you have the necessary dependencies installed. You can install them using `pip` and the provided `requirements.txt` file.
+
+    ```bash
+    pip3 install -r requirements.txt
+    ```
+4. Type the following command to initiate the game:
 
     ```bash
     python3 ./game_gui.py
