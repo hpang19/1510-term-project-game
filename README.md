@@ -115,25 +115,25 @@ are not depicted within the flowchart.
 
 | Component                                         | File Location (selected)    | Line Number (selected)  |
 |---------------------------------------------------|-----------------------------|-------------------------|
-| (5b) 10 x 10 grid-based environment               | ./game_gui.py               | 27 - 28                 |
-| (5c) character's measurement and abilities        | character/game_character.py | 23 - 30                 |
-| (5d) four cardinal directions                     | ./game_gui.py               | 193 - 199               |
+| (5b) 10 x 10 grid-based environment               | ./game_gui.py               | 29 - 30                 |
+| (5c) character's measurement and abilities        | character/game_character.py | 24 - 31                 |
+| (5d) four cardinal directions                     | ./game_gui.py               | 198 - 204               |
 | (5e) chance to encounter obstacles                | challenges/foes.py          | 47 - 52                 |
-| (5f) character overcome obstacles                 | challenges/foes.py          | 72, 120, 173            |
-| (5g) game ends when character achieves final goal | ./game_gui.py               | 133 - 135               |
+| (5f) character overcome obstacles                 | challenges/foes.py          | 74, 122, 175            |
+| (5g) game ends when character achieves final goal | ./game_gui.py               | 137 - 139               |
 | (7a) use of immutable data structures (tuple)     | board/game_board.py         | 35, 40, 44, 45          |
 | (7b) use of mutable data structures (dictionary)  | board/game_board.py         | 26                      |
-| (7c) use of exception handling                    | ./game_gui.py               | 87 - 90                 |
-| (7g) use of list / dictionary comprehensions      | character/game_character.py | 60                      |
-| (7h) use of if statements                         | character/game_character.py | 95, 99                  |
+| (7c) use of exception handling                    | ./game_gui.py               | 90 - 97                 |
+| (7g) use of list / dictionary comprehensions      | character/game_character.py | 64                      |
+| (7h) use of if statements                         | character/game_character.py | 101, 106                |
 | (7i) use of for loop / while loop                 | board/game_board.py         | 30, 31                  |
 | (7j) use of membership operators                  | board/game_board.py         | 104                     |
 | (7k) use of range function                        | board/game_board.py         | 30, 31                  |
-| (7l) use of functions from itertools              | ./game_gui.py               | 43, 51                  |
+| (7l) use of functions from itertools              | ./game_gui.py               | 46, 54                  |
 | (7m) use of random module                         | challenges/foes.py          | 48, 50, 52              |
 | (7n) function annotations                         | all except for game_gui.py  | all functions           |
 | (7o) doctests and unit tests                      | almost all functions        | in almost all functions |
-| (7p) use of formatted sting                       | levels/level.py             | 26, 29                  |
+| (7p) use of formatted sting                       | levels/level.py             | 27, 30                  |
 | **_BONUS_** graphical user interface              | game_gui.py                 | all                     |
-| **_BONUS_** save character status in file         | game_gui.py                 | 235 - 239               |
+| **_BONUS_** save character status in file         | game_gui.py                 | 241 - 253               |
  
