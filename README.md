@@ -137,3 +137,4 @@ are not depicted within the flowchart.
 | **_BONUS_** graphical user interface              | game_gui.py                 | all                     |
 | **_BONUS_** save character status in file         | game_gui.py                 | 241 - 253               |
  
+![img.png](img.png)
